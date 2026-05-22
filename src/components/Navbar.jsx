@@ -9,7 +9,7 @@ const mainLinks = [
   { id: 'contact', label: '联系' },
 ]
 
-const detailRoutes = ['/projects/fili-tv', '/projects/coding']
+const detailRoutes = ['/projects/fili-tv', '/projects/coding', '/projects/daily-tree', '/projects/word-universe']
 
 function scrollToSection(id) {
   const el = document.getElementById(id)
@@ -23,6 +23,16 @@ export default function Navbar() {
   const location = useLocation()
 
   const isDetailPage = detailRoutes.includes(location.pathname)
+
+  const getRouteLabel = (path) => {
+    switch (path) {
+      case '/projects/fili-tv': return 'FiliTV'
+      case '/projects/coding': return 'Coding'
+      case '/projects/daily-tree': return 'Daily Tree'
+      case '/projects/word-universe': return 'Word Universe'
+      default: return 'Project'
+    }
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -63,7 +73,7 @@ export default function Navbar() {
                 {detailRoutes.map(path => (
                   <li key={path}>
                     <Link to={path} className={location.pathname === path ? 'active' : ''}>
-                      {path === '/projects/fili-tv' ? 'FiliTV' : 'Coding'}
+                      {getRouteLabel(path)}
                     </Link>
                   </li>
                 ))}
@@ -102,7 +112,7 @@ export default function Navbar() {
           ) : (
             mainLinks.map(link => (
               <button key={link.id} onClick={() => { scrollToSection(link.id); setMobileOpen(false) }}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit', color: 'inherit', fontSize: '1.5rem', padding: '8px 0', display: 'block', width: '100%', textAlign: 'left' }}>
+                style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit', color: 'inherit', fontSize: '1.5rem', padding: '8px 0', display: 'block', width: '100%', textAlign: 'center' }}>
                 {link.label}
               </button>
             ))

@@ -4,8 +4,10 @@ export function useScrollReveal(phase) {
   useEffect(() => {
     if (phase !== undefined && phase !== 'main') return
 
+    let observer
+
     const timer = setTimeout(() => {
-      const observer = new IntersectionObserver(
+      observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
@@ -23,10 +25,14 @@ export function useScrollReveal(phase) {
       document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
         observer.observe(el)
       })
-
-      return () => observer.disconnect()
     }, 100)
 
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer)
+      if (observer) {
+        observer.disconnect()
+      }
+    }
   }, [phase])
 }
+

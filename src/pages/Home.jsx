@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react'
 import Footer from '../components/Footer'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import GithubCalendar from '../components/GithubCalendar'
 
 const qualities = [
   { word: 'DEEP WORK', angle: -90, size: 1.1 },
@@ -179,7 +180,9 @@ const skillsData = [
 ]
 
 export default function Home() {
-  const [phase, setPhase] = useState('intro')
+    const [phase, setPhase] = useState(() => {
+    return sessionStorage.getItem('portfolio-intro-seen') === 'true' ? 'main' : 'intro'
+  })
   const [titleReady, setTitleReady] = useState(false)
   const [subtitleReady, setSubtitleReady] = useState(false)
   const [showHint, setShowHint] = useState(false)
@@ -189,15 +192,27 @@ export default function Home() {
   const [showName, setShowName] = useState(false)
   const [expandedMethod, setExpandedMethod] = useState(null)
 
+  const timersRef = useRef([])
+
+  const addTimer = (callback, delay) => {
+    const t = setTimeout(callback, delay)
+    timersRef.current.push(t)
+    return t
+  }
+
   useScrollReveal(phase)
 
   useEffect(() => {
-    const t1 = setTimeout(() => setTitleReady(true), 800)
-    const t2 = setTimeout(() => setSubtitleReady(true), 1800)
-    const t3 = setTimeout(() => setShowHint(true), 2800)
-    const t4 = setTimeout(() => setShowEnter(true), 4000)
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4) }
-  }, [])
+    if (phase !== 'intro') return
+    addTimer(() => setTitleReady(true), 400)
+    addTimer(() => setSubtitleReady(true), 900)
+    addTimer(() => setShowHint(true), 1400)
+    addTimer(() => setShowEnter(true), 1800)
+    return () => {
+      timersRef.current.forEach(clearTimeout)
+      timersRef.current = []
+    }
+  }, [phase])
 
   useEffect(() => {
     if (phase !== 'intro') return
@@ -214,10 +229,20 @@ export default function Home() {
   const handleEnter = () => {
     setPhase('words')
     qualities.forEach((_, i) => {
-      setTimeout(() => setLitCount(i + 1), 300 + i * 600)
+      addTimer(() => setLitCount(i + 1), 300 + i * 200)
     })
-    setTimeout(() => setShowName(true), 300 + qualities.length * 600 + 400)
-    setTimeout(() => setPhase('main'), 300 + qualities.length * 600 + 2200)
+    addTimer(() => setShowName(true), 300 + qualities.length * 200 + 100)
+    addTimer(() => {
+      sessionStorage.setItem('portfolio-intro-seen', 'true')
+      setPhase('main')
+    }, 300 + qualities.length * 200 + 1100)
+  }
+
+  const handleSkip = () => {
+    timersRef.current.forEach(clearTimeout)
+    timersRef.current = []
+    sessionStorage.setItem('portfolio-intro-seen', 'true')
+    setPhase('main')
   }
 
   return (
@@ -231,17 +256,27 @@ export default function Home() {
       >
         <ShaderGradientCanvas style={{ position: 'absolute', inset: 0 }} pixelDensity={1.5} fov={45}>
           <ShaderGradient
-            animate="on" brightness={1.1} cAzimuthAngle={0} cDistance={7.1}
+            animate="on" brightness={1.1} cAzimuthAngle={120} cDistance={7.1}
             cPolarAngle={140} cameraZoom={17.3}
             color1="#ffffff" color2="#ffbb00" color3="#0700ff"
             envPreset="city" grain="off" lightType="3d" reflection={0.1}
             shader="defaults" type="sphere"
             uAmplitude={1.4} uDensity={1.1} uFrequency={5.5}
-            uSpeed={0.1} uStrength={1} uTime={0}
+            uSpeed={0.1} uStrength={1} uTime={8}
             wireframe={false} enableTransition={true}
           />
         </ShaderGradientCanvas>
       </div>
+
+      {/* ===== SKIP BUTTON ===== */}
+      {(phase === 'intro' || phase === 'words') && (
+        <button className="intro-skip-btn" onClick={handleSkip}>
+          跳过动画
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginLeft: 6 }}>
+            <path d="M5 4l10 8-10 8V4zM19 5v14" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+      )}
 
       {/* ===== INTRO ===== */}
       {phase === 'intro' && (
@@ -505,6 +540,24 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            {/* Chapter 04 构建与提交 */}
+            <div style={{ padding: '64px 0', borderTop: '1px solid var(--border)' }}>
+              <div className="container" style={{ maxWidth: 960 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '180px 1fr', gap: 64, alignItems: 'start' }}>
+                  <div className="reveal">
+                    <p className="section-label">Chapter 04</p>
+                    <h3 style={{ fontSize: '1.5rem', fontWeight: 700, lineHeight: 1.3 }}>构建活动<br />GitHub</h3>
+                    <p style={{ fontSize: '0.875rem', color: 'var(--secondary)', marginTop: 12, lineHeight: 1.6 }}>
+                      真实的开发轨迹与<br />代码提交图谱。
+                    </p>
+                  </div>
+                  <div className="reveal">
+                    <GithubCalendar />
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* ── SKILLS ── */}
@@ -574,7 +627,71 @@ export default function Home() {
                     </div>
                   </Link>
 
-                  <Link to="/projects/coding" className="card card-interactive reveal" style={{ textDecoration: 'none', display: 'block', transitionDelay: '0.1s' }}>
+                  <Link to="/projects/daily-tree" className="card card-interactive reveal" style={{ textDecoration: 'none', display: 'block', transitionDelay: '0.05s' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+                      <div style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(16, 185, 129, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>🌲</div>
+                      <div>
+                        <p style={{ fontWeight: 700, fontSize: '1rem' }}>Daily Tree</p>
+                        <p style={{ fontSize: '0.8125rem', color: 'var(--secondary)' }}>3D 记忆森林日记</p>
+                      </div>
+                    </div>
+                    <p style={{ fontSize: '0.875rem', color: 'var(--secondary)', lineHeight: 1.7, marginBottom: 16 }}>
+                      使用 Three.js/WebGL 渲染拟真树木生长与天气 API 同步的数字日记空间，支持本地存储与绝对隐私。
+                    </p>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
+                      {['Three.js', 'WebGL', 'Local Storage', '天气 API'].map(t => (
+                        <span key={t} style={{ fontSize: '0.6875rem', padding: '3px 10px', borderRadius: 99, background: 'rgba(16, 185, 129, 0.1)', color: '#10B981', fontWeight: 500 }}>{t}</span>
+                      ))}
+                    </div>
+                    <div className="repo-badges-row">
+                      <span className="repo-badge">
+                        <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" style={{ display: 'inline-block', verticalAlign: 'middle' }}><path fillRule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+                        3
+                      </span>
+                      <span className="repo-badge">
+                        <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" style={{ display: 'inline-block', verticalAlign: 'middle' }}><path fillRule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v5.256a2.251 2.251 0 101.5 0V5.372zm8-.5a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM11.5 7a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z"/></svg>
+                        1
+                      </span>
+                      <span className="repo-badge">
+                        <span className="repo-badge-lang-dot" style={{ backgroundColor: '#f1e05a' }} />
+                        JavaScript
+                      </span>
+                    </div>
+                  </Link>
+
+                  <Link to="/projects/word-universe" className="card card-interactive reveal" style={{ textDecoration: 'none', display: 'block', transitionDelay: '0.1s' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+                      <div style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(99, 102, 241, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>🌌</div>
+                      <div>
+                        <p style={{ fontWeight: 700, fontSize: '1rem' }}>Word Universe</p>
+                        <p style={{ fontSize: '0.8125rem', color: 'var(--secondary)' }}>词汇语义星系</p>
+                      </div>
+                    </div>
+                    <p style={{ fontSize: '0.875rem', color: 'var(--secondary)', lineHeight: 1.7, marginBottom: 16 }}>
+                      利用 D3.js 力导向图与 LLM 词义 Embedding，将个人词汇库聚类呈现为飘逸灵动的语义星图。
+                    </p>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
+                      {['D3.js', 'Embeddings', '力导向图', '独立开发'].map(t => (
+                        <span key={t} style={{ fontSize: '0.6875rem', padding: '3px 10px', borderRadius: 99, background: 'rgba(99, 102, 241, 0.1)', color: '#6366f1', fontWeight: 500 }}>{t}</span>
+                      ))}
+                    </div>
+                    <div className="repo-badges-row">
+                      <span className="repo-badge">
+                        <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" style={{ display: 'inline-block', verticalAlign: 'middle' }}><path fillRule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+                        2
+                      </span>
+                      <span className="repo-badge">
+                        <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" style={{ display: 'inline-block', verticalAlign: 'middle' }}><path fillRule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v5.256a2.251 2.251 0 101.5 0V5.372zm8-.5a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM11.5 7a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z"/></svg>
+                        1
+                      </span>
+                      <span className="repo-badge">
+                        <span className="repo-badge-lang-dot" style={{ backgroundColor: '#f1e05a' }} />
+                        JavaScript
+                      </span>
+                    </div>
+                  </Link>
+
+                  <Link to="/projects/coding" className="card card-interactive reveal" style={{ textDecoration: 'none', display: 'block', transitionDelay: '0.15s' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
                       <div style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(99,102,241,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>💻</div>
                       <div>
@@ -585,10 +702,20 @@ export default function Home() {
                     <p style={{ fontSize: '0.875rem', color: 'var(--secondary)', lineHeight: 1.7, marginBottom: 16 }}>
                       用 Claude Code、React 等 AI 工具从零构建这个作品集及其他项目，验证"非科班也能独立落地产品"的路径。
                     </p>
-                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
                       {['React', 'Claude Code', 'GitHub Pages', 'Vite'].map(t => (
                         <span key={t} style={{ fontSize: '0.6875rem', padding: '3px 10px', borderRadius: 99, background: 'rgba(99,102,241,0.1)', color: '#6366f1', fontWeight: 500 }}>{t}</span>
                       ))}
+                    </div>
+                    <div className="repo-badges-row">
+                      <span className="repo-badge">
+                        <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" style={{ display: 'inline-block', verticalAlign: 'middle' }}><path fillRule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+                        2
+                      </span>
+                      <span className="repo-badge">
+                        <span className="repo-badge-lang-dot" style={{ backgroundColor: '#f1e05a' }} />
+                        JavaScript
+                      </span>
                     </div>
                   </Link>
                 </div>

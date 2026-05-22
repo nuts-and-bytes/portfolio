@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import { useScrollReveal } from '../hooks/useScrollReveal'
@@ -8,9 +9,9 @@ const projects = [
     status: '已完成',
     date: '2026 年 3 月',
     icon: '🏋️',
-    desc: '记录每日健身数据的生活工具，支持篮球、羽毛球等多种运动。',
-    highlights: ['用 AI 工具从零开始，独立完成产品设计到部署', '支持多运动类型（篮球/羽毛球/其他）', '周数据 + 月历双重视图'],
-    tools: ['Stitch', 'Antigravity', 'AI 辅助编程'],
+    desc: '由于市面上已有的健身打卡 App 广告过多且常强制收费，我为自己写了这个极简的无广告打卡工具。它支持羽毛球、篮球和力量训练记录，并能在本地直接呈现运动周报与月历热力图，轻量便携。',
+    highlights: ['没有任何多余的三方统计，只保留纯粹的打卡动作', '根据羽毛球/篮球等不同类型，动态适配字段与图标', '使用 localStorage 存储，秒开且不丢失数据'],
+    tools: ['React', 'Vite', 'CSS Grid', 'GitHub Pages'],
     link: 'https://zhuxinyao99-jpg.github.io/fitness-daily/',
   },
   {
@@ -18,15 +19,166 @@ const projects = [
     status: '已完成',
     date: '2026 年 2 月',
     icon: '😊',
-    desc: '用 emoji 表达情绪状态，支持周趋势分析和历史回顾。',
-    highlights: ['用 AI 独立完成从需求到上线全流程', 'emoji 情绪表达 + 周趋势图', '纯前端实现，数据本地存储'],
-    tools: ['Stitch', 'Antigravity', 'AI 辅助编程'],
+    desc: '一个记录日常情绪碎片的手账工具。为了最快地捕获情绪，我将其精简为「选择 Emoji」单次点击记录。附带周趋势对比及心情占比色块，方便复盘近期的压力与恢复状态。',
+    highlights: ['设计了丝滑的按钮交互动效，点击有模拟物理阻尼的缩放反馈', '支持多情绪按周聚合，直观呈现情绪波形', '静态托管，在移动端和桌面端均有良好的离线支持'],
+    tools: ['React', 'Local Storage', 'CSS Transitions'],
     link: 'https://zhuxinyao99-jpg.github.io/omm-daily-happy/',
   },
 ]
 
+function MoodSandbox() {
+  const moodEmojis = [
+    { emoji: '😊', label: '开心', color: '#10B981' },
+    { emoji: '😭', label: '难过', color: '#3B82F6' },
+    { emoji: '😡', label: '愤怒', color: '#EF4444' },
+    { emoji: '😴', label: '疲惫', color: '#F59E0B' },
+    { emoji: '🎉', label: '兴奋', color: '#8B5CF6' }
+  ]
+
+  const [logs, setLogs] = useState(() => {
+    try {
+      const saved = localStorage.getItem('portfolio_mood_logs')
+      return saved ? JSON.parse(saved) : [
+        { emoji: '😊', time: '周一' },
+        { emoji: '😴', time: '周二' },
+        { emoji: '😊', time: '周三' },
+        { emoji: '🎉', time: '周四' }
+      ]
+    } catch {
+      return [
+        { emoji: '😊', time: '周一' },
+        { emoji: '😴', time: '周二' },
+        { emoji: '😊', time: '周三' },
+        { emoji: '🎉', time: '周四' }
+      ]
+    }
+  })
+
+  const [activeMood, setActiveMood] = useState(null)
+
+  const handleAddMood = (emoji) => {
+    setActiveMood(emoji)
+    const newLog = {
+      emoji,
+      time: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'][new Date().getDay() === 0 ? 6 : new Date().getDay() - 1]
+    }
+    const updated = [...logs.slice(-6), newLog] // Keep last 7 logs
+    setLogs(updated)
+    try {
+      localStorage.setItem('portfolio_mood_logs', JSON.stringify(updated))
+    } catch (e) {
+      // ignore
+    }
+    setTimeout(() => setActiveMood(null), 300)
+  }
+
+  const moodCounts = logs.reduce((acc, log) => {
+    acc[log.emoji] = (acc[log.emoji] || 0) + 1
+    return acc
+  }, {})
+
+  const totalLogs = logs.length
+
+  return (
+    <div style={{
+      background: 'rgba(0, 0, 0, 0.015)',
+      border: '1px solid rgba(0, 0, 0, 0.05)',
+      borderRadius: '12px',
+      padding: '16px',
+      marginTop: '16px',
+      marginBottom: '20px',
+      boxSizing: 'border-box'
+    }}>
+      <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--secondary)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+        🕹️ 互动沙盒：试着点击打卡，体验真实的心情分析逻辑
+      </p>
+
+      {/* Emoji Buttons */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '8px', marginBottom: '16px' }}>
+        {moodEmojis.map((m) => (
+          <button
+            key={m.emoji}
+            onClick={() => handleAddMood(m.emoji)}
+            style={{
+              flex: 1,
+              padding: '8px 4px',
+              background: activeMood === m.emoji ? 'var(--accent-subtle)' : 'var(--white)',
+              border: `1px solid ${activeMood === m.emoji ? 'var(--accent)' : 'rgba(0, 0, 0, 0.08)'}`,
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '1.25rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '2px',
+              transition: 'all 0.2s var(--ease-haptic)',
+              transform: activeMood === m.emoji ? 'scale(0.92)' : 'none',
+              boxShadow: activeMood === m.emoji ? 'inset 0 2px 4px rgba(0,0,0,0.05)' : '0 2px 4px rgba(0,0,0,0.01)'
+            }}
+          >
+            <span style={{
+              transform: activeMood === m.emoji ? 'scale(1.2)' : 'none',
+              transition: 'transform 0.2s var(--ease-haptic)'
+            }}>{m.emoji}</span>
+            <span style={{ fontSize: '0.6875rem', color: 'var(--secondary)' }}>{m.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* History Trend Viz */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <p style={{ fontSize: '0.75rem', color: 'var(--muted)' }}>近 7 次打卡历史流：</p>
+        <div style={{ display: 'flex', gap: '4px', background: 'rgba(0,0,0,0.02)', borderRadius: '8px', padding: '6px', overflowX: 'auto', minHeight: '36px', alignItems: 'center' }}>
+          {logs.map((log, idx) => (
+            <div
+              key={idx}
+              style={{
+                background: 'var(--white)',
+                border: '1px solid rgba(0,0,0,0.04)',
+                borderRadius: '6px',
+                padding: '2px 6px',
+                fontSize: '0.8125rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '2px',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
+              }}
+            >
+              <span>{log.emoji}</span>
+              <span style={{ fontSize: '0.625rem', color: 'var(--muted)' }}>{log.time}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Progress Fill breakdown */}
+        <div style={{ display: 'flex', height: '6px', borderRadius: '3px', overflow: 'hidden', background: 'rgba(0,0,0,0.05)', marginTop: '4px' }}>
+          {moodEmojis.map((m) => {
+            const count = moodCounts[m.emoji] || 0
+            const pct = totalLogs > 0 ? (count / totalLogs) * 100 : 0
+            return (
+              <div
+                key={m.emoji}
+                style={{
+                  width: `${pct}%`,
+                  background: m.color,
+                  transition: 'width 0.4s var(--ease-haptic)'
+                }}
+                title={`${m.label}: ${count}次 (${Math.round(pct)}%)`}
+              />
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Coding() {
   useScrollReveal()
+
+  useEffect(() => {
+    document.title = "AI Coding 项目 | Eric Lu"
+  }, [])
 
   return (
     <main style={{ paddingTop: 80 }}>
@@ -51,46 +203,63 @@ export default function Coding() {
         <div className="container" style={{ maxWidth: 800 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
             {projects.map((p, i) => (
-              <div key={i} className="card card-interactive reveal" style={{ transitionDelay: `${i * 0.15}s` }}>
-                <div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
-                  <div style={{ width: 56, height: 56, borderRadius: 16, background: 'var(--accent-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.75rem', flexShrink: 0 }}>
-                    {p.icon}
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', gap: 12, marginBottom: 4 }}>
-                      <span className="tag-status tag-done">{p.status}</span>
-                      <span style={{ fontSize: '0.75rem', color: 'var(--muted)' }}>{p.date}</span>
+              <div key={i} className="card-shell reveal" style={{ transitionDelay: `${i * 0.15}s` }}>
+                <div className="card-core card-interactive" style={{ cursor: 'default' }}>
+                  <div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
+                    <div style={{ width: 56, height: 56, borderRadius: 16, background: 'var(--accent-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.75rem', flexShrink: 0 }}>
+                      {p.icon}
                     </div>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 600 }}>{p.title}</h2>
-                  </div>
-                </div>
-
-                <p style={{ fontSize: '0.9375rem', color: 'var(--secondary)', lineHeight: 1.7, marginBottom: 20 }}>{p.desc}</p>
-
-                <h3 style={{ fontSize: '0.8125rem', fontWeight: 600, marginBottom: 12, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>核心亮点</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
-                  {p.highlights.map((h, j) => (
-                    <div key={j} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                      <span style={{ color: 'var(--accent)', fontWeight: 700 }}>✓</span>
-                      <p style={{ fontSize: '0.875rem', color: 'var(--secondary)' }}>{h}</p>
+                    <div>
+                      <div style={{ display: 'flex', gap: 12, marginBottom: 4 }}>
+                        <span className="tag-status tag-done">{p.status}</span>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--muted)' }}>{p.date}</span>
+                      </div>
+                      <h2 style={{ fontSize: '1.25rem', fontWeight: 600 }}>{p.title}</h2>
                     </div>
-                  ))}
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                    {p.tools.map(t => <span key={t} className="tag">{t}</span>)}
                   </div>
-                  <a href={p.link} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: '10px 20px' }}>
-                    查看 Demo →
-                  </a>
+
+                  <p style={{ fontSize: '0.9375rem', color: 'var(--secondary)', lineHeight: 1.7, marginBottom: 20 }}>{p.desc}</p>
+
+                  {/* Render Mood Sandbox inside the Mood Tracker card */}
+                  {p.title === '每日心情打卡' && <MoodSandbox />}
+
+                  <h3 style={{ fontSize: '0.8125rem', fontWeight: 600, marginBottom: 12, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>核心亮点</h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
+                    {p.highlights.map((h, j) => (
+                      <div key={j} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                        <span style={{ color: 'var(--accent)', fontWeight: 700 }}>✓</span>
+                        <p style={{ fontSize: '0.875rem', color: 'var(--secondary)' }}>{h}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, marginTop: 'auto' }}>
+                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                      {p.tools.map(t => <span key={t} className="tag">{t}</span>)}
+                    </div>
+                    <a href={p.link} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: '10px 20px' }}>
+                      查看 Demo
+                      <span className="btn-icon-circle">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                      </span>
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="reveal" style={{ marginTop: 48 }}>
-            <Link to="/" className="btn btn-outline">← 返回首页</Link>
+            <Link to="/" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <span className="btn-icon-circle" style={{ margin: '0 4px 0 0', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+              </span>
+              返回首页
+            </Link>
           </div>
         </div>
       </section>
