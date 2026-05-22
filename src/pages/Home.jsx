@@ -192,25 +192,21 @@ export default function Home() {
   const [showName, setShowName] = useState(false)
   const [expandedMethod, setExpandedMethod] = useState(null)
 
-  const timersRef = useRef([])
-
-  const addTimer = (callback, delay) => {
-    const t = setTimeout(callback, delay)
-    timersRef.current.push(t)
-    return t
-  }
+  const wordsTimersRef = useRef([])
 
   useScrollReveal(phase)
 
   useEffect(() => {
     if (phase !== 'intro') return
-    addTimer(() => setTitleReady(true), 400)
-    addTimer(() => setSubtitleReady(true), 900)
-    addTimer(() => setShowHint(true), 1400)
-    addTimer(() => setShowEnter(true), 1800)
+    const t1 = setTimeout(() => setTitleReady(true), 400)
+    const t2 = setTimeout(() => setSubtitleReady(true), 900)
+    const t3 = setTimeout(() => setShowHint(true), 1400)
+    const t4 = setTimeout(() => setShowEnter(true), 1800)
     return () => {
-      timersRef.current.forEach(clearTimeout)
-      timersRef.current = []
+      clearTimeout(t1)
+      clearTimeout(t2)
+      clearTimeout(t3)
+      clearTimeout(t4)
     }
   }, [phase])
 
@@ -229,18 +225,21 @@ export default function Home() {
   const handleEnter = () => {
     setPhase('words')
     qualities.forEach((_, i) => {
-      addTimer(() => setLitCount(i + 1), 300 + i * 200)
+      const t = setTimeout(() => setLitCount(i + 1), 300 + i * 200)
+      wordsTimersRef.current.push(t)
     })
-    addTimer(() => setShowName(true), 300 + qualities.length * 200 + 100)
-    addTimer(() => {
+    const tName = setTimeout(() => setShowName(true), 300 + qualities.length * 200 + 100)
+    wordsTimersRef.current.push(tName)
+    const tMain = setTimeout(() => {
       sessionStorage.setItem('portfolio-intro-seen', 'true')
       setPhase('main')
     }, 300 + qualities.length * 200 + 1100)
+    wordsTimersRef.current.push(tMain)
   }
 
   const handleSkip = () => {
-    timersRef.current.forEach(clearTimeout)
-    timersRef.current = []
+    wordsTimersRef.current.forEach(clearTimeout)
+    wordsTimersRef.current = []
     sessionStorage.setItem('portfolio-intro-seen', 'true')
     setPhase('main')
   }
