@@ -135,9 +135,9 @@ const timeline = [
 ]
 
 const methods = [
-  { step: '01', title: '快速验证', short: '用最小成本测试想法', detail: '不等一切准备好再开始。先做一个粗糙但可用的版本，放到真实场景中观察反应。失败的信息和成功的一样有价值。', icon: '🚀', color: '#FF6B35' },
-  { step: '02', title: 'AI 放大', short: '用工具弥补知识盲区', detail: '我不追求"什么都自己做"，而是追求"最快让想法落地"。AI 工具是我的乘法器——它让一个人能做一个小团队的事。', icon: '🤖', color: '#6366f1' },
-  { step: '03', title: '数据驱动', short: '实验思维设计增长策略', detail: '每个决策背后都需要假设，每个假设都需要验证。我习惯用"如果…那么…因为…"的方式设计策略，用数据反驳或支持直觉。', icon: '📊', color: '#10b981' },
+  { step: '01', title: '快速验证', short: '用最小成本测试想法', detail: '不等一切准备好再开始。先做一个粗糙但可用的版本，放到真实场景中观察反应。失败的信息和成功的一样有价值。', color: '#FF6B35' },
+  { step: '02', title: 'AI 放大', short: '用工具弥补知识盲区', detail: '我不追求"什么都自己做"，而是追求"最快让想法落地"。AI 工具是我的乘法器——它让一个人能做一个小团队的事。', color: '#6366f1' },
+  { step: '03', title: '数据驱动', short: '实验思维设计增长策略', detail: '每个决策背后都需要假设，每个假设都需要验证。我习惯用"如果…那么…因为…"的方式设计策略，用数据反驳或支持直觉。', color: '#10b981' },
 ]
 
 const currentWork = [
@@ -147,7 +147,7 @@ const currentWork = [
 
 const skillsData = [
   {
-    category: 'AI 工具应用', icon: '⚡',
+    category: 'AI 工具应用',
     items: [
       { name: 'Claude Code / Codex', desc: 'AI 辅助编程，从需求到代码的完整流程', level: 90 },
       { name: 'Stitch + Antigravity', desc: '无代码/低代码工具，快速搭建 Web 应用原型', level: 85 },
@@ -155,7 +155,7 @@ const skillsData = [
     ],
   },
   {
-    category: '产品运营能力', icon: '🌏',
+    category: '产品运营能力',
     items: [
       { name: 'TikTok 内容策略', desc: '内容矩阵设计、漏斗分析、本地化策略', level: 85 },
       { name: '内容简报生成', desc: 'AI 辅助生成结构化内容简报', level: 80 },
@@ -163,7 +163,7 @@ const skillsData = [
     ],
   },
   {
-    category: '技术能力', icon: '💻',
+    category: '技术能力',
     items: [
       { name: '前端开发', desc: 'HTML/CSS/JS + React，AI 辅助完成', level: 80 },
       { name: 'GitHub Pages 部署', desc: '静态网站托管，持续集成部署', level: 85 },
@@ -171,7 +171,7 @@ const skillsData = [
     ],
   },
   {
-    category: '语言能力', icon: '🗣️',
+    category: '语言能力',
     items: [
       { name: '英语', desc: '专业工作语言，可完成英文报告撰写', level: 85 },
       { name: '中文', desc: '母语', level: 100 },
@@ -179,9 +179,11 @@ const skillsData = [
   },
 ]
 
+let hasSeenIntro = false
+
 export default function Home() {
-    const [phase, setPhase] = useState(() => {
-    return sessionStorage.getItem('portfolio-intro-seen') === 'true' ? 'main' : 'intro'
+  const [phase, setPhase] = useState(() => {
+    return hasSeenIntro ? 'main' : 'intro'
   })
   const [titleReady, setTitleReady] = useState(false)
   const [subtitleReady, setSubtitleReady] = useState(false)
@@ -231,7 +233,7 @@ export default function Home() {
     const tName = setTimeout(() => setShowName(true), 300 + qualities.length * 200 + 100)
     wordsTimersRef.current.push(tName)
     const tMain = setTimeout(() => {
-      sessionStorage.setItem('portfolio-intro-seen', 'true')
+      hasSeenIntro = true
       setPhase('main')
     }, 300 + qualities.length * 200 + 1100)
     wordsTimersRef.current.push(tMain)
@@ -240,7 +242,7 @@ export default function Home() {
   const handleSkip = () => {
     wordsTimersRef.current.forEach(clearTimeout)
     wordsTimersRef.current = []
-    sessionStorage.setItem('portfolio-intro-seen', 'true')
+    hasSeenIntro = true
     setPhase('main')
   }
 
@@ -248,9 +250,12 @@ export default function Home() {
     <>
       <div
         className="gradient-bg-persistent"
-        style={phase === 'intro'
-          ? { zIndex: 500, cursor: 'grab' }
-          : { zIndex: -1, pointerEvents: 'none' }
+        style={
+          phase === 'intro'
+            ? { zIndex: 500, cursor: 'grab' }
+            : phase === 'words'
+            ? { zIndex: 500, pointerEvents: 'none' }
+            : { zIndex: 0, pointerEvents: 'none' }
         }
       >
         <ShaderGradientCanvas style={{ position: 'absolute', inset: 0 }} pixelDensity={1.5} fov={45}>
@@ -493,15 +498,14 @@ export default function Home() {
                   <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                     {methods.map((m, i) => (
                       <TiltCard key={m.step} className="card" style={{ cursor: 'pointer', transitionDelay: `${i * 0.08}s`, border: expandedMethod === i ? `1px solid ${m.color}` : '1px solid var(--border)' }} onClick={() => setExpandedMethod(expandedMethod === i ? null : i)}>
-                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 18 }}>
-                          <div style={{ width: 52, height: 52, borderRadius: 14, background: `${m.color}18`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.375rem', flexShrink: 0 }}>{m.icon}</div>
+                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 20 }}>
+                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '1.5rem', color: m.color, fontWeight: 700, opacity: 0.85, flexShrink: 0, minWidth: 32, lineHeight: 1 }}>{m.step}</span>
                           <div style={{ flex: 1 }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: m.color, fontWeight: 600 }}>{m.step}</span>
-                              <h4 style={{ fontWeight: 700 }}>{m.title}</h4>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                              <h4 style={{ fontWeight: 700, fontSize: '1.0625rem' }}>{m.title}</h4>
                               <span style={{ marginLeft: 'auto', fontSize: '0.75rem', color: 'var(--secondary)' }}>{expandedMethod === i ? '▲' : '▼'}</span>
                             </div>
-                            <p style={{ fontSize: '0.875rem', color: 'var(--secondary)' }}>{m.short}</p>
+                            <p style={{ fontSize: '0.875rem', color: 'var(--secondary)', lineHeight: 1.5 }}>{m.short}</p>
                           </div>
                         </div>
                         <div style={{ maxHeight: expandedMethod === i ? 160 : 0, overflow: 'hidden', transition: 'max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1)' }}>
@@ -572,8 +576,8 @@ export default function Home() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
                   {skillsData.map((group, gi) => (
                     <div key={group.category} className="reveal" style={{ transitionDelay: `${gi * 0.1}s` }}>
-                      <h3 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: 24, display: 'flex', alignItems: 'center', gap: 12 }}>
-                        <span style={{ fontSize: '1.5rem' }}>{group.icon}</span>
+                      <h3 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: 24, display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', flexShrink: 0 }} />
                         {group.category}
                       </h3>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 16 }}>

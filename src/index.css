@@ -256,7 +256,7 @@ img { max-width: 100%; display: block; }
 /* Hint */
 .intro-hint {
   position: absolute;
-  bottom: 120px; left: 50%; transform: translateX(-50%);
+  bottom: 180px; left: 50%; transform: translateX(-50%);
   display: flex; align-items: center; gap: 10px;
   font-size: 0.8125rem; letter-spacing: 0.05em;
   z-index: 10;
