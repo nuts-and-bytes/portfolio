@@ -99,11 +99,11 @@ export default function GithubCalendar() {
   }, [calendarData])
 
   const recentCommits = [
-    { repo: 'zhuxinyao99-jpg/portfolio', msg: 'style: 恢复经典纵向极简排版，融入 GitHub 提交图谱与仓库徽章', time: '刚刚' },
-    { repo: 'zhuxinyao99-jpg/daily-tree', msg: 'feat: 优化 3D 树枝生长有机算法与风力摇曳效果', time: '3 天前' },
-    { repo: 'zhuxinyao99-jpg/word-universe', msg: 'refactor: 升级 D3 力导向图节点聚类，引入语义色系', time: '1 周前' },
-    { repo: 'zhuxinyao99-jpg/omm-daily-happiness', msg: 'fix: 修复 LocalStorage 初始化首屏渲染卡顿问题', time: '2 周前' },
-    { repo: 'zhuxinyao99-jpg/fitness-daily', msg: 'feat: 适配暗色模式图标，增加打卡状态本地备份', time: '1 个月前' }
+    { repo: 'nuts-and-bytes/portfolio', msg: 'style: 恢复经典纵向极简排版，融入 GitHub 提交图谱与仓库徽章', time: '刚刚' },
+    { repo: 'nuts-and-bytes/daily-tree', msg: 'feat: 优化 3D 树枝生长有机算法与风力摇曳效果', time: '3 天前' },
+    { repo: 'nuts-and-bytes/word-universe', msg: 'refactor: 升级 D3 力导向图节点聚类，引入语义色系', time: '1 周前' },
+    { repo: 'nuts-and-bytes/omm-daily-happiness', msg: 'fix: 修复 LocalStorage 初始化首屏渲染卡顿问题', time: '2 周前' },
+    { repo: 'nuts-and-bytes/fitness-daily', msg: 'feat: 适配暗色模式图标，增加打卡状态本地备份', time: '1 个月前' }
   ]
 
   return (

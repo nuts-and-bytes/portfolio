@@ -12,7 +12,7 @@ const projects = [
     desc: '由于市面上已有的健身打卡 App 广告过多且常强制收费，我为自己写了这个极简的无广告打卡工具。它支持羽毛球、篮球和力量训练记录，并能在本地直接呈现运动周报与月历热力图，轻量便携。',
     highlights: ['没有任何多余的三方统计，只保留纯粹的打卡动作', '根据羽毛球/篮球等不同类型，动态适配字段与图标', '使用 localStorage 存储，秒开且不丢失数据'],
     tools: ['React', 'Vite', 'CSS Grid', 'GitHub Pages'],
-    link: 'https://zhuxinyao99-jpg.github.io/fitness-daily/',
+    link: 'https://nuts-and-bytes.github.io/fitness-daily/',
   },
   {
     title: '每日心情打卡',
@@ -22,7 +22,7 @@ const projects = [
     desc: '一个记录日常情绪碎片的手账工具。为了最快地捕获情绪，我将其精简为「选择 Emoji」单次点击记录。附带周趋势对比及心情占比色块，方便复盘近期的压力与恢复状态。',
     highlights: ['设计了丝滑的按钮交互动效，点击有模拟物理阻尼的缩放反馈', '支持多情绪按周聚合，直观呈现情绪波形', '静态托管，在移动端和桌面端均有良好的离线支持'],
     tools: ['React', 'Local Storage', 'CSS Transitions'],
-    link: 'https://zhuxinyao99-jpg.github.io/omm-daily-happy/',
+    link: 'https://nuts-and-bytes.github.io/omm-daily-happy/',
   },
 ]
 
@@ -173,18 +173,18 @@ function MoodSandbox() {
   )
 }
 
-export default function Coding() {
+export default function Coding({ isInline = false }) {
   useScrollReveal()
 
   useEffect(() => {
-    document.title = "AI Coding 项目 | Eric Lu"
-  }, [])
+    if (!isInline) {
+      document.title = "AI Coding 项目 | Eric Lu"
+    }
+  }, [isInline])
 
-  return (
-    <main style={{ paddingTop: 80 }}>
-      <div className="page-gradient" />
-
-      <section style={{ padding: '80px 0 0', background: 'linear-gradient(180deg, rgba(21, 128, 61, 0.04) 0%, transparent 100%)' }}>
+  const content = (
+    <>
+      <section style={{ padding: isInline ? '0 0 32px' : '80px 0 0', background: isInline ? 'none' : 'linear-gradient(180deg, rgba(21, 128, 61, 0.04) 0%, transparent 100%)' }}>
         <div className="container" style={{ maxWidth: 800 }}>
           <div className="animate-in">
             <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
@@ -199,7 +199,7 @@ export default function Coding() {
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 48 }}>
+      <section className="section" style={{ paddingTop: isInline ? 0 : 48, paddingBottom: 32 }}>
         <div className="container" style={{ maxWidth: 800 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
             {projects.map((p, i) => (
@@ -250,8 +250,22 @@ export default function Coding() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+    </>
+  )
 
-          <div className="reveal" style={{ marginTop: 48 }}>
+  if (isInline) {
+    return <div className="project-detail-inline">{content}</div>
+  }
+
+  return (
+    <main style={{ paddingTop: 80 }}>
+      <div className="page-gradient" />
+      {content}
+      <section style={{ padding: '40px 0 80px' }}>
+        <div className="container" style={{ maxWidth: 800 }}>
+          <div className="reveal">
             <Link to="/" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
               <span className="btn-icon-circle" style={{ margin: '0 4px 0 0', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

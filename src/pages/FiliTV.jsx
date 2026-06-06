@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
-export default function FiliTV() {
+export default function FiliTV({ isInline = false }) {
   useScrollReveal()
 
   useEffect(() => {
-    document.title = "FILI TV TikTok 内容运营 | Eric Lu"
-  }, [])
+    if (!isInline) {
+      document.title = "FILI TV TikTok 内容运营 | Eric Lu"
+    }
+  }, [isInline])
 
-  return (
-    <main style={{ paddingTop: 80 }}>
-      <div className="page-gradient" />
-
+  const content = (
+    <>
       {/* Hero Banner */}
-      <section style={{ padding: '80px 0 0', background: 'linear-gradient(180deg, rgba(29, 78, 216, 0.06) 0%, transparent 100%)' }}>
+      <section style={{ padding: isInline ? '0 0 32px' : '80px 0 0', background: isInline ? 'none' : 'linear-gradient(180deg, rgba(29, 78, 216, 0.06) 0%, transparent 100%)' }}>
         <div className="container" style={{ maxWidth: 800 }}>
           <div className="animate-in" style={{ marginBottom: 48 }}>
             <div style={{ display: 'flex', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
@@ -31,7 +31,7 @@ export default function FiliTV() {
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 48 }}>
+      <section className="section" style={{ paddingTop: isInline ? 0 : 48, paddingBottom: 32 }}>
         <div className="container" style={{ maxWidth: 800 }}>
           {/* Background & Funnel Chart */}
           <div className="reveal" style={{ marginBottom: 48 }}>
@@ -39,113 +39,75 @@ export default function FiliTV() {
               <span style={{ width: 4, height: 20, background: 'var(--accent)', borderRadius: 2 }} />
               项目背景
             </h2>
-            <div className="card-shell">
-              <div className="card-core card-glass" style={{ cursor: 'default' }}>
-                <p style={{ fontSize: '0.9375rem', color: 'var(--secondary)', lineHeight: 1.8 }}>
-                  FILI TV 是一款面向菲律宾市场的流媒体聚合平台，提供 PBA 篮球、NBA、UFC 等体育内容以及 Netflix、Disney+ 等影视内容。核心问题：<strong style={{ color: 'var(--primary)' }}>下载 → 安装 → 激活的漏斗存在严重流失</strong>。
-                </p>
-              </div>
-            </div>
+            <p style={{ fontSize: '0.9375rem', color: 'var(--secondary)', lineHeight: 1.8, marginBottom: 28 }}>
+              FILI TV 是面向菲律宾本地的流媒体服务。为了以极低成本获取新用户，我们避开了传统买量渠道，主攻 TikTok 这一在东南亚极具渗透率的内容平台，探索<strong>「内容驱动下载→转化」</strong>的增长路径。
+            </p>
 
-            {/* CSS Funnel Chart Component */}
-            <div className="card-shell funnel-card">
-              <div className="card-core" style={{ padding: '24px 28px', cursor: 'default' }}>
-                <h3 style={{ fontSize: '0.875rem', fontWeight: 600, marginBottom: 20, color: 'var(--secondary)', display: 'flex', alignItems: 'center', gap: 8 }}>
-                  📊 增长流失漏斗分析 (Conversion Funnel Dropoff Analysis)
-                </h3>
-                <div className="funnel-container">
-                  {/* Step 1 */}
-                  <div className="funnel-stage">
-                    <div className="funnel-bar stage-download">
-                      <div className="funnel-label">
-                        <span className="funnel-label-icon">📥</span>
-                        <span>下载 (Download)</span>
-                      </div>
-                      <div className="funnel-value">100%</div>
-                    </div>
-                  </div>
-
-                  {/* Connector 1 */}
-                  <div className="funnel-connector">
-                    <div className="funnel-connector-line"></div>
-                    <div className="funnel-dropoff">流失 -40% (阻力点: 包大小与网络环境)</div>
-                  </div>
-
-                  {/* Step 2 */}
-                  <div className="funnel-stage">
-                    <div className="funnel-bar stage-install">
-                      <div className="funnel-label">
-                        <span className="funnel-label-icon">⚙️</span>
-                        <span>安装 (Install)</span>
-                      </div>
-                      <div className="funnel-value">60%</div>
-                    </div>
-                  </div>
-
-                  {/* Connector 2 */}
-                  <div className="funnel-connector">
-                    <div className="funnel-connector-line"></div>
-                    <div className="funnel-dropoff">流失 -25% (阻力点: 激活路径长与设备兼容性)</div>
-                  </div>
-
-                  {/* Step 3 */}
-                  <div className="funnel-stage">
-                    <div className="funnel-bar stage-activate">
-                      <div className="funnel-label">
-                        <span className="funnel-label-icon">🔥</span>
-                        <span>激活 (Activate)</span>
-                      </div>
-                      <div className="funnel-value">35%</div>
-                    </div>
-                  </div>
+            <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 16 }}>增长漏斗拆解</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginBottom: 16 }}>
+              <div className="funnel-stage">
+                <div className="funnel-bar stage-download">
+                  <span className="funnel-label">
+                    <span className="funnel-label-icon">📥</span>
+                    1. 视频引导应用下载 (Downloads)
+                  </span>
+                  <span className="funnel-value">100%</span>
                 </div>
-                <p style={{ fontSize: '0.8125rem', color: 'var(--muted)', marginTop: 20, lineHeight: 1.6, textAlign: 'center' }}>
-                  💡 针对此转化损耗，我制定了 6 种 TikTok 本地化内容策略及 SOP，直接作用于下载与激活引导。
-                </p>
               </div>
-            </div>
-          </div>
-
-          {/* Role */}
-          <div className="reveal" style={{ marginBottom: 48 }}>
-            <div className="card-shell">
-              <div className="card-core" style={{ cursor: 'default', background: 'linear-gradient(135deg, var(--accent-subtle), rgba(255,107,53,0.02))', borderColor: 'rgba(255,107,53,0.2)', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 16, padding: '20px 24px' }}>
-                <div style={{ width: 48, height: 48, borderRadius: 12, background: 'var(--white)', border: '1px solid rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', flexShrink: 0 }}>
-                  👤
+              <div className="funnel-connector">
+                <div className="funnel-connector-line" />
+                <span className="funnel-dropoff">流失率 40%</span>
+              </div>
+              <div className="funnel-stage">
+                <div className="funnel-bar stage-install">
+                  <span className="funnel-label">
+                    <span className="funnel-label-icon">⚙️</span>
+                    2. 应用安装与打开 (Installs)
+                  </span>
+                  <span className="funnel-value">60%</span>
                 </div>
-                <div>
-                  <p style={{ fontSize: '0.75rem', color: 'var(--muted)', marginBottom: 2 }}>我的角色</p>
-                  <p style={{ fontWeight: 600, fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}>内容策略负责人 / AI 工具应用</p>
+              </div>
+              <div className="funnel-connector">
+                <div className="funnel-connector-line" />
+                <span className="funnel-dropoff">流失率 42%</span>
+              </div>
+              <div className="funnel-stage">
+                <div className="funnel-bar stage-activate">
+                  <span className="funnel-label">
+                    <span className="funnel-label-icon">✨</span>
+                    3. 新注册与激活订阅 (Activations)
+                  </span>
+                  <span className="funnel-value">35%</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* What I did */}
+          {/* Strategy */}
           <div className="reveal" style={{ marginBottom: 48 }}>
-            <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 24, display: 'flex', alignItems: 'center', gap: 12 }}>
+            <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
               <span style={{ width: 4, height: 20, background: 'var(--accent)', borderRadius: 2 }} />
-              我做了什么
+              内容运营策略
             </h2>
-            <div className="timeline">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {[
-                '设计 TikTok 内容测试框架，对应漏斗每个环节的流失问题',
-                '制定 6 个内容角度策略（痛点对比、体育集锦、UFC热血等），形成完整内容矩阵',
-                '用 AI 工具生成 5 个结构化内容简报，包含 Hook、字幕、CTA',
-                '设计 Tagalog + Taglish 本地化语言策略',
-                '建立与本地协作方的分工框架：策略在外地，执行在本地',
-                '推进 V002–V005 简报制作与发布',
-              ].map((item, i) => (
-                <div key={i} className={`timeline-item ${i === 5 ? 'timeline-item-active' : ''}`}>
-                  <p style={{ fontSize: '0.9375rem', color: 'var(--secondary)', lineHeight: 1.7 }}>{item}</p>
+                { title: '本地化内容配音与配乐', desc: '根据菲律宾本地热点与方言（如 Tagalog）精制口播与文案，避免生硬的英译。' },
+                { title: '高频发布策略', desc: '每日稳定发布 3-5 条短视频，通过高频触达获取 TikTok 算法的推荐放大。' },
+                { title: 'AI 简报提效工具', desc: '通过自己设计的 AI 助手，将竞品热度视频在几分钟内转化为可执行的本地化视频拍摄脚本，产能提升 3 倍。' },
+              ].map((item, idx) => (
+                <div key={idx} className="card-shell">
+                  <div className="card-core card-interactive" style={{ padding: 18, cursor: 'default' }}>
+                    <h3 style={{ fontSize: '0.9375rem', fontWeight: 600, marginBottom: 6 }}>{item.title}</h3>
+                    <p style={{ fontSize: '0.875rem', color: 'var(--secondary)', lineHeight: 1.6 }}>{item.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Key Insights */}
+          {/* Insights */}
           <div className="reveal" style={{ marginBottom: 48 }}>
-            <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 20, display: 'flex', alignItems: 'center', gap: 12 }}>
+            <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
               <span style={{ width: 4, height: 20, background: 'var(--accent)', borderRadius: 2 }} />
               关键洞察
             </h2>
@@ -166,28 +128,40 @@ export default function FiliTV() {
           </div>
 
           {/* Tools */}
-          <div className="reveal" style={{ marginBottom: 48 }}>
+          <div className="reveal" style={{ marginBottom: isInline ? 0 : 48 }}>
             <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 12 }}>使用的工具</h2>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               {['Claude Code', 'TikTok', 'Figma', 'Google Sheets'].map(t => (
-                <span key={t} className="tag" data-tooltip={`用于 FILI TV 项目`}>{t}</span>
+                <span key={t} className="tag">{t}</span>
               ))}
             </div>
           </div>
 
-          <div className="reveal">
-            <Link to="/" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-              <span className="btn-icon-circle" style={{ margin: '0 4px 0 0', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M19 12H5M12 19l-7-7 7-7" />
-                </svg>
-              </span>
-              返回首页
-            </Link>
-          </div>
+          {!isInline && (
+            <div className="reveal">
+              <Link to="/" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                <span className="btn-icon-circle" style={{ margin: '0 4px 0 0', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                  </svg>
+                </span>
+                返回首页
+              </Link>
+            </div>
+          )}
         </div>
       </section>
+    </>
+  )
 
+  if (isInline) {
+    return <div className="project-detail-inline">{content}</div>
+  }
+
+  return (
+    <main style={{ paddingTop: 80 }}>
+      <div className="page-gradient" />
+      {content}
       <Footer />
     </main>
   )
