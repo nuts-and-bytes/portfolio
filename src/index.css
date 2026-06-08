@@ -1541,11 +1541,13 @@ img { max-width: 100%; display: block; }
 
 /* ===== Inline Project Detail Pane ===== */
 .project-detail-inline {
-  border-radius: var(--radius-lg);
+  border-radius: 0;
   overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  margin-top: 24px;
+  border: none;
+  border-top: 1px solid var(--border);
+  background: transparent;
+  margin-top: 32px;
+  padding-top: 8px;
   animation: segment-fade-in 0.4s var(--ease) both;
 }
 
