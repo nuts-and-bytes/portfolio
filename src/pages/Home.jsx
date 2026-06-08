@@ -15,6 +15,11 @@ const projectsData = [
     badge: 'WebGL / Three.js',
     gradient: 'linear-gradient(135deg, #022c22 0%, #065f46 60%, #10b981 100%)',
     accentColor: '#10b981',
+    details: {
+      desc: '用 Three.js 构建的 3D 日记花园，每条记录都长成一棵树，在 WebGL 场景里漫游回忆。',
+      tech: ['Three.js', 'WebGL', 'React'],
+      link: 'https://nuts-and-bytes.github.io/daily-tree/app/',
+    },
     illustration: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#FFF' }}>
         <path d="M12 22V12" /><path d="M17 12H7" /><path d="M12 12L17 7" />
@@ -29,6 +34,11 @@ const projectsData = [
     badge: 'D3.js / LLM Embed',
     gradient: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #6366f1 100%)',
     accentColor: '#6366f1',
+    details: {
+      desc: '用 D3.js 将词语语义可视化为星系，通过 LLM embedding 计算词义相似度与距离。',
+      tech: ['D3.js', 'React', 'LLM Embed'],
+      link: null,
+    },
     illustration: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#FFF' }}>
         <path d="M12 3a9 9 0 1 0 9 9" /><path d="M12 21a9 9 0 0 0 9-9" />
@@ -44,6 +54,11 @@ const projectsData = [
     badge: 'React / Vite / Claude',
     gradient: 'linear-gradient(135deg, #431407 0%, #7c2d12 60%, #ea580c 100%)',
     accentColor: '#ea580c',
+    details: {
+      desc: '借助 AI 工具独立完成多个生活类 App，展示 vibe coding 的创意执行力。',
+      tech: ['React', 'Vite', 'GitHub Pages'],
+      link: null,
+    },
     illustration: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#FFF' }}>
         <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
@@ -54,10 +69,15 @@ const projectsData = [
   {
     id: 'fili-tv',
     title: 'FILI TV',
-    tag: 'TikTok Content Strategy',
-    badge: 'LIVE GROWTH',
+    tag: '海外产品运营',
+    badge: '进行中',
     gradient: 'linear-gradient(135deg, #09090E 0%, #1D4ED8 60%, #7C3AED 100%)',
     accentColor: '#7C3AED',
+    details: {
+      desc: '与菲律宾本地团队远程协作，设计内容策略与发布 SOP，运用 AI 工具辅助脚本生成。',
+      tech: ['AI 工具', '内容策略', 'TikTok'],
+      link: null,
+    },
     illustration: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#FFF' }}>
         <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/>
@@ -69,36 +89,44 @@ const projectsData = [
 
 const experienceData = [
   {
-    period: '2026 — 至今',
-    role: 'TikTok 内容运营负责人',
+    period: '2026.03 — 至今',
+    role: '海外产品运营',
     org: 'FILI TV · 菲律宾',
     active: true,
-    desc: '主导菲律宾市场流媒体平台的 TikTok 增长策略。设计内容矩阵与发布 SOP，独立搭建 AI 辅助脚本生成系统，产能提升 3 倍。',
-    tags: ['内容策略', 'AI 提效', 'TikTok', '增长漏斗'],
+    desc: '与菲律宾本地执行团队远程协作，协同推进跨文化内容策略测试；负责内容方向规划与发布 SOP 设计；运用 AI 工具辅助脚本生成，持续优化内容生产流程。',
+    tags: ['跨文化协作', '内容策略', 'AI 提效', '海外运营'],
   },
   {
-    period: '2025 — 2026',
-    role: 'AI 工具独立开发者',
-    org: '自主项目',
+    period: '2025.12 — 2026.01',
+    role: '实习助理 · 海外业务部',
+    org: '北京海创易富投资管理有限公司',
     active: false,
-    desc: '使用 Claude / Cursor 等 AI 编程工具，独立开发并上线 Daily Tree（3D 日记 + WebGL）与 Word Universe（语义向量知识图谱）两款产品。',
-    tags: ['React', 'Three.js', 'D3.js', 'GitHub Pages'],
+    desc: '运用 AI 视频生成工具制作投融资宣传视频，辅助海外业务推广内容生产。',
+    tags: ['AI 视频工具', '海外业务', '内容生产', '投融资'],
   },
   {
-    period: '2022 — 2025',
+    period: '2025.11 — 2025.12',
+    role: '实习助理 · 猎头海外部',
+    org: '清小猎科技有限公司',
+    active: false,
+    desc: '搭建海外岗位人才库，搜集候选人并进行初步沟通，完成初筛与需求匹配。',
+    tags: ['人才寻访', '海外招聘', '跨文化沟通', 'HR'],
+  },
+  {
+    period: '2025.09 — 至今',
     role: '国际商务硕士',
     org: '北京外国语大学（北外）',
     active: false,
-    desc: '系统学习全球商业逻辑、供应链与市场进入策略，奠定跨境运营的理论根基，培养了对国际市场的整体认知与实战框架。',
-    tags: ['国际商务', '供应链', '市场策略', '跨境运营'],
+    desc: '主修国际商务管理、跨境电商策略、商业数据分析及国际贸易政策与实务。',
+    tags: ['国际商务', '跨境电商', '商业分析', '贸易政策'],
   },
   {
-    period: '2018 — 2022',
-    role: '英语专业 · 学士学位',
+    period: '2021.09 — 2025.06',
+    role: '商务英语专业 · 文学学士',
     org: '西安外国语大学（西外）',
     active: false,
-    desc: '扎实的语言基础成为跨文化沟通的底层能力，培养了对用户心理、叙事结构与内容传播逻辑的系统认知。',
-    tags: ['英语', '语言学', '跨文化沟通', '传播学'],
+    desc: '主修商务英语（ACCA 方向）；校级二等奖学金（前5%）；全国商务英语实践大赛国家级三等奖。',
+    tags: ['商务英语', 'ACCA', '跨文化沟通', '语言'],
   },
 ]
 
@@ -112,22 +140,51 @@ export default function Home() {
   const [showEnter, setShowEnter] = useState(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [selectedProj, setSelectedProj] = useState('daily-tree')
+  const [flippedCard, setFlippedCard] = useState(null)
 
   const projPaneRef = useRef(null)
+  const coverflowRef = useRef(null)
+  const selectedProjRef = useRef('daily-tree')
   const projOrder = ['daily-tree', 'word-universe', 'coding', 'fili-tv']
+
+  useEffect(() => { selectedProjRef.current = selectedProj }, [selectedProj])
 
   const selectProject = (id) => {
     setSelectedProj(id)
+    setFlippedCard(null)
+    requestAnimationFrame(() => {
+      const sec = document.getElementById('projects')
+      if (!sec) return
+      const top = sec.getBoundingClientRect().top + window.scrollY - 64
+      window.scrollTo({ top, behavior: 'smooth' })
+    })
   }
 
-  const handlePrevProj = () => {
-    const idx = projOrder.indexOf(selectedProj)
-    selectProject(projOrder[(idx - 1 + projOrder.length) % projOrder.length])
-  }
-  const handleNextProj = () => {
-    const idx = projOrder.indexOf(selectedProj)
-    selectProject(projOrder[(idx + 1) % projOrder.length])
-  }
+  useEffect(() => {
+    const el = coverflowRef.current
+    if (!el) return
+    let cooldown = false
+    const handler = (e) => {
+      e.preventDefault()
+      if (cooldown) return
+      cooldown = true
+      setTimeout(() => { cooldown = false }, 600)
+      const dx = e.deltaX, dy = e.deltaY
+      const delta = Math.abs(dx) > Math.abs(dy) ? dx : dy
+      if (delta === 0) return
+      const order = ['daily-tree', 'word-universe', 'coding', 'fili-tv']
+      const cur = selectedProjRef.current
+      const idx = order.indexOf(cur)
+      const next = delta > 0
+        ? order[(idx + 1) % order.length]
+        : order[(idx - 1 + order.length) % order.length]
+      setSelectedProj(next)
+      selectedProjRef.current = next
+      setFlippedCard(null)
+    }
+    el.addEventListener('wheel', handler, { passive: false })
+    return () => el.removeEventListener('wheel', handler)
+  }, [])
 
   useScrollReveal(phase)
 
@@ -168,14 +225,14 @@ export default function Home() {
         style={
           phase === 'intro'
             ? { zIndex: 500, cursor: 'grab' }
-            : { display: 'none' }
+            : { zIndex: -1, pointerEvents: 'none', opacity: 0.14 }
         }
       >
         <ShaderGradientCanvas style={{ position: 'absolute', inset: 0 }} pixelDensity={1.5} fov={45}>
           <ShaderGradient
-            animate="on" brightness={0.45} cAzimuthAngle={120} cDistance={7.1}
+            animate="on" brightness={0.6} cAzimuthAngle={120} cDistance={7.1}
             cPolarAngle={140} cameraZoom={17.3}
-            color1="#0f0d0b" color2="#1e1200" color3="#04031a"
+            color1="#c2762a" color2="#f09020" color3="#b54a0a"
             envPreset="city" grain="on" lightType="3d" reflection={0.1}
             shader="defaults" type="sphere"
             uAmplitude={1.4} uDensity={1.1} uFrequency={5.5}
@@ -249,12 +306,6 @@ export default function Home() {
           {/* ── HERO ── */}
           <section className="hero-section" id="hero">
             <div className="hero-inner">
-              <div className="animate-in" style={{ pointerEvents: 'auto' }}>
-                <span className="hero-badge">
-                  <span className="hero-badge-dot" />
-                  Open to work
-                </span>
-              </div>
               <h1 className="hero-h1" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', fontWeight: 700 }}>
                 <span className="hero-line animate-in delay-2">Think deep.</span>
                 <br />
@@ -304,46 +355,75 @@ export default function Home() {
                 </p>
 
                 {/* Cover Flow */}
-                <div className="coverflow-container animate-in delay-2">
-                  <button className="coverflow-arrow prev" onClick={handlePrevProj} aria-label="上一个">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </button>
-
+                <div ref={coverflowRef} className="coverflow-container animate-in delay-2" style={{ cursor: 'default' }}>
                   <div className="coverflow-track">
                     {projectsData.map(proj => {
                       const isActive = selectedProj === proj.id
+                      const isCardFlipped = flippedCard === proj.id
                       return (
                         <div
                           key={proj.id}
-                          onClick={() => selectProject(proj.id)}
+                          onClick={() => !isCardFlipped && selectProject(proj.id)}
                           className={`coverflow-item ${isActive ? 'active' : ''}`}
                           style={{ '--cover-gradient': proj.gradient, '--active-accent': proj.accentColor }}
                         >
-                          <div className="project-poster-bg">
-                            <div className="project-poster-header">
-                              <span className="project-poster-badge">{proj.badge}</span>
-                              <div className="project-poster-logo-container">
-                                {proj.illustration}
+                          <div className={`proj-flip-inner${isCardFlipped ? ' flipped' : ''}`}>
+                            {/* Front */}
+                            <div className="proj-flip-front">
+                              <div className="project-poster-bg">
+                                <div className="project-poster-header">
+                                  <span className="project-poster-badge">{proj.badge}</span>
+                                  <div className="project-poster-logo-container">
+                                    {proj.illustration}
+                                  </div>
+                                </div>
+                                <div className="project-poster-footer">
+                                  <p className="project-poster-tag">{proj.tag}</p>
+                                  <h3 className="project-poster-title">{proj.title}</h3>
+                                </div>
                               </div>
+                              {isActive && (
+                                <button
+                                  className="flip-hint-btn"
+                                  onClick={(e) => { e.stopPropagation(); setFlippedCard(proj.id) }}
+                                >
+                                  详情 ↺
+                                </button>
+                              )}
                             </div>
-                            <div className="project-poster-footer">
-                              <p className="project-poster-tag">{proj.tag}</p>
-                              <h3 className="project-poster-title">{proj.title}</h3>
+                            {/* Back */}
+                            <div
+                              className="proj-flip-back"
+                              onClick={(e) => { e.stopPropagation(); setFlippedCard(null) }}
+                            >
+                              <div>
+                                <p style={{ fontSize: '0.5625rem', color: 'rgba(255,255,255,0.45)', marginBottom: 3, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                                  {proj.title}
+                                </p>
+                                <p style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.82)', lineHeight: 1.45 }}>
+                                  {proj.details?.desc}
+                                </p>
+                              </div>
+                              <div>
+                                <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap', marginBottom: 4 }}>
+                                  {proj.details?.tech.map(t => (
+                                    <span key={t} style={{ fontSize: '0.5rem', padding: '1px 5px', borderRadius: 3, background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.65)' }}>
+                                      {t}
+                                    </span>
+                                  ))}
+                                </div>
+                                <p style={{ fontSize: '0.5rem', color: 'rgba(255,255,255,0.35)', textAlign: 'right' }}>← 返回</p>
+                              </div>
                             </div>
                           </div>
                         </div>
                       )
                     })}
                   </div>
-
-                  <button className="coverflow-arrow next" onClick={handleNextProj} aria-label="下一个">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M9 5l6 6-6 6" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </button>
                 </div>
+                <p style={{ fontSize: '0.6875rem', color: 'var(--muted)', textAlign: 'center', marginTop: -4, marginBottom: 24, letterSpacing: '0.04em' }}>
+                  滚轮切换 · 点击激活 · 详情 ↺ 翻转查看
+                </p>
 
                 {/* Inline Pane */}
                 <div ref={projPaneRef} className="segment-pane" key={selectedProj}>
@@ -362,7 +442,7 @@ export default function Home() {
               <div className="container" style={{ maxWidth: 800 }}>
                 <div className="accent-line" />
                 <p className="section-label">Background</p>
-                <h2 className="section-title animate-in" style={{ marginBottom: 16 }}>经历 &amp; 教育</h2>
+                <h2 className="section-title animate-in" style={{ marginBottom: 16 }}>经历 & 教育</h2>
                 <p className="animate-in delay-1" style={{ color: 'var(--secondary)', marginBottom: 56, maxWidth: 500 }}>
                   从学术研究到实战项目，我始终在构建与交付之间找到平衡
                 </p>
@@ -514,29 +594,6 @@ export default function Home() {
                   ))}
                 </div>
 
-                {/* CTA card */}
-                <div
-                  className="reveal"
-                  style={{
-                    padding: '44px 40px',
-                    textAlign: 'center',
-                    background: 'linear-gradient(135deg, rgba(200, 151, 42,0.08) 0%, rgba(200, 151, 42,0.02) 100%)',
-                    border: '1px solid rgba(200, 151, 42,0.2)',
-                    borderRadius: 20,
-                    position: 'relative',
-                    overflow: 'hidden',
-                    backdropFilter: 'blur(12px)',
-                  }}
-                >
-                  <div style={{ position: 'absolute', top: -40, right: -40, width: 160, height: 160, borderRadius: '50%', background: 'var(--accent)', opacity: 0.04, pointerEvents: 'none' }} />
-                  <p style={{ fontSize: '0.6875rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--accent)', fontWeight: 600, marginBottom: 16 }}>Open to Work</p>
-                  <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', fontWeight: 700, fontSize: 'clamp(1.6rem, 4vw, 2.2rem)', marginBottom: 12, lineHeight: 1.25, color: 'var(--primary)' }}>
-                    Think deep.<br />Build real.
-                  </h3>
-                  <p style={{ color: 'var(--secondary)', fontSize: '0.9rem', lineHeight: 1.7, maxWidth: 380, margin: '0 auto 0' }}>
-                    正在寻找海外产品运营相关机会。如果你的团队在做有意义的事，让我们聊聊。
-                  </p>
-                </div>
               </div>
             </div>
           </section>

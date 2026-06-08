@@ -1379,8 +1379,9 @@ img { max-width: 100%; display: block; }
   width: 180px;
   height: 110px;
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow: visible;
   cursor: pointer;
+  perspective: 700px;
   transition: filter 0.55s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1399,6 +1400,58 @@ img { max-width: 100%; display: block; }
   opacity: 1;
   transform: scale(1.08) translateZ(0);
   box-shadow: 0 0 0 2.5px var(--active-accent, var(--accent)), 0 20px 48px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Flip Card ── */
+.proj-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.52s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.proj-flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+.proj-flip-front,
+.proj-flip-back {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.proj-flip-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, rgba(12,12,20,0.97) 0%, rgba(28,20,40,0.97) 100%);
+  padding: 10px 11px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.flip-hint-btn {
+  position: absolute;
+  bottom: 6px;
+  right: 7px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 5px;
+  color: rgba(255,255,255,0.75);
+  font-size: 0.5625rem;
+  font-family: var(--font-mono);
+  padding: 2px 7px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  z-index: 5;
+  transition: background 0.2s, color 0.2s;
+  pointer-events: all;
+}
+.flip-hint-btn:hover {
+  background: rgba(255,255,255,0.22);
+  color: #fff;
 }
 
 .project-poster-bg {

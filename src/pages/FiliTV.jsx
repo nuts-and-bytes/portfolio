@@ -8,7 +8,7 @@ export default function FiliTV({ isInline = false }) {
 
   useEffect(() => {
     if (!isInline) {
-      document.title = "FILI TV TikTok 内容运营 | Eric Lu"
+      document.title = "FILI TV 海外产品运营 | Eric Lu"
     }
   }, [isInline])
 
@@ -23,9 +23,9 @@ export default function FiliTV({ isInline = false }) {
               <span className="tag">海外运营</span>
               <span className="tag">2026</span>
             </div>
-            <h1 className="section-title">FILI TV TikTok 内容运营</h1>
+            <h1 className="section-title">FILI TV · 海外产品运营</h1>
             <p className="animate-in delay-1" style={{ color: 'var(--secondary)', marginTop: 16, fontSize: '1.0625rem', lineHeight: 1.7 }}>
-              菲律宾市场流媒体增长项目全案
+              菲律宾流媒体平台跨文化内容运营项目
             </p>
           </div>
         </div>
@@ -33,67 +33,76 @@ export default function FiliTV({ isInline = false }) {
 
       <section className="section" style={{ paddingTop: isInline ? 0 : 48, paddingBottom: 32 }}>
         <div className="container" style={{ maxWidth: 800 }}>
-          {/* Background & Funnel Chart */}
+
+          {/* Background */}
           <div className="reveal" style={{ marginBottom: 48 }}>
             <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
               <span style={{ width: 4, height: 20, background: 'var(--accent)', borderRadius: 2 }} />
               项目背景
             </h2>
-            <p style={{ fontSize: '0.9375rem', color: 'var(--secondary)', lineHeight: 1.8, marginBottom: 28 }}>
-              FILI TV 是面向菲律宾本地的流媒体服务。为了以极低成本获取新用户，我们避开了传统买量渠道，主攻 TikTok 这一在东南亚极具渗透率的内容平台，探索<strong>「内容驱动下载→转化」</strong>的增长路径。
+            <p style={{ fontSize: '0.9375rem', color: 'var(--secondary)', lineHeight: 1.8, marginBottom: 0 }}>
+              FILI TV 是面向菲律宾本地市场的流媒体服务。我作为远程端的内容运营负责人，与菲律宾当地执行团队协同工作，探索适合本地文化的内容增长路径。团队分工明确：本地成员 Jiel 与 Benjie 负责菲语内容拍摄与 TikTok 发布，我负责内容方向策划、工作流设计与 AI 工具应用，项目目前处于测试阶段，正在持续打磨内容策略。
             </p>
-
-            <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 16 }}>增长漏斗拆解</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginBottom: 16 }}>
-              <div className="funnel-stage">
-                <div className="funnel-bar stage-download">
-                  <span className="funnel-label">
-                    <span className="funnel-label-icon">📥</span>
-                    1. 视频引导应用下载 (Downloads)
-                  </span>
-                  <span className="funnel-value">100%</span>
-                </div>
-              </div>
-              <div className="funnel-connector">
-                <div className="funnel-connector-line" />
-                <span className="funnel-dropoff">流失率 40%</span>
-              </div>
-              <div className="funnel-stage">
-                <div className="funnel-bar stage-install">
-                  <span className="funnel-label">
-                    <span className="funnel-label-icon">⚙️</span>
-                    2. 应用安装与打开 (Installs)
-                  </span>
-                  <span className="funnel-value">60%</span>
-                </div>
-              </div>
-              <div className="funnel-connector">
-                <div className="funnel-connector-line" />
-                <span className="funnel-dropoff">流失率 42%</span>
-              </div>
-              <div className="funnel-stage">
-                <div className="funnel-bar stage-activate">
-                  <span className="funnel-label">
-                    <span className="funnel-label-icon">✨</span>
-                    3. 新注册与激活订阅 (Activations)
-                  </span>
-                  <span className="funnel-value">35%</span>
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/* Strategy */}
+          {/* Team & Collaboration */}
           <div className="reveal" style={{ marginBottom: 48 }}>
             <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
               <span style={{ width: 4, height: 20, background: 'var(--accent)', borderRadius: 2 }} />
-              内容运营策略
+              跨文化团队协作
             </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12 }}>
               {[
-                { title: '本地化内容配音与配乐', desc: '根据菲律宾本地热点与方言（如 Tagalog）精制口播与文案，避免生硬的英译。' },
-                { title: '高频发布策略', desc: '每日稳定发布 3-5 条短视频，通过高频触达获取 TikTok 算法的推荐放大。' },
-                { title: 'AI 简报提效工具', desc: '通过自己设计的 AI 助手，将竞品热度视频在几分钟内转化为可执行的本地化视频拍摄脚本，产能提升 3 倍。' },
+                {
+                  role: '内容策略 & AI 工具（我）',
+                  items: ['内容方向规划与主题策划', '发布 SOP 与工作流设计', 'AI 简报工具辅助脚本生成', '跨时区异步协作管理'],
+                  accent: 'var(--accent)',
+                },
+                {
+                  role: '本地执行团队（Jiel / Benjie）',
+                  items: ['菲律宾本地语言内容拍摄', 'TikTok 账号运营与发布', '本地热点捕捉与用户互动', '一线市场反馈收集'],
+                  accent: '#7C3AED',
+                },
+              ].map((col, i) => (
+                <div key={i} className="card-shell">
+                  <div className="card-core" style={{ padding: '18px 20px', cursor: 'default' }}>
+                    <p style={{ fontSize: '0.75rem', fontWeight: 700, color: col.accent, marginBottom: 12, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                      {col.role}
+                    </p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {col.items.map((item, j) => (
+                        <div key={j} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                          <span style={{ color: col.accent, fontWeight: 700, fontSize: '0.75rem', marginTop: 1 }}>·</span>
+                          <p style={{ fontSize: '0.875rem', color: 'var(--secondary)', lineHeight: 1.5 }}>{item}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* How I work */}
+          <div className="reveal" style={{ marginBottom: 48 }}>
+            <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{ width: 4, height: 20, background: 'var(--accent)', borderRadius: 2 }} />
+              我的工作方式
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {[
+                {
+                  title: '内容策略设计',
+                  desc: '根据菲律宾本地文化背景与 TikTok 内容趋势，制定差异化的内容方向，并定期与本地团队同步调整。',
+                },
+                {
+                  title: 'AI 简报辅助工具',
+                  desc: '设计提示词工作流，将竞品热门视频的核心信息快速转化为本地化的视频脚本大纲，降低内容生产门槛。',
+                },
+                {
+                  title: '发布 SOP 与异步协同',
+                  desc: '制定内容发布标准流程，通过文档与模板跨时区传递执行指令，保证本地团队有清晰的操作路径。',
+                },
               ].map((item, idx) => (
                 <div key={idx} className="card-shell">
                   <div className="card-core card-interactive" style={{ padding: 18, cursor: 'default' }}>
@@ -105,33 +114,30 @@ export default function FiliTV({ isInline = false }) {
             </div>
           </div>
 
-          {/* Insights */}
-          <div className="reveal" style={{ marginBottom: 48 }}>
+          {/* Current Status */}
+          <div className="reveal" style={{ marginBottom: isInline ? 0 : 48 }}>
             <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
               <span style={{ width: 4, height: 20, background: 'var(--accent)', borderRadius: 2 }} />
-              关键洞察
+              当前进展
             </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {[
-                { icon: '🔍', text: '发现核心问题不是「点击」而是「下载→激活」漏斗流失' },
-                { icon: '📈', text: '三阶段增长路径：养号期→测试期→KOC 规模化' },
-                { icon: '🤝', text: '与本地协作方建立分工 SOP，策略与执行分离' },
-              ].map((insight, i) => (
-                <div key={i} className="card-shell reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
-                  <div className="card-core card-interactive" style={{ display: 'flex', flexDirection: 'row', gap: 16, alignItems: 'center', padding: '16px 20px', cursor: 'default' }}>
-                    <span style={{ fontSize: '1.5rem' }}>{insight.icon}</span>
-                    <p style={{ fontSize: '0.9375rem', color: 'var(--secondary)' }}>{insight.text}</p>
-                  </div>
+            <div className="card-shell">
+              <div className="card-core" style={{ padding: '18px 20px', cursor: 'default' }}>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 12 }}>
+                  <span className="tag-status tag-active">测试中</span>
+                  <span style={{ fontSize: '0.8125rem', color: 'var(--muted)' }}>2026.03 — 至今</span>
                 </div>
-              ))}
+                <p style={{ fontSize: '0.9rem', color: 'var(--secondary)', lineHeight: 1.75 }}>
+                  目前已完成首批内容视频的制作与发布，正在根据数据反馈持续迭代内容策略。此阶段重点在于摸清本地受众偏好，建立可复用的内容生产节奏，测试结果将指导后续规模化方向。
+                </p>
+              </div>
             </div>
           </div>
 
           {/* Tools */}
           <div className="reveal" style={{ marginBottom: isInline ? 0 : 48 }}>
-            <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 12 }}>使用的工具</h2>
+            <h2 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 12 }}>工具 & 技能</h2>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              {['Claude Code', 'TikTok', 'Figma', 'Google Sheets'].map(t => (
+              {['Claude / AI 工具', 'TikTok', '提示词工程', '跨文化沟通', '内容策略', '异步协作'].map(t => (
                 <span key={t} className="tag">{t}</span>
               ))}
             </div>
