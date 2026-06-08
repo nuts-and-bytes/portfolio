@@ -85,12 +85,20 @@ const experienceData = [
     tags: ['React', 'Three.js', 'D3.js', 'GitHub Pages'],
   },
   {
-    period: '2021 — 2025',
-    role: '学士学位 · 传播与新媒体',
-    org: '香港某大学',
+    period: '2022 — 2025',
+    role: '国际商务硕士',
+    org: '北京外国语大学（北外）',
     active: false,
-    desc: '主修传播学与新媒体研究，辅修产品设计。期间深度学习了叙事结构、受众心理与内容传播机制，奠定了产品感知与策略思维的基础。',
-    tags: ['传播学', '新媒体', '产品设计', '用户研究'],
+    desc: '系统学习全球商业逻辑、供应链与市场进入策略，奠定跨境运营的理论根基，培养了对国际市场的整体认知与实战框架。',
+    tags: ['国际商务', '供应链', '市场策略', '跨境运营'],
+  },
+  {
+    period: '2018 — 2022',
+    role: '英语专业 · 学士学位',
+    org: '西安外国语大学（西外）',
+    active: false,
+    desc: '扎实的语言基础成为跨文化沟通的底层能力，培养了对用户心理、叙事结构与内容传播逻辑的系统认知。',
+    tags: ['英语', '语言学', '跨文化沟通', '传播学'],
   },
 ]
 
@@ -110,10 +118,6 @@ export default function Home() {
 
   const selectProject = (id) => {
     setSelectedProj(id)
-    // Smooth scroll to the detail pane below the coverflow
-    setTimeout(() => {
-      projPaneRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 60)
   }
 
   const handlePrevProj = () => {
@@ -164,7 +168,7 @@ export default function Home() {
         style={
           phase === 'intro'
             ? { zIndex: 500, cursor: 'grab' }
-            : { zIndex: 0, pointerEvents: 'none' }
+            : { display: 'none' }
         }
       >
         <ShaderGradientCanvas style={{ position: 'absolute', inset: 0 }} pixelDensity={1.5} fov={45}>
@@ -248,7 +252,7 @@ export default function Home() {
               <div className="animate-in" style={{ pointerEvents: 'auto' }}>
                 <span className="hero-badge">
                   <span className="hero-badge-dot" />
-                  Open to work · 海外产品运营
+                  Open to work
                 </span>
               </div>
               <h1 className="hero-h1" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', fontWeight: 700 }}>
@@ -371,11 +375,10 @@ export default function Home() {
                       style={{ transitionDelay: `${i * 0.12}s` }}
                     >
                       <div style={{
-                        background: 'rgba(255,255,255,0.04)',
-                        border: `1px solid ${item.active ? 'rgba(200, 151, 42,0.2)' : 'rgba(255,255,255,0.08)'}`,
+                        background: 'rgba(0,0,0,0.02)',
+                        border: `1px solid ${item.active ? 'rgba(255, 107, 53, 0.2)' : 'rgba(0,0,0,0.07)'}`,
                         borderRadius: 16,
                         padding: '24px 28px',
-                        backdropFilter: 'blur(12px)',
                         transition: 'all 0.4s var(--ease)',
                       }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8, flexWrap: 'wrap', gap: 8 }}>
@@ -390,7 +393,7 @@ export default function Home() {
                             <span style={{
                               display: 'inline-flex', alignItems: 'center', gap: 6,
                               padding: '4px 12px', borderRadius: 100,
-                              background: 'rgba(200, 151, 42,0.12)', border: '1px solid rgba(200, 151, 42,0.25)',
+                              background: 'rgba(255, 107, 53, 0.1)', border: '1px solid rgba(255, 107, 53, 0.25)',
                               fontSize: '0.6875rem', fontWeight: 600, color: 'var(--accent)',
                               letterSpacing: '0.08em', textTransform: 'uppercase',
                               flexShrink: 0
@@ -407,7 +410,7 @@ export default function Home() {
                           {item.tags.map(t => (
                             <span key={t} style={{
                               padding: '3px 10px', borderRadius: 6,
-                              background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+                              background: 'rgba(0,0,0,0.04)', border: '1px solid rgba(0,0,0,0.08)',
                               fontSize: '0.75rem', color: 'var(--muted)', fontFamily: 'var(--font-mono)'
                             }}>{t}</span>
                           ))}
@@ -479,25 +482,24 @@ export default function Home() {
                         display: 'flex',
                         alignItems: 'center',
                         gap: 18,
-                        background: 'rgba(255,255,255,0.04)',
-                        border: '1px solid rgba(255,255,255,0.08)',
+                        background: 'rgba(0,0,0,0.02)',
+                        border: '1px solid rgba(0,0,0,0.07)',
                         borderRadius: 16,
-                        backdropFilter: 'blur(12px)',
                         transition: 'all 0.3s var(--ease)',
                         color: 'inherit',
                       }}
                       onMouseEnter={e => {
-                        e.currentTarget.style.background = 'rgba(200, 151, 42,0.08)'
-                        e.currentTarget.style.borderColor = 'rgba(200, 151, 42,0.25)'
+                        e.currentTarget.style.background = 'rgba(255, 107, 53, 0.06)'
+                        e.currentTarget.style.borderColor = 'rgba(255, 107, 53, 0.25)'
                       }}
                       onMouseLeave={e => {
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
+                        e.currentTarget.style.background = 'rgba(0,0,0,0.02)'
+                        e.currentTarget.style.borderColor = 'rgba(0,0,0,0.07)'
                       }}
                     >
                       <div style={{
                         width: 48, height: 48, borderRadius: 12,
-                        background: 'rgba(200, 151, 42,0.1)',
+                        background: 'var(--accent-subtle)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         color: 'var(--accent)', flexShrink: 0
                       }}>{c.icon}</div>

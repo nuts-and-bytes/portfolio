@@ -24,6 +24,16 @@ const projects = [
     tools: ['React', 'Local Storage', 'CSS Transitions'],
     link: 'https://nuts-and-bytes.github.io/omm-daily-happy/',
   },
+  {
+    title: 'AI 松鼠花园 · 个人博客',
+    status: '持续更新',
+    date: '2026 年',
+    icon: '🐿️',
+    desc: '个人博客与知识花园，记录用 AI 重塑学习和工作的全过程。分享 AI 工具实战经验、独立开发心得与跨境运营洞察，持续输出有深度的思考与实验记录。',
+    highlights: ['以「松鼠囤果实」为隐喻，建立个人知识管理体系', '记录 AI 工具在真实工作流中的落地实践', '探索 AI 时代下个体效能的边界与可能性'],
+    tools: ['GitHub Pages', 'Markdown', 'AI 辅助写作'],
+    link: 'https://nuts-and-bytes.github.io/ai-songshu-garden/',
+  },
 ]
 
 function MoodSandbox() {
@@ -193,7 +203,7 @@ export default function Coding({ isInline = false }) {
             </div>
             <h1 className="section-title">AI 辅助 Coding 项目</h1>
             <p className="animate-in delay-1" style={{ color: 'var(--secondary)', marginTop: 16, fontSize: '1.0625rem' }}>
-              用 AI 工具独立完成的两个生活工具应用
+              用 AI 工具独立完成的生活工具应用与个人知识博客
             </p>
           </div>
         </div>
@@ -211,7 +221,7 @@ export default function Coding({ isInline = false }) {
                     </div>
                     <div>
                       <div style={{ display: 'flex', gap: 12, marginBottom: 4 }}>
-                        <span className="tag-status tag-done">{p.status}</span>
+                        <span className={`tag-status ${p.status === '持续更新' ? 'tag-active' : 'tag-done'}`}>{p.status}</span>
                         <span style={{ fontSize: '0.75rem', color: 'var(--muted)' }}>{p.date}</span>
                       </div>
                       <h2 style={{ fontSize: '1.25rem', fontWeight: 600 }}>{p.title}</h2>
