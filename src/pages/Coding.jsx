@@ -5,6 +5,16 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const projects = [
   {
+    title: 'Product Quest 产品经理大冒险',
+    status: '已完成',
+    date: '2026 年 7 月',
+    icon: '🎮',
+    desc: '把产品经理的方法论做成一款能真正通关的像素 RPG。你扮演零基础新手 PM 入职创业公司「星火科技」，在老板、工程师与用户之间做真实取舍——从需求验证、用户研究、撰写 PRD 到技术落地，通关即走完从想法到产品的 0→1 全流程。',
+    highlights: ['序章 + 4 大章节、8 张场景地图，内含 45 个决策点与 60 道检验题', '引擎与内容彻底分离：人物场景用 Canvas 代码绘制、音效由 Web Audio 实时合成，全程零美术与音频素材', '术语与案例逐条标注权威出处（16 处引用）——《Inspired》《精益创业》《The Mom Test》《俞军产品方法论》等产品经典'],
+    tools: ['原生 JavaScript', 'Canvas', 'Web Audio API', 'GitHub Pages'],
+    link: 'https://nuts-and-bytes.github.io/Product-quest/',
+  },
+  {
     title: 'Fitness Daily 健身打卡',
     status: '已完成',
     date: '2026 年 3 月',
