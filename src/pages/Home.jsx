@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, lazy, Suspense } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import Footer from '../components/Footer'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import DailyTree from './DailyTree'
@@ -143,8 +143,7 @@ export default function Home() {
   const [showHint, setShowHint] = useState(false)
   const [showEnter, setShowEnter] = useState(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [selectedProj, setSelectedProj] = useState('daily-tree')
-  const [flippedCard, setFlippedCard] = useState(null)
+  const [selectedProj, setSelectedProj] = useState(null)
 
   // 移动端 / 低动效偏好：跳过 1MB 的 three.js 3D 球体，用纯 CSS 渐变兜底，省流量与 GPU
   const [lite] = useState(() =>
@@ -154,60 +153,16 @@ export default function Home() {
       window.matchMedia?.('(pointer: coarse)').matches)
   )
 
-  const projPaneRef = useRef(null)
-  const coverflowRef = useRef(null)
-  const selectedProjRef = useRef('daily-tree')
-  const projOrder = ['daily-tree', 'word-universe', 'coding', 'fili-tv']
-
-  useEffect(() => { selectedProjRef.current = selectedProj }, [selectedProj])
-
-  const selectProject = (id) => {
-    setSelectedProj(id)
-    setFlippedCard(null)
-    requestAnimationFrame(() => {
-      const sec = document.getElementById('projects')
-      if (!sec) return
-      const top = sec.getBoundingClientRect().top + window.scrollY - 64
-      window.scrollTo({ top, behavior: 'smooth' })
-    })
-  }
-
-  useEffect(() => {
-    const el = coverflowRef.current
-    if (!el) return
-    let cooldown = false
-    const handler = (e) => {
-      e.preventDefault()
-      if (cooldown) return
-      cooldown = true
-      setTimeout(() => { cooldown = false }, 600)
-      const dx = e.deltaX, dy = e.deltaY
-      const delta = Math.abs(dx) > Math.abs(dy) ? dx : dy
-      if (delta === 0) return
-      const order = ['daily-tree', 'word-universe', 'coding', 'fili-tv']
-      const cur = selectedProjRef.current
-      const idx = order.indexOf(cur)
-      const next = delta > 0
-        ? order[(idx + 1) % order.length]
-        : order[(idx - 1 + order.length) % order.length]
-      setSelectedProj(next)
-      selectedProjRef.current = next
-      setFlippedCard(null)
+  // 手风琴开合：点已开的行则收起；展开时把该行滚到视口顶部，让下方展开的案例可见
+  const toggleProject = (id) => {
+    const next = selectedProj === id ? null : id
+    setSelectedProj(next)
+    if (next) {
+      requestAnimationFrame(() => {
+        document.getElementById(`feature-row-${next}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
     }
-    el.addEventListener('wheel', handler, { passive: false })
-    return () => el.removeEventListener('wheel', handler)
-  }, [])
-
-  // 选中卡片后把它滚到轨道中央：移动端窄屏下首尾卡片不再被裁到屏幕外
-  useEffect(() => {
-    const track = coverflowRef.current?.querySelector('.coverflow-track')
-    const active = track?.querySelector('.coverflow-item.active')
-    if (!track || !active) return
-    const trackRect = track.getBoundingClientRect()
-    const activeRect = active.getBoundingClientRect()
-    const target = track.scrollLeft + (activeRect.left - trackRect.left) - (track.clientWidth - activeRect.width) / 2
-    track.scrollTo({ left: Math.max(0, target), behavior: 'smooth' })
-  }, [selectedProj])
+  }
 
   useScrollReveal(phase)
 
@@ -368,96 +323,71 @@ export default function Home() {
                 <div className="accent-line" />
                 <p className="section-label">Work</p>
                 <h2 className="section-title animate-in" style={{ marginBottom: 16 }}>项目案例柜</h2>
-                <p className="animate-in delay-1" style={{ color: 'var(--secondary)', marginBottom: 40, maxWidth: 500 }}>
-                  在原位切换浏览我独立开发与主导的项目，点击海报可体验交互沙盒
+                <p className="animate-in delay-1" style={{ color: 'var(--secondary)', marginBottom: 56, maxWidth: 520 }}>
+                  向下浏览我独立开发与主导的项目，点开任意一个即可展开完整案例与交互沙盒
                 </p>
 
-                {/* Cover Flow */}
-                <div ref={coverflowRef} className="coverflow-container animate-in delay-2" style={{ cursor: 'default' }}>
-                  <div className="coverflow-track">
-                    {projectsData.map(proj => {
-                      const isActive = selectedProj === proj.id
-                      const isCardFlipped = flippedCard === proj.id
-                      return (
-                        <div
-                          key={proj.id}
-                          onClick={() => !isCardFlipped && selectProject(proj.id)}
-                          onKeyDown={(e) => { if (!isCardFlipped && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); selectProject(proj.id) } }}
-                          role="button"
-                          tabIndex={0}
-                          aria-label={`查看项目：${proj.title}`}
-                          aria-pressed={isActive}
-                          className={`coverflow-item ${isActive ? 'active' : ''}`}
-                          style={{ '--cover-gradient': proj.gradient, '--active-accent': proj.accentColor }}
-                        >
-                          <div className={`proj-flip-inner${isCardFlipped ? ' flipped' : ''}`}>
-                            {/* Front */}
-                            <div className="proj-flip-front">
-                              <div className="project-poster-bg">
-                                <div className="project-poster-header">
-                                  <span className="project-poster-badge">{proj.badge}</span>
-                                  <div className="project-poster-logo-container">
-                                    {proj.illustration}
-                                  </div>
-                                </div>
-                                <div className="project-poster-footer">
-                                  <p className="project-poster-tag">{proj.tag}</p>
-                                  <h3 className="project-poster-title">{proj.title}</h3>
-                                </div>
+                {/* Feature Rows — 竖向叙事行，桌面左右交替，移动端堆叠 */}
+                <div className="feature-rows">
+                  {projectsData.map((proj, i) => {
+                    const isOpen = selectedProj === proj.id
+                    return (
+                      <div key={proj.id} id={`feature-row-${proj.id}`} className="feature-block reveal">
+                        <div className={`feature-row${i % 2 === 1 ? ' reverse' : ''}`}>
+                          {/* Visual poster */}
+                          <div
+                            className="feature-visual"
+                            style={{ '--cover-gradient': proj.gradient, '--active-accent': proj.accentColor }}
+                            onClick={() => toggleProject(proj.id)}
+                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleProject(proj.id) } }}
+                            role="button"
+                            tabIndex={0}
+                            aria-label={`${isOpen ? '收起' : '展开'}项目：${proj.title}`}
+                            aria-expanded={isOpen}
+                          >
+                            <div className="feature-poster">
+                              <div className="feature-poster-top">
+                                <span className="project-poster-badge">{proj.badge}</span>
+                                <div className="feature-poster-logo">{proj.illustration}</div>
                               </div>
-                              {isActive && (
-                                <button
-                                  className="flip-hint-btn"
-                                  onClick={(e) => { e.stopPropagation(); setFlippedCard(proj.id) }}
-                                >
-                                  详情 ↺
-                                </button>
-                              )}
-                            </div>
-                            {/* Back */}
-                            <div
-                              className="proj-flip-back"
-                              role="button"
-                              tabIndex={isCardFlipped ? 0 : -1}
-                              aria-label="收起详情"
-                              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setFlippedCard(null) } }}
-                              onClick={(e) => { e.stopPropagation(); setFlippedCard(null) }}
-                            >
-                              <div>
-                                <p style={{ fontSize: '0.5625rem', color: 'rgba(255,255,255,0.45)', marginBottom: 3, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                                  {proj.title}
-                                </p>
-                                <p style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.82)', lineHeight: 1.45 }}>
-                                  {proj.details?.desc}
-                                </p>
-                              </div>
-                              <div>
-                                <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap', marginBottom: 4 }}>
-                                  {proj.details?.tech.map(t => (
-                                    <span key={t} style={{ fontSize: '0.5rem', padding: '1px 5px', borderRadius: 3, background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.65)' }}>
-                                      {t}
-                                    </span>
-                                  ))}
-                                </div>
-                                <p style={{ fontSize: '0.5rem', color: 'rgba(255,255,255,0.35)', textAlign: 'right' }}>← 返回</p>
+                              <div className="feature-poster-bottom">
+                                <p className="project-poster-tag">{proj.tag}</p>
+                                <h3 className="feature-poster-title">{proj.title}</h3>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </div>
-                <p style={{ fontSize: '0.6875rem', color: 'var(--muted)', textAlign: 'center', marginTop: -4, marginBottom: 24, letterSpacing: '0.04em' }}>
-                  滚轮切换 · 点击激活 · 详情 ↺ 翻转查看
-                </p>
 
-                {/* Inline Pane */}
-                <div ref={projPaneRef} className="segment-pane" key={selectedProj}>
-                  {selectedProj === 'daily-tree' && <DailyTree isInline={true} />}
-                  {selectedProj === 'word-universe' && <WordUniverse isInline={true} />}
-                  {selectedProj === 'coding' && <Coding isInline={true} />}
-                  {selectedProj === 'fili-tv' && <FiliTV isInline={true} />}
+                          {/* Body */}
+                          <div className="feature-body">
+                            <p className="feature-eyebrow" style={{ color: proj.accentColor }}>{proj.tag}</p>
+                            <h3 className="feature-title">{proj.title}</h3>
+                            <p className="feature-desc">{proj.details?.desc}</p>
+                            <div className="feature-tags">
+                              {proj.details?.tech.map(t => <span key={t} className="tag">{t}</span>)}
+                            </div>
+                            <button
+                              className="feature-cta"
+                              onClick={() => toggleProject(proj.id)}
+                              style={{ '--active-accent': proj.accentColor }}
+                              aria-expanded={isOpen}
+                            >
+                              {isOpen ? '收起案例 ↑' : '查看完整案例 ↓'}
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* 就地展开的完整案例（复用现有 inline 详情组件） */}
+                        {isOpen && (
+                          <div className="feature-detail">
+                            {proj.id === 'daily-tree' && <DailyTree isInline={true} />}
+                            {proj.id === 'word-universe' && <WordUniverse isInline={true} />}
+                            {proj.id === 'coding' && <Coding isInline={true} />}
+                            {proj.id === 'fili-tv' && <FiliTV isInline={true} />}
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             </div>

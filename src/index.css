@@ -1326,179 +1326,172 @@ img { max-width: 100%; display: block; }
   pointer-events: auto; /* Enable interaction for buttons, badge, and stats */
 }
 
-/* ===== Record Cover Flow Slider CSS ===== */
-.coverflow-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 24px;
-  width: 100%;
-  position: relative;
-}
-
-.coverflow-arrow {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--primary);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s var(--ease-haptic);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  z-index: 10;
-  flex-shrink: 0;
-}
-
-.coverflow-arrow:hover {
-  background: var(--accent-subtle);
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: scale(1.1);
-}
-
-.coverflow-arrow:active {
-  transform: scale(0.95);
-}
-
-.coverflow-track {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scrollbar-width: none; /* Hide scrollbar Firefox */
-  padding: 10px 0;
-  width: 100%;
-  max-width: 900px;
-  justify-content: center;
-  scroll-behavior: smooth;
-  box-sizing: border-box;
-}
-
-.coverflow-track::-webkit-scrollbar {
-  display: none; /* Hide scrollbar Chrome/Safari */
-}
-
-.coverflow-item {
-  position: relative;
-  width: 180px;
-  height: 110px;
-  border-radius: var(--radius-lg);
-  overflow: visible;
-  cursor: pointer;
-  perspective: 700px;
-  transition: filter 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-  background: var(--surface);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  flex-shrink: 0;
-  filter: blur(3px) saturate(0.7);
-  opacity: 0.45;
-  transform: scale(0.88) translateZ(0);
-  will-change: transform, filter, opacity;
-}
-
-.coverflow-item.active {
-  filter: none;
-  opacity: 1;
-  transform: scale(1.08) translateZ(0);
-  box-shadow: 0 0 0 2.5px var(--active-accent, var(--accent)), 0 20px 48px rgba(0, 0, 0, 0.5);
-}
-
-/* 移动端：桌面的 justify-content:center 会把首尾卡片裁到屏外且滑不到。
-   改为可横滑 + 吸附，首尾留半屏 padding 让它们能滚到正中（配合 JS 自动居中 active 卡片）。 */
-@media (max-width: 640px) {
-  .coverflow-track {
-    justify-content: flex-start;
-    scroll-snap-type: x mandatory;
-    padding-left: calc(50% - 90px);
-    padding-right: calc(50% - 90px);
-    -webkit-overflow-scrolling: touch;
-  }
-  .coverflow-item {
-    scroll-snap-align: center;
-  }
-}
-
-/* ── Flip Card ── */
-.proj-flip-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.52s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-.proj-flip-inner.flipped {
-  transform: rotateY(180deg);
-}
-.proj-flip-front,
-.proj-flip-back {
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-.proj-flip-back {
-  transform: rotateY(180deg);
-  background: linear-gradient(135deg, rgba(12,12,20,0.97) 0%, rgba(28,20,40,0.97) 100%);
-  padding: 10px 11px;
+/* ===== Feature Rows（项目案例柜：竖向叙事行）===== */
+.feature-rows {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-}
-.flip-hint-btn {
-  position: absolute;
-  bottom: 6px;
-  right: 7px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.22);
-  border-radius: 5px;
-  color: rgba(255,255,255,0.75);
-  font-size: 0.5625rem;
-  font-family: var(--font-mono);
-  padding: 2px 7px;
-  cursor: pointer;
-  letter-spacing: 0.06em;
-  z-index: 5;
-  transition: background 0.2s, color 0.2s;
-  pointer-events: all;
-}
-.flip-hint-btn:hover {
-  background: rgba(255,255,255,0.22);
-  color: #fff;
+  gap: 96px;
+  margin: 8px 0 24px;
 }
 
-.project-poster-bg {
-  position: absolute;
-  inset: 0;
+.feature-block {
+  scroll-margin-top: 76px;
+}
+
+.feature-row {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 56px;
+  align-items: center;
+  max-width: 1120px;
+  margin: 0 auto;
+  width: 100%;
+}
+/* 奇数行左右对调，形成 zig-zag 交替节奏 */
+.feature-row.reverse .feature-visual { order: 2; }
+.feature-row.reverse .feature-body { order: 1; }
+
+/* ── Visual poster ── */
+.feature-visual {
+  cursor: pointer;
+  border-radius: var(--radius-lg);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.feature-poster {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-lg);
   background: var(--cover-gradient);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px;
+  padding: 26px 28px;
   box-sizing: border-box;
-  z-index: 1;
-  transition: transform 0.8s var(--ease);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+  transition: transform 0.5s var(--ease-haptic), box-shadow 0.5s var(--ease-haptic);
 }
-
-.coverflow-item:hover .project-poster-bg {
-  transform: scale(1.05);
+.feature-poster::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 82% 0%, rgba(255, 255, 255, 0.16), transparent 60%);
+  pointer-events: none;
 }
-
-.project-poster-header {
+.feature-visual:hover .feature-poster,
+.feature-visual:focus-visible .feature-poster {
+  transform: translateY(-6px) scale(1.012);
+  box-shadow: 0 30px 64px rgba(0, 0, 0, 0.4), 0 0 0 2px var(--active-accent, var(--accent));
+}
+.feature-poster-top {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+}
+.feature-poster-logo {
+  opacity: 0.9;
+  transform: scale(1.3);
+  transform-origin: right center;
+  transition: transform 0.5s var(--ease-haptic);
+}
+.feature-visual:hover .feature-poster-logo {
+  transform: scale(1.55);
+}
+.feature-poster-bottom {
+  position: relative;
+  z-index: 2;
+}
+.feature-poster-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  margin-top: 2px;
+}
+
+/* ── Body ── */
+.feature-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.feature-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.feature-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+.feature-desc {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--secondary);
+  margin-bottom: 22px;
+  max-width: 460px;
+}
+.feature-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.feature-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--active-accent, var(--accent));
+  color: var(--active-accent, var(--accent));
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-haptic);
+}
+.feature-cta:hover {
+  background: var(--active-accent, var(--accent));
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+/* ── 就地展开的完整案例 ── */
+.feature-detail {
+  margin-top: 44px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  animation: featureDetailIn 0.5s var(--ease) both;
+}
+@keyframes featureDetailIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ── 移动端：单列堆叠，海报在上、文案在下（含 reverse 行）── */
+@media (max-width: 768px) {
+  .feature-rows { gap: 60px; }
+  .feature-row { grid-template-columns: 1fr; gap: 22px; }
+  .feature-row.reverse .feature-visual { order: 1; }
+  .feature-row.reverse .feature-body { order: 2; }
+  .feature-poster { padding: 20px; }
+  .feature-poster-title { font-size: 1.4rem; }
+  .feature-title { font-size: 1.5rem; }
+  .feature-desc { font-size: 0.9375rem; max-width: none; }
+  .feature-detail { margin-top: 32px; }
 }
 
 .project-poster-badge {
@@ -1515,25 +1508,6 @@ img { max-width: 100%; display: block; }
   text-transform: uppercase;
 }
 
-.project-poster-logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.45;
-  transition: all 0.5s var(--ease-haptic);
-  transform-origin: center;
-}
-
-.coverflow-item.active .project-poster-logo-container {
-  opacity: 0.95;
-  transform: scale(1.35); /* Focus icon gets noticeably bigger! */
-}
-
-.project-poster-footer {
-  text-align: left;
-  z-index: 3;
-}
-
 .project-poster-tag {
   font-family: var(--font-mono);
   font-size: 0.5625rem;
@@ -1543,19 +1517,11 @@ img { max-width: 100%; display: block; }
   margin-bottom: 2px;
 }
 
-.project-poster-title {
-  font-size: 0.9375rem;
-  font-weight: 800;
-  color: var(--white);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-}
-
-/* Force reveal children inside the active segment pane to be visible instantly */
-.segment-pane .reveal,
-.segment-pane .reveal-left,
-.segment-pane .reveal-right,
-.segment-pane .reveal-scale {
+/* 展开的完整案例内 reveal 元素立即可见，避免 IntersectionObserver 未触发导致空白 */
+.feature-detail .reveal,
+.feature-detail .reveal-left,
+.feature-detail .reveal-right,
+.feature-detail .reveal-scale {
   opacity: 1 !important;
   transform: none !important;
   filter: none !important;
