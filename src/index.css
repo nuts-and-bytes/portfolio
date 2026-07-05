@@ -80,6 +80,14 @@ img { max-width: 100%; display: block; }
 }
 .gradient-bg-persistent:active { cursor: grabbing; }
 
+/* 3D 球体懒加载期间的兜底渐变，配色贴近 shader（白 → 琥珀 → 蓝） */
+.shader-fallback {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 60% at 50% 42%, #ffffff 0%, rgba(255, 187, 0, 0.28) 42%, rgba(7, 0, 255, 0.18) 78%, transparent 100%),
+    #f7f7f8;
+}
+
 /* ===== Luminous Text ===== */
 .luminous-title {
   font-size: clamp(4rem, 15vw, 10rem);

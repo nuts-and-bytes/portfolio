@@ -1,11 +1,13 @@
-import { useState, useEffect, useRef } from 'react'
-import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react'
+import { useState, useEffect, useRef, lazy, Suspense } from 'react'
 import Footer from '../components/Footer'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import DailyTree from './DailyTree'
 import WordUniverse from './WordUniverse'
 import FiliTV from './FiliTV'
 import Coding from './Coding'
+
+// three.js 体积较大，延迟加载，避免拖慢首屏
+const ShaderScene = lazy(() => import('../components/ShaderScene'))
 
 const projectsData = [
   {
@@ -228,18 +230,9 @@ export default function Home() {
             : { zIndex: -1, pointerEvents: 'none', opacity: 0.14 }
         }
       >
-        <ShaderGradientCanvas style={{ position: 'absolute', inset: 0 }} pixelDensity={1.5} fov={45}>
-          <ShaderGradient
-            animate="on" brightness={1.1} cAzimuthAngle={0} cDistance={7.1}
-            cPolarAngle={140} cameraZoom={17.3}
-            color1="#ffffff" color2="#ffbb00" color3="#0700ff"
-            envPreset="city" grain="off" lightType="3d" reflection={0.1}
-            shader="defaults" type="sphere"
-            uAmplitude={1.4} uDensity={1.1} uFrequency={5.5}
-            uSpeed={0.1} uStrength={1} uTime={0}
-            wireframe={false} enableTransition={true}
-          />
-        </ShaderGradientCanvas>
+        <Suspense fallback={<div className="shader-fallback" />}>
+          <ShaderScene />
+        </Suspense>
       </div>
 
       {/* ===== SKIP BUTTON ===== */}
@@ -364,6 +357,11 @@ export default function Home() {
                         <div
                           key={proj.id}
                           onClick={() => !isCardFlipped && selectProject(proj.id)}
+                          onKeyDown={(e) => { if (!isCardFlipped && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); selectProject(proj.id) } }}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`查看项目：${proj.title}`}
+                          aria-pressed={isActive}
                           className={`coverflow-item ${isActive ? 'active' : ''}`}
                           style={{ '--cover-gradient': proj.gradient, '--active-accent': proj.accentColor }}
                         >
@@ -394,6 +392,10 @@ export default function Home() {
                             {/* Back */}
                             <div
                               className="proj-flip-back"
+                              role="button"
+                              tabIndex={isCardFlipped ? 0 : -1}
+                              aria-label="收起详情"
+                              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setFlippedCard(null) } }}
                               onClick={(e) => { e.stopPropagation(); setFlippedCard(null) }}
                             >
                               <div>
