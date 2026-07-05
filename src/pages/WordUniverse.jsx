@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { ghUrl } from '../config'
 
 export default function WordUniverse({ isInline = false }) {
   useScrollReveal()
@@ -76,14 +77,14 @@ export default function WordUniverse({ isInline = false }) {
                   maxWidth: 400,
                   margin: '0 auto'
                 }}>
-                  https://nuts-and-bytes.github.io/word-universe/app/
+                  {ghUrl('word-universe/app/')}
                 </div>
               </div>
 
               {/* Iframe */}
               <div style={{ position: 'relative', width: '100%', height: 550, background: '#141416' }}>
                 <iframe
-                  src="https://nuts-and-bytes.github.io/word-universe/app/"
+                  src={ghUrl('word-universe/app/')}
                   title="Word Universe App"
                   style={{
                     width: '100%',

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { ghUrl } from '../config'
 
 const projects = [
   {
@@ -12,7 +13,7 @@ const projects = [
     desc: '把产品经理的方法论做成一款能真正通关的像素 RPG。你扮演零基础新手 PM 入职创业公司「星火科技」，在老板、工程师与用户之间做真实取舍——从需求验证、用户研究、撰写 PRD 到技术落地，通关即走完从想法到产品的 0→1 全流程。',
     highlights: ['序章 + 4 大章节、8 张场景地图，内含 45 个决策点与 60 道检验题', '引擎与内容彻底分离：人物场景用 Canvas 代码绘制、音效由 Web Audio 实时合成，全程零美术与音频素材', '术语与案例逐条标注权威出处（16 处引用）——《Inspired》《精益创业》《The Mom Test》《俞军产品方法论》等产品经典'],
     tools: ['原生 JavaScript', 'Canvas', 'Web Audio API', 'GitHub Pages'],
-    link: 'https://nuts-and-bytes.github.io/Product-quest/',
+    link: ghUrl('Product-quest/'),
   },
   {
     title: 'Fitness Daily 健身打卡',
@@ -22,7 +23,7 @@ const projects = [
     desc: '由于市面上已有的健身打卡 App 广告过多且常强制收费，我为自己写了这个极简的无广告打卡工具。它支持羽毛球、篮球和力量训练记录，并能在本地直接呈现运动周报与月历热力图，轻量便携。',
     highlights: ['没有任何多余的三方统计，只保留纯粹的打卡动作', '根据羽毛球/篮球等不同类型，动态适配字段与图标', '使用 localStorage 存储，秒开且不丢失数据'],
     tools: ['React', 'Vite', 'CSS Grid', 'GitHub Pages'],
-    link: 'https://nuts-and-bytes.github.io/fitness-daily/',
+    link: ghUrl('fitness-daily/'),
   },
   {
     title: '每日心情打卡',
@@ -32,7 +33,7 @@ const projects = [
     desc: '一个记录日常情绪碎片的手账工具。为了最快地捕获情绪，我将其精简为「选择 Emoji」单次点击记录。附带周趋势对比及心情占比色块，方便复盘近期的压力与恢复状态。',
     highlights: ['设计了丝滑的按钮交互动效，点击有模拟物理阻尼的缩放反馈', '支持多情绪按周聚合，直观呈现情绪波形', '静态托管，在移动端和桌面端均有良好的离线支持'],
     tools: ['React', 'Local Storage', 'CSS Transitions'],
-    link: 'https://nuts-and-bytes.github.io/omm-daily-happy/',
+    link: ghUrl('omm-daily-happy/'),
   },
   {
     title: 'AI 松鼠花园 · 个人博客',
@@ -42,7 +43,7 @@ const projects = [
     desc: '个人博客与知识花园，记录用 AI 重塑学习和工作的全过程。分享 AI 工具实战经验、独立开发心得与跨境运营洞察，持续输出有深度的思考与实验记录。',
     highlights: ['以「松鼠囤果实」为隐喻，建立个人知识管理体系', '记录 AI 工具在真实工作流中的落地实践', '探索 AI 时代下个体效能的边界与可能性'],
     tools: ['GitHub Pages', 'Markdown', 'AI 辅助写作'],
-    link: 'https://nuts-and-bytes.github.io/ai-songshu-garden/',
+    link: ghUrl('ai-songshu-garden/'),
   },
 ]
 

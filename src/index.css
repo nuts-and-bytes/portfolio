@@ -1410,6 +1410,21 @@ img { max-width: 100%; display: block; }
   box-shadow: 0 0 0 2.5px var(--active-accent, var(--accent)), 0 20px 48px rgba(0, 0, 0, 0.5);
 }
 
+/* 移动端：桌面的 justify-content:center 会把首尾卡片裁到屏外且滑不到。
+   改为可横滑 + 吸附，首尾留半屏 padding 让它们能滚到正中（配合 JS 自动居中 active 卡片）。 */
+@media (max-width: 640px) {
+  .coverflow-track {
+    justify-content: flex-start;
+    scroll-snap-type: x mandatory;
+    padding-left: calc(50% - 90px);
+    padding-right: calc(50% - 90px);
+    -webkit-overflow-scrolling: touch;
+  }
+  .coverflow-item {
+    scroll-snap-align: center;
+  }
+}
+
 /* ── Flip Card ── */
 .proj-flip-inner {
   position: relative;

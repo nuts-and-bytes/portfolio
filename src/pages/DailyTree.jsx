@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { ghUrl } from '../config'
 
 export default function DailyTree({ isInline = false }) {
   useScrollReveal()
@@ -76,14 +77,14 @@ export default function DailyTree({ isInline = false }) {
                   maxWidth: 400,
                   margin: '0 auto'
                 }}>
-                  https://nuts-and-bytes.github.io/daily-tree/app/
+                  {ghUrl('daily-tree/app/')}
                 </div>
               </div>
 
               {/* Iframe */}
               <div style={{ position: 'relative', width: '100%', height: 550, background: '#141416' }}>
                 <iframe
-                  src="https://nuts-and-bytes.github.io/daily-tree/app/"
+                  src={ghUrl('daily-tree/app/')}
                   title="Daily Tree App"
                   style={{
                     width: '100%',

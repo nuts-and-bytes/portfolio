@@ -7,6 +7,8 @@ import FiliTV from './FiliTV'
 import Coding from './Coding'
 
 // three.js 体积较大，延迟加载，避免拖慢首屏
+import { ghUrl } from '../config'
+
 const ShaderScene = lazy(() => import('../components/ShaderScene'))
 
 const projectsData = [
@@ -20,7 +22,7 @@ const projectsData = [
     details: {
       desc: '用 Three.js 构建的 3D 日记花园，每条记录都长成一棵树，在 WebGL 场景里漫游回忆。',
       tech: ['Three.js', 'WebGL', 'React'],
-      link: 'https://nuts-and-bytes.github.io/daily-tree/app/',
+      link: ghUrl('daily-tree/app/'),
     },
     illustration: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#FFF' }}>
@@ -144,6 +146,14 @@ export default function Home() {
   const [selectedProj, setSelectedProj] = useState('daily-tree')
   const [flippedCard, setFlippedCard] = useState(null)
 
+  // 移动端 / 低动效偏好：跳过 1MB 的 three.js 3D 球体，用纯 CSS 渐变兜底，省流量与 GPU
+  const [lite] = useState(() =>
+    typeof window !== 'undefined' &&
+    (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ||
+      window.matchMedia?.('(max-width: 768px)').matches ||
+      window.matchMedia?.('(pointer: coarse)').matches)
+  )
+
   const projPaneRef = useRef(null)
   const coverflowRef = useRef(null)
   const selectedProjRef = useRef('daily-tree')
@@ -188,6 +198,17 @@ export default function Home() {
     return () => el.removeEventListener('wheel', handler)
   }, [])
 
+  // 选中卡片后把它滚到轨道中央：移动端窄屏下首尾卡片不再被裁到屏幕外
+  useEffect(() => {
+    const track = coverflowRef.current?.querySelector('.coverflow-track')
+    const active = track?.querySelector('.coverflow-item.active')
+    if (!track || !active) return
+    const trackRect = track.getBoundingClientRect()
+    const activeRect = active.getBoundingClientRect()
+    const target = track.scrollLeft + (activeRect.left - trackRect.left) - (track.clientWidth - activeRect.width) / 2
+    track.scrollTo({ left: Math.max(0, target), behavior: 'smooth' })
+  }, [selectedProj])
+
   useScrollReveal(phase)
 
   useEffect(() => {
@@ -226,13 +247,17 @@ export default function Home() {
         className="gradient-bg-persistent"
         style={
           phase === 'intro'
-            ? { zIndex: 500, cursor: 'grab' }
+            ? (lite ? { zIndex: 500, pointerEvents: 'none' } : { zIndex: 500, cursor: 'grab' })
             : { zIndex: -1, pointerEvents: 'none', opacity: 0.14 }
         }
       >
-        <Suspense fallback={<div className="shader-fallback" />}>
-          <ShaderScene />
-        </Suspense>
+        {lite ? (
+          <div className="shader-fallback" />
+        ) : (
+          <Suspense fallback={<div className="shader-fallback" />}>
+            <ShaderScene />
+          </Suspense>
+        )}
       </div>
 
       {/* ===== SKIP BUTTON ===== */}
@@ -267,7 +292,7 @@ export default function Home() {
             </p>
           </div>
 
-          {showHint && (
+          {showHint && !lite && (
             <div className="intro-hint intro-hint-dark">
               <div className="intro-hint-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
