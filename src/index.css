@@ -1358,6 +1358,22 @@ img { max-width: 100%; display: block; }
   outline: none;
   -webkit-tap-highlight-color: transparent;
 }
+.feature-shot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+/* 有真实成品图时，poster 只当外框：去内边距、渐变底与高光 */
+.feature-poster:has(.feature-shot) {
+  padding: 0;
+  background: none;
+}
+.feature-poster:has(.feature-shot)::after {
+  display: none;
+}
 .feature-poster {
   position: relative;
   aspect-ratio: 16 / 10;

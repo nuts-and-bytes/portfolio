@@ -19,6 +19,7 @@ const projectsData = [
     badge: 'WebGL / Three.js',
     gradient: 'linear-gradient(135deg, #022c22 0%, #065f46 60%, #10b981 100%)',
     accentColor: '#10b981',
+    shot: `${import.meta.env.BASE_URL}shots/daily-tree.png`,
     details: {
       desc: '用 Three.js 构建的 3D 日记花园，每条记录都长成一棵树，在 WebGL 场景里漫游回忆。',
       tech: ['Three.js', 'WebGL', 'React'],
@@ -38,6 +39,7 @@ const projectsData = [
     badge: 'D3.js / LLM Embed',
     gradient: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #6366f1 100%)',
     accentColor: '#6366f1',
+    shot: `${import.meta.env.BASE_URL}shots/word-universe.png`,
     details: {
       desc: '用 D3.js 将词语语义可视化为星系，通过 LLM embedding 计算词义相似度与距离。',
       tech: ['D3.js', 'React', 'LLM Embed'],
@@ -58,6 +60,7 @@ const projectsData = [
     badge: 'React / Vite / Claude',
     gradient: 'linear-gradient(135deg, #431407 0%, #7c2d12 60%, #ea580c 100%)',
     accentColor: '#ea580c',
+    shot: `${import.meta.env.BASE_URL}shots/product-quest.png`,
     details: {
       desc: '借助 AI 工具独立完成多个生活类 App，展示 vibe coding 的创意执行力。',
       tech: ['React', 'Vite', 'GitHub Pages'],
@@ -346,14 +349,20 @@ export default function Home() {
                             aria-expanded={isOpen}
                           >
                             <div className="feature-poster">
-                              <div className="feature-poster-top">
-                                <span className="project-poster-badge">{proj.badge}</span>
-                                <div className="feature-poster-logo">{proj.illustration}</div>
-                              </div>
-                              <div className="feature-poster-bottom">
-                                <p className="project-poster-tag">{proj.tag}</p>
-                                <h3 className="feature-poster-title">{proj.title}</h3>
-                              </div>
+                              {proj.shot ? (
+                                <img className="feature-shot" src={proj.shot} alt={proj.title} loading="lazy" />
+                              ) : (
+                                <>
+                                  <div className="feature-poster-top">
+                                    <span className="project-poster-badge">{proj.badge}</span>
+                                    <div className="feature-poster-logo">{proj.illustration}</div>
+                                  </div>
+                                  <div className="feature-poster-bottom">
+                                    <p className="project-poster-tag">{proj.tag}</p>
+                                    <h3 className="feature-poster-title">{proj.title}</h3>
+                                  </div>
+                                </>
+                              )}
                             </div>
                           </div>
 
