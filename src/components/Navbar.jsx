@@ -1,91 +1,58 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
 
-const mainLinks = [
-  { id: 'hero', label: '首页' },
-  { id: 'projects', label: '项目' },
-  { id: 'experience', label: '经历' },
-  { id: 'contact', label: '联系' },
+const links = [
+  { id: 'cases', label: '案例' },
+  { id: 'experiments', label: '实验' },
+  { id: 'writing', label: '写作' },
+  { id: 'about', label: '关于' },
 ]
-
-function scrollToSection(id) {
-  const el = document.getElementById(id)
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState('hero')
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const location = useLocation()
+  const [progress, setProgress] = useState(0)
+  const [active, setActive] = useState('')
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24)
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      setProgress(max > 0 ? (window.scrollY / max) * 100 : 0)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id)
-        })
-      },
-      { threshold: 0.3 }
+    if (!('IntersectionObserver' in window)) return
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id) }),
+      { rootMargin: '-30% 0px -55% 0px' }
     )
-    mainLinks.forEach(({ id }) => {
+    links.forEach(({ id }) => {
       const el = document.getElementById(id)
-      if (el) observer.observe(el)
+      if (el) io.observe(el)
     })
-    return () => observer.disconnect()
-  }, [location.pathname])
+    return () => io.disconnect()
+  }, [])
 
-  useEffect(() => {
-    setMobileOpen(false)
-  }, [location])
+  const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <>
-      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-        <div className="navbar-inner">
-          <Link to="/" className="navbar-logo">Eric Lu</Link>
-          <ul className="navbar-links">
-            {mainLinks.map(link => (
-              <li key={link.id}>
-                <button
-                  onClick={() => scrollToSection(link.id)}
-                  className={activeSection === link.id ? 'active' : ''}
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit', color: 'inherit', padding: 0 }}
-                >
-                  {link.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-          <button className="mobile-toggle" onClick={() => setMobileOpen(true)} aria-label="打开菜单">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M3 12h18M3 6h18M3 18h18" />
-            </svg>
-          </button>
-        </div>
-      </nav>
-
-      {mobileOpen && (
-        <div className="mobile-nav">
-          <button onClick={() => setMobileOpen(false)} style={{ position: 'absolute', top: 20, right: 20, background: 'none', border: 'none', cursor: 'pointer' }} aria-label="关闭菜单">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M18 6L6 18M6 6l12 12" />
-            </svg>
-          </button>
-          {mainLinks.map(link => (
-            <button key={link.id} onClick={() => { scrollToSection(link.id); setMobileOpen(false) }}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit', color: 'inherit', fontSize: '1.5rem', padding: '8px 0', display: 'block', width: '100%', textAlign: 'center' }}>
-              {link.label}
+    <nav className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
+      <div className="nav-progress" style={{ width: `${progress}%` }} />
+      <div className="nav-inner">
+        <button className="nav-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          朱鑫垚 <span className="nav-logo-en">Xinyao Zhu</span>
+        </button>
+        <div className="nav-links">
+          {links.map((l) => (
+            <button key={l.id} className={active === l.id ? 'nav-active' : ''} onClick={() => go(l.id)}>
+              {l.label}
             </button>
           ))}
         </div>
-      )}
-    </>
+      </div>
+    </nav>
   )
 }

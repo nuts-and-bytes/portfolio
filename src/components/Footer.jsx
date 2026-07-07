@@ -1,9 +1,7 @@
 export default function Footer() {
   return (
     <footer className="footer">
-      <div className="container">
-        <p>© 2026 Eric Lu · 用 AI 工具构建</p>
-      </div>
+      <p>© 2026 朱鑫垚 · 用 AI 构建，人来把关</p>
     </footer>
   )
 }
