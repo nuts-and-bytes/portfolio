@@ -599,13 +599,13 @@ const PROJECTS = [
     githubRepo: 'word-universe',
   },
   {
-    id: 'fitness-daily',
+    id: 'ironproof',
     icon: '🏋️',
-    title: 'Fitness Daily',
+    title: '铁证 IRONPROOF',
     shortDesc: '每日健身打卡 + 多运动类型',
-    desc: '记录每日健身数据的生活工具，支持篮球、羽毛球等多种运动，周数据 + 月历双重视图。',
-    tags: ['Stitch 前端设计', 'OpenClaw 主体', 'GitHub 部署'],
-    liveUrl: 'https://zhuxinyao99-jpg.github.io/fitness-daily/',
+    desc: '本地优先的健身打卡 PWA，支持篮球、羽毛球等多种运动，周数据 + 月历双重视图，部署于 Cloudflare Pages。',
+    tags: ['TypeScript', 'PWA', 'Cloudflare'],
+    liveUrl: 'https://tiezheng.pages.dev',
   },
   {
     id: 'mood-tracker',
@@ -736,14 +736,14 @@ In `src/pages/Coding.jsx` lines 5-26, replace the `projects` array:
 ```js
 const projects = [
   {
-    title: 'Fitness Daily 健身打卡',
+    title: '铁证 IRONPROOF · 健身打卡',
     status: '已完成',
     date: '2026 年 3 月',
     icon: '🏋️',
-    desc: '记录每日健身数据的生活工具，支持篮球、羽毛球等多种运动。',
+    desc: '本地优先的健身打卡 PWA，支持篮球、羽毛球等多种运动。',
     highlights: ['用 AI 工具从零开始，独立完成产品设计到部署', '支持多运动类型（篮球/羽毛球/其他）', '周数据 + 月历双重视图'],
-    tools: ['Stitch 前端设计', 'OpenClaw 主体', 'GitHub 部署'],
-    link: 'https://zhuxinyao99-jpg.github.io/fitness-daily/',
+    tools: ['TypeScript', 'PWA', 'Cloudflare'],
+    link: 'https://tiezheng.pages.dev',
   },
   {
     title: '每日心情打卡',
@@ -766,7 +766,7 @@ Navigate to `http://localhost:5173/projects/coding`. Both cards should show upda
 
 ```bash
 git add src/pages/Coding.jsx
-git commit -m "feat: update AI tool labels for Fitness Daily and mood tracker"
+git commit -m "feat: update AI tool labels for 铁证 IRONPROOF and mood tracker"
 ```
 
 ---
