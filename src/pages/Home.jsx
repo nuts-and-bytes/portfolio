@@ -34,10 +34,10 @@ const experiments = [
     cta: '试用',
   },
   {
-    title: 'Fitness Daily · 健身打卡',
-    tag: 'React · localStorage',
-    desc: '受够了广告和付费墙，给自己写了个无广告的打卡工具，周报和热力图都在本地。',
-    link: ghUrl('fitness-daily/'),
+    title: '铁证 IRONPROOF · 健身打卡',
+    tag: 'TypeScript · PWA · Cloudflare',
+    desc: '受够了广告和付费墙，给自己写了个本地优先的无广告打卡工具——周报、热力图、离线 PWA，数据不出设备。',
+    link: 'https://tiezheng.pages.dev',
     cta: '试用',
   },
   {
