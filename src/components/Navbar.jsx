@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 const links = [
-  { id: 'cases', label: '案例' },
+  { id: 'cases', label: '代表作' },
   { id: 'experiments', label: '实验' },
   { id: 'writing', label: '写作' },
   { id: 'about', label: '关于' },

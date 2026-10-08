@@ -348,22 +348,6 @@ body::after {
   background: var(--accent); margin: 18px auto 0;
 }
 
-/* Ticker 横幅 */
-.ticker {
-  border-bottom: 1px solid var(--hairline);
-  overflow: hidden; padding: 13px 0; background: var(--paper);
-}
-.ticker-track {
-  display: inline-flex; align-items: center; gap: 28px;
-  white-space: nowrap; width: max-content;
-  animation: tick 36s linear infinite;
-  font-family: var(--mono); font-size: 0.71875rem;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-2);
-}
-.ticker:hover .ticker-track { animation-play-state: paused; }
-.tick-dot { color: var(--accent); font-size: 0.5rem; }
-@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
 /* Quest 播放键背景截图 */
 .quest-load { position: relative; overflow: hidden; }
 .quest-bg {
@@ -402,18 +386,38 @@ body::after {
   .hero-vertical { display: none; }
 }
 @media (max-width: 640px) {
-  .ticker-track { animation-duration: 26s; }
   .contact-row { flex-wrap: wrap; row-gap: 12px; }
   .nav-links button { padding: 8px 2px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ticker-track { animation: none; }
   .quest-bg { transition: none; }
 }
 
 .nowrap { white-space: nowrap; }
 @media (max-width: 420px) {
   .hero-title { font-size: 1.8125rem; }
+}
+
+/* ═══ v4 · 首屏两栏 & 精简 ═══ */
+.hero-grid {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center;
+}
+.hero-title { font-size: clamp(2.125rem, 4.4vw, 3.25rem); }
+.hero-shot { margin: 0; }
+.hero-shot img {
+  display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  border: 1px solid var(--ink); box-shadow: 10px 10px 0 var(--hairline);
+}
+.hero-shot figcaption {
+  margin-top: 14px; font-family: var(--mono); font-size: 0.71875rem;
+  letter-spacing: 0.08em; color: var(--ink-3);
+}
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+  .hero-shot { order: 2; }
+}
+@media (max-width: 640px) {
+  .hero-shot img { aspect-ratio: 4 / 5; }
 }
 
 /* ═══ v3.2 · 动效与交互 ═══ */
@@ -509,3 +513,251 @@ body::after {
   .quest-load-icon::after { animation: none; display: none; }
   .exp-card:hover { transform: none; }
 }
+
+/* ═══ v5 · 纸本与手稿 ═══ */
+:root { --display-en: 'Cormorant Garamond', 'Times New Roman', serif; }
+
+/* 首屏一笔墨线 */
+.hero { position: relative; overflow: hidden; }
+.hero-ink {
+  position: absolute; right: -60px; top: 24px; width: min(540px, 62vw);
+  pointer-events: none; opacity: 0.4; z-index: 0;
+}
+.hero-ink path {
+  fill: none; stroke: var(--accent); stroke-width: 1.1; stroke-linecap: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  animation: ink-draw 4.8s var(--ease) 0.4s forwards;
+}
+@keyframes ink-draw { to { stroke-dashoffset: 0; } }
+.hero-grid { position: relative; z-index: 1; }
+
+.hero-title { font-size: clamp(2.5rem, 5.6vw, 4rem); line-height: 1.22; margin-bottom: 18px; }
+.hero-epi {
+  font-family: var(--display-en); font-style: italic; font-weight: 400;
+  font-size: 1.3125rem; color: var(--ink-2); margin-bottom: 28px; line-height: 1.5;
+}
+
+/* 截图像一张冲印出来的照片 */
+.hero-shot { transform: rotate(-1.6deg); transition: transform 0.6s var(--ease); }
+.hero-shot:hover { transform: rotate(0deg); }
+.hero-shot img {
+  border: none; background: #fff; padding: 12px 12px 0;
+  box-shadow: 0 1px 0 var(--hairline), 0 28px 56px -28px rgba(28, 25, 23, 0.45);
+}
+.hero-shot figcaption {
+  background: #fff; margin-top: 0; padding: 12px 14px 16px;
+  font-family: var(--display-en); font-style: italic; font-size: 1rem;
+  letter-spacing: 0; color: var(--ink-2);
+  box-shadow: 0 28px 56px -28px rgba(28, 25, 23, 0.45);
+}
+
+/* 区块编号：中文大写数字 + 英文斜体副题 */
+.sec-no {
+  font-family: var(--serif); font-weight: 400; font-size: 1rem;
+  letter-spacing: 0.3em; text-transform: none;
+}
+.sec-en {
+  font-family: var(--display-en); font-style: italic; font-weight: 400;
+  font-size: 0.6em; color: var(--ink-3); margin-left: 16px; letter-spacing: 0;
+}
+.section-dark .sec-en { color: rgba(250, 247, 242, 0.45); }
+
+/* 关于页题记 */
+.about-quote {
+  font-family: var(--serif); font-size: clamp(1.25rem, 2.6vw, 1.625rem);
+  line-height: 1.7; margin-bottom: 36px !important;
+  padding-left: 22px; border-left: 2px solid #E8895F;
+}
+.section-dark .about .about-quote { color: var(--paper); }
+
+@media (max-width: 640px) {
+  .hero-ink { right: -120px; top: 60px; width: 380px; opacity: 0.28; }
+  .hero-title { font-size: 2.375rem; }
+  .sec-en { display: block; margin: 6px 0 0; font-size: 0.7em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-ink path { animation: none; stroke-dashoffset: 0; }
+  .hero-shot { transition: none; }
+}
+
+/* ═══ v6 · 全站延续纸本手稿 ═══
+   两种声音：等宽字 = 机器（元数据、技术栈）；衬线 / 英文斜体 = 人（图注、旁注、题记）
+   一种动作：墨线手写（首屏一笔、落款一笔）；一种材质：白色衬纸 + 轻微倾斜 */
+
+.nav-logo-en {
+  font-family: var(--display-en); font-style: italic; font-size: 0.9375rem;
+  text-transform: none; letter-spacing: 0;
+}
+.footer { font-family: var(--serif); letter-spacing: 0.12em; }
+
+/* 图版：白色衬纸 + 编号图注 */
+.plate {
+  margin: 0; background: #fff; padding: 14px 14px 0;
+  box-shadow: 0 1px 0 var(--hairline), 0 28px 56px -32px rgba(28, 25, 23, 0.4);
+}
+.plate figcaption {
+  padding: 14px 4px 16px; font-family: var(--serif); font-size: 0.875rem;
+  color: var(--ink-2); line-height: 1.6;
+}
+.plate figcaption span { color: var(--accent); letter-spacing: 0.2em; margin-right: 14px; }
+.section .plate .arch { background: var(--paper); border-color: var(--hairline); }
+.plate .arch-node { background: #fff; }
+
+/* 案例小标题：一短横 + 衬线 */
+.case-h {
+  font-family: var(--serif); font-weight: 700; font-size: 0.9375rem;
+  letter-spacing: 0.2em; text-transform: none;
+  display: flex; align-items: center; gap: 12px;
+}
+.case-h::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
+
+/* 旁注：一枚小印章 */
+.case-note { font-family: var(--serif); font-style: normal; color: var(--ink-2); }
+.case-note::before {
+  content: '旁注'; display: inline-block; margin-right: 12px; padding: 0 6px;
+  font-size: 0.75rem; letter-spacing: 0.2em; line-height: 1.7;
+  color: var(--accent); border: 1px solid var(--accent);
+}
+
+/* 试玩框放进衬纸 */
+.quest-demo iframe, .quest-load { border: none; }
+.plate.quest-demo .quest-open { top: 28px; right: 28px; }
+
+/* 实验架：一叠索引卡 */
+.exp-grid { gap: 32px 28px; background: none; border: none; }
+.exp-card {
+  background: #fff; padding: 26px 26px 24px;
+  box-shadow: 0 1px 0 var(--hairline), 0 18px 40px -26px rgba(28, 25, 23, 0.35);
+  transform: rotate(var(--tilt, 0deg));
+}
+.exp-card:nth-child(3n+1) { --tilt: -0.6deg; }
+.exp-card:nth-child(3n+2) { --tilt: 0.4deg; }
+.exp-card:nth-child(3n) { --tilt: -0.2deg; }
+.exp-card:hover {
+  background: #fff; transform: rotate(0deg) translateY(-4px);
+  box-shadow: 0 1px 0 var(--hairline), 0 26px 48px -24px rgba(28, 25, 23, 0.4);
+}
+.exp-tag { padding-bottom: 12px; margin-bottom: 4px; border-bottom: 1px solid rgba(194, 65, 12, 0.3); }
+.exp-card h3 { font-size: 1.1875rem; }
+
+/* 写作：一张剪报，日期竖排 */
+.post {
+  background: #fff; border: none; padding: 40px 44px; gap: 36px; align-items: stretch;
+  transform: rotate(0.6deg);
+  box-shadow: 0 1px 0 var(--hairline), 0 28px 56px -32px rgba(28, 25, 23, 0.4);
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+.post:hover { background: #fff; transform: rotate(0deg); }
+.post-date {
+  writing-mode: vertical-rl; flex-shrink: 0;
+  font-family: var(--serif); font-size: 0.875rem; letter-spacing: 0.4em; color: var(--accent);
+  padding-right: 28px; border-right: 1px solid var(--hairline);
+}
+.post-body { flex: 1; }
+.post h3 { font-size: 1.625rem; }
+.post .post-arrow { align-self: center; }
+
+/* 关于：信的结尾，一笔落款 */
+.contact-lead { font-family: var(--serif); font-size: 1.0625rem; color: rgba(250, 247, 242, 0.7); margin-bottom: 10px; }
+.sign { display: block; width: 200px; height: auto; margin: -4px 0 24px; }
+.sign path {
+  fill: none; stroke: #E8895F; stroke-width: 1.6; stroke-linecap: round;
+  stroke-dasharray: 1; stroke-dashoffset: 0;
+}
+.rv-armed .sign path { stroke-dashoffset: 1; }
+.rv-on .sign path { animation: ink-draw 2.4s var(--ease) 0.5s forwards; }
+
+@media (max-width: 640px) {
+  .post { padding: 28px 24px; transform: rotate(0.4deg); }
+  .post-date {
+    writing-mode: horizontal-tb; letter-spacing: 0.2em;
+    padding: 0 0 12px; border-right: none; border-bottom: 1px solid var(--hairline); width: 100%;
+  }
+  .plate.quest-demo .quest-open { top: 24px; right: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .exp-card, .post { transition: none; }
+}
+
+/* 首屏右侧只留墨线一处装饰；卡片标题避免单字成行 */
+.hero-vertical { display: none; }
+.exp-card h3, .case-title, .post h3 { text-wrap: balance; }
+
+/* 手机端：架构图放进衬纸后不能把页面撑宽 */
+.case-grid > * { min-width: 0; }
+@media (max-width: 640px) {
+  .plate { padding: 10px 10px 0; }
+  .arch { padding: 20px 12px; }
+  .arch-dbs { flex-wrap: wrap; }
+  .arch-node { white-space: normal; text-align: center; padding: 7px 10px; font-size: 0.6875rem; }
+}
+
+/* ═══ v7 · 字号阶梯与版面节奏 ═══
+   8 档字号，按用途命名；900 只留给首屏和区块标题 */
+:root {
+  --fs-display: clamp(2.375rem, 5.6vw, 4rem);
+  --fs-h2: clamp(1.875rem, 4.2vw, 2.75rem);
+  --fs-h3: clamp(1.3125rem, 2.6vw, 1.75rem);
+  --fs-h4: 1.25rem;
+  --fs-lead: 1.125rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.75rem;
+  /* 标签灰：纸色上约 5:1，白卡上约 5.5:1 */
+  --ink-3: #6F6862;
+}
+
+/* 1 · 字号收成 8 档 */
+.sec-title { font-size: var(--fs-h2); line-height: 1.25; }
+.case-title, .post h3 { font-size: var(--fs-h3); line-height: 1.4; }
+.exp-card h3 { font-size: var(--fs-h4); }
+.hero-lede, .contact-lead { font-size: var(--fs-lead); }
+.case-grid p, .post-desc, .hero-now li, .exp-desc, .sec-lede, .about p, .hero-links a, .link-strong { font-size: var(--fs-body); }
+.plate figcaption, .case-note, .case-nums span, .writing-more, .contact-row a, .exp-cta, .post-date { font-size: var(--fs-small); }
+.hero-kicker, .now-label, .case-kicker, .exp-tag, .post-meta, .about-langs, .footer, .arch-node { font-size: var(--fs-label); }
+.case-nums strong { line-height: 1.3; }
+
+/* 2 · 深色区里的浅字也要看得清 */
+.section-dark .about-langs { color: rgba(250, 247, 242, 0.62); }
+.footer { color: rgba(250, 247, 242, 0.6); }
+
+/* 3 · 加粗分层：900 只给首屏和区块标题 */
+.case-title, .post h3, .contact-mail, .case-nums strong { font-weight: 700; }
+
+/* 4 · 节奏：主区块更宽松，单篇写作区收紧；所有区块共用一条左边线 */
+.section-head { margin-bottom: 56px; }
+#cases { padding: 128px 0 112px; }
+#writing { padding: 72px 0 96px; }
+#about { padding: 128px 0 112px; }
+#about .container-narrow { max-width: 1020px; }
+.about, .contact { max-width: 720px; }
+
+/* 5 · 手机：数据一行三列、截图提前、页面变短 */
+@media (max-width: 900px) {
+  .hero-grid { gap: 0; }
+  .hero-copy { display: contents; }
+  .hero-links { order: 1; margin-bottom: 48px; }
+  .hero-shot { order: 2; margin-bottom: 48px; }
+  .hero-now { order: 3; margin-bottom: 0; }
+}
+@media (max-width: 640px) {
+  #cases { padding: 88px 0 72px; }
+  #writing { padding: 56px 0 72px; }
+  #about { padding: 88px 0 72px; }
+  .section-head { margin-bottom: 40px; }
+  .case-nums, .case-nums-col { flex-direction: row; }
+  .case-nums > div, .case-nums-col > div {
+    padding: 16px 10px; border-bottom: none; border-right: 1px solid var(--hairline);
+  }
+  .case-nums > div:last-child { border-right: none; }
+  .case-nums strong { font-size: 1.125rem; }
+  .case-nums span { font-size: var(--fs-label); line-height: 1.5; }
+  .arch-node { font-size: var(--fs-label); }
+}
+/* 漏网的字号归档；箭头图标与英文副题按所属标题的 em 比例缩放，不入阶梯 */
+.nav-logo { font-size: var(--fs-lead); }
+.nav-logo-en { font-size: var(--fs-small); }
+.case-h { font-size: var(--fs-body); }
+.arch-arrow, .quest-load-sub, .quest-open { font-size: var(--fs-label); }
+/* 中文标题只在空格与标点处换行，避免把一个词拆成两行；放不下时再强制断开 */
+.case-title, .post h3, .exp-card h3 { word-break: keep-all; overflow-wrap: anywhere; }

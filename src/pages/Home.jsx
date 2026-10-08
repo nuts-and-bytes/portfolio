@@ -68,53 +68,58 @@ export default function Home() {
       <header className="hero" id="hero">
         <div className="container hero-container">
           <p className="hero-vertical" aria-hidden="true">EXPLORE · LEARN · BUILD · SHIP</p>
-          <p className="hero-kicker in-1">Xinyao Zhu — AI-Native Builder · Beijing</p>
-          <h1 className="hero-title in-2">
-            非科班出身，<br />用 AI 把想法<span className="nowrap">做到上线<span className="accent-dot">。</span></span>
-          </h1>
-          <p className="hero-lede in-3">
-            我是朱鑫垚（Eric）。商务英语出身、国际商务在读，零基础开始用 AI agent
-            写代码——现在有 6 个上线的 Web 作品、1 套在真实业务里跑着的企业级 LLM
-            系统，和一个自己会生长的知识库。工具一直在换，探索欲没停过。
-          </p>
+          <svg className="hero-ink" viewBox="0 0 400 400" aria-hidden="true">
+            <path pathLength="1" d="M200 40 C320 30 380 150 300 260 S120 380 110 240 S150 90 240 120 S300 220 220 250" />
+          </svg>
+          <div className="hero-grid">
+            <div className="hero-copy">
+              <p className="hero-kicker in-1">朱鑫垚 Xinyao Zhu · 北京</p>
+              <h1 className="hero-title in-2">
+                为 AI 世界，<br />留一点<span className="nowrap">人味<span className="accent-dot">。</span></span>
+              </h1>
+              <p className="hero-epi in-2">Machines write the code. Someone still has to care why.</p>
+              <p className="hero-lede in-3">
+                我是朱鑫垚（Eric），商务出身，零基础用 AI agent 写代码。把想法做成能用的产品，也把这个过程里属于人的那部分记下来。
+              </p>
 
-          <div className="hero-now in-4">
-            <p className="now-label"><span className="now-dot" />Now · 正在进行</p>
-            <ul>
-              {now.map((n) => <li key={n}>{n}</li>)}
-            </ul>
-          </div>
+              <div className="hero-now in-4">
+                <p className="now-label"><span className="now-dot" />Now · 正在进行</p>
+                <ul>
+                  {now.map((n) => <li key={n}>{n}</li>)}
+                </ul>
+              </div>
 
-          <div className="hero-links in-5">
-            <button className="link-strong" onClick={() => document.getElementById('cases')?.scrollIntoView({ behavior: 'smooth' })}>
-              看两个代表作 ↓
-            </button>
-            <a href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-            <a href={ghUrl('ai-songshu-garden/')} target="_blank" rel="noopener noreferrer">博客 ↗</a>
+              <div className="hero-links in-5">
+                <button className="link-strong" onClick={() => document.getElementById('cases')?.scrollIntoView({ behavior: 'smooth' })}>
+                  看代表作 ↓
+                </button>
+                <a href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                <a href={ghUrl('ai-songshu-garden/')} target="_blank" rel="noopener noreferrer">博客 ↗</a>
+              </div>
+            </div>
+
+            <figure className="hero-shot in-3">
+              <img src={`${import.meta.env.BASE_URL}shots/product-quest.png`} alt="Product Quest 游戏截图" />
+              <figcaption>Product Quest · 原创像素 RPG，可直接试玩</figcaption>
+            </figure>
           </div>
         </div>
       </header>
 
-      <div className="ticker" aria-hidden="true">
-        <div className="ticker-track">
-          <span>AI-NATIVE BUILDER</span><span className="tick-dot">◆</span><span>非科班出身</span><span className="tick-dot">◆</span><span>6 个上线作品</span><span className="tick-dot">◆</span><span>企业级 LLM 系统</span><span className="tick-dot">◆</span><span>零基础 → 上线</span><span className="tick-dot">◆</span><span>探索欲没停过</span><span className="tick-dot">◆</span><span>AI-NATIVE BUILDER</span><span className="tick-dot">◆</span><span>非科班出身</span><span className="tick-dot">◆</span><span>6 个上线作品</span><span className="tick-dot">◆</span><span>企业级 LLM 系统</span><span className="tick-dot">◆</span><span>零基础 → 上线</span><span className="tick-dot">◆</span><span>探索欲没停过</span><span className="tick-dot">◆</span>
-        </div>
-      </div>
-
-      {/* ══════════ 01 旗舰案例 ══════════ */}
+      {/* ══════════ 01 代表作 ══════════ */}
       <section id="cases" className="section">
         <div className="container">
           <div className="section-head rv">
-            <p className="sec-no">01 — Case Studies</p>
-            <h2 className="sec-title">旗舰案例</h2>
+            <p className="sec-no">壹</p>
+            <h2 className="sec-title">代表作<span className="sec-en">Selected Works</span></h2>
             <p className="sec-lede">
-              两个能代表我方法的项目：一个证明我能把 LLM 落进真实业务，一个证明我能把想法做成完整产品。
+              一个证明我能把 LLM 落进真实业务，一个证明我能把想法做成完整产品。
             </p>
           </div>
 
           {/* —— CASE 01：商业情报 Agent —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 01 · 企业级 LLM 应用 · 已部署使用 · 2026.05 – 06</p>
+            <p className="case-kicker">Case 01 · 企业级 LLM 应用 · 2026.05–06</p>
             <h3 className="case-title">私域人才库 & 商业情报 Agent</h3>
 
             <div className="case-grid">
@@ -131,17 +136,20 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="arch" aria-label="系统架构示意">
-                <div className="arch-row"><span className="arch-node">简历 / 文档 / 对话</span></div>
-                <div className="arch-arrow">↓ LLM 批量抽取</div>
-                <div className="arch-row arch-dbs">
-                  <span className="arch-node">PostgreSQL</span>
-                  <span className="arch-node">ChromaDB</span>
-                  <span className="arch-node">Neo4j</span>
+              <figure className="plate">
+                <div className="arch" aria-label="系统架构示意">
+                  <div className="arch-row"><span className="arch-node">简历 / 文档 / 对话</span></div>
+                  <div className="arch-arrow">↓ LLM 批量抽取</div>
+                  <div className="arch-row arch-dbs">
+                    <span className="arch-node">PostgreSQL</span>
+                    <span className="arch-node">ChromaDB</span>
+                    <span className="arch-node">Neo4j</span>
+                  </div>
+                  <div className="arch-arrow">↓ Agent 检索 · 推理 · 溯源</div>
+                  <div className="arch-row"><span className="arch-node arch-out">精准招聘 · VC 尽调 · 企业 BI</span></div>
                 </div>
-                <div className="arch-arrow">↓ Agent 检索 · 推理 · 溯源</div>
-                <div className="arch-row"><span className="arch-node arch-out">精准招聘 · VC 尽调 · 企业 BI</span></div>
-              </div>
+                <figcaption><span>图一</span>从散在聊天记录里的人脉，到顾问每天能查的知识库。</figcaption>
+              </figure>
             </div>
 
             <div className="case-nums">
@@ -156,7 +164,7 @@ export default function Home() {
 
           {/* —— CASE 02：Product Quest —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 02 · 原创像素 RPG · 零素材零后端 · 可试玩</p>
+            <p className="case-kicker">Case 02 · 原创像素 RPG · 可试玩</p>
             <h3 className="case-title">
               <a className="case-title-link" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">Product Quest · 产品经理大冒险<span className="title-arrow">↗</span></a>
             </h3>
@@ -181,7 +189,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="quest-demo">
+            <figure className="plate quest-demo">
               {questLoaded ? (
                 <iframe
                   src={ghUrl('Product-quest/')}
@@ -199,7 +207,8 @@ export default function Home() {
               <a className="quest-open" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">
                 新窗口打开 ↗
               </a>
-            </div>
+              <figcaption><span>图二</span>不用看说明，直接在这里玩一关。</figcaption>
+            </figure>
           </article>
         </div>
       </section>
@@ -208,15 +217,15 @@ export default function Home() {
       <section id="experiments" className="section section-alt">
         <div className="container">
           <div className="section-head rv">
-            <p className="sec-no">02 — Experiments</p>
-            <h2 className="sec-title">实验架</h2>
-            <p className="sec-lede">给自己做的小工具和练手实验——都在线上，点开就能用。</p>
+            <p className="sec-no">贰</p>
+            <h2 className="sec-title">实验架<span className="sec-en">Experiments</span></h2>
+            <p className="sec-lede">给自己做的小工具和练手实验，点开就能用。</p>
           </div>
 
           <div className="exp-grid">
             {experiments.map((e, i) => (
               <a key={e.title} className="exp-card rv" href={e.link} target="_blank" rel="noopener noreferrer">
-                <p className="exp-tag"><span className="exp-no">{String(i + 1).padStart(2, '0')}</span>{e.tag}</p>
+                <p className="exp-tag"><span className="exp-no">No.{String(i + 1).padStart(2, '0')}</span>{e.tag}</p>
                 <h3>{e.title}</h3>
                 <p className="exp-desc">{e.desc}</p>
                 <span className="exp-cta">{e.cta} →</span>
@@ -230,14 +239,15 @@ export default function Home() {
       <section id="writing" className="section">
         <div className="container">
           <div className="section-head rv">
-            <p className="sec-no">03 — Writing</p>
-            <h2 className="sec-title">写作</h2>
+            <p className="sec-no">叁</p>
+            <h2 className="sec-title">写作<span className="sec-en">Writing</span></h2>
             <p className="sec-lede">把过程写下来，是我消化世界的方式。</p>
           </div>
 
           <a className="post rv" href={ghUrl('ai-songshu-garden/%E5%A6%82%E4%BD%95%E7%94%A8-Claude-Code-%E6%90%AD%E4%B8%80%E4%B8%AA%E4%BC%9A%E8%87%AA%E5%8A%A8%E6%95%B4%E7%90%86%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93')} target="_blank" rel="noopener noreferrer">
-            <div>
-              <p className="post-meta">精选 · AI / 工作流 / Obsidian · 2026.06 · 12 分钟</p>
+            <p className="post-date" aria-hidden="true">二〇二六年六月</p>
+            <div className="post-body">
+              <p className="post-meta">精选 · AI / 工作流 / Obsidian · 12 分钟</p>
               <h3>如何用 Claude Code 搭一个会自动整理的知识库</h3>
               <p className="post-desc">
                 丢一个链接，说句 ingest，它就自动转录、写笔记、建 Wiki、连双链——70+ 篇笔记没有一篇是我手动整理的。
@@ -255,11 +265,12 @@ export default function Home() {
       <section id="about" className="section section-dark">
         <div className="container container-narrow">
           <div className="section-head rv">
-            <p className="sec-no">04 — About</p>
-            <h2 className="sec-title">关于</h2>
+            <p className="sec-no">肆</p>
+            <h2 className="sec-title">关于<span className="sec-en">About</span></h2>
           </div>
 
           <div className="about rv">
+            <p className="about-quote">机器会写代码，但总得有人知道，为什么要写它。</p>
             <p>
               北京外国语大学国际商务硕士在读；本科西安外国语大学商务英语（ACCA
               方向），专八。做过海外猎头和投资机构的实习；毕业论文用 Python 爬了 50+
@@ -273,7 +284,11 @@ export default function Home() {
           </div>
 
           <div className="contact rv">
+            <p className="contact-lead">想聊聊，就写信给我。</p>
             <a href="mailto:zhuxinyao99@gmail.com" className="contact-mail">zhuxinyao99@gmail.com</a>
+            <svg className="sign" viewBox="0 0 260 60" aria-hidden="true">
+              <path pathLength="1" d="M6 44 C40 42 70 10 94 14 C114 18 100 50 78 46 C58 42 92 24 140 30 S214 42 254 20" />
+            </svg>
             <div className="contact-row">
               <a href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
               <a href={ghUrl('ai-songshu-garden/')} target="_blank" rel="noopener noreferrer">博客 ↗</a>
