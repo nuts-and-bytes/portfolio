@@ -4,3 +4,6 @@ export const GH_ORIGIN = 'https://nuts-and-bytes.github.io'
 
 // 拼接子项目在 Pages 上的完整地址。path 不带前导斜杠，例如 ghUrl('Product-quest/')
 export const ghUrl = (path) => `${GH_ORIGIN}/${path}`
+
+// stone 博客使用独立的个人子域名。
+export const blogUrl = (path = '') => `https://blog.heystone.site/${path}`

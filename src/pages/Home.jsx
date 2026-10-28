@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Footer from '../components/Footer'
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { ghUrl } from '../config'
+import { blogUrl, ghUrl } from '../config'
 
 /* ---------- 数据 ---------- */
 
@@ -79,7 +79,7 @@ export default function Home() {
                 <button className="link-strong" onClick={() => document.getElementById('cases')?.scrollIntoView({ behavior: 'smooth' })}>
                   看项目 ↓
                 </button>
-                <a href={ghUrl('ai-songshu-garden/')} target="_blank" rel="noopener noreferrer">博客 ↗</a>
+                <a href={blogUrl('')} target="_blank" rel="noopener noreferrer">博客 ↗</a>
               </div>
             </div>
 
@@ -236,7 +236,7 @@ export default function Home() {
             <p className="sec-lede">把过程写下来，是我消化世界的方式。</p>
           </div>
 
-          <a className="post rv" href={ghUrl('ai-songshu-garden/%E5%A6%82%E4%BD%95%E7%94%A8-Claude-Code-%E6%90%AD%E4%B8%80%E4%B8%AA%E4%BC%9A%E8%87%AA%E5%8A%A8%E6%95%B4%E7%90%86%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93')} target="_blank" rel="noopener noreferrer">
+          <a className="post rv" href={blogUrl('posts/如何用-claude-code-搭一个会自动整理的知识库.html')} target="_blank" rel="noopener noreferrer">
             <p className="post-date" aria-hidden="true">二〇二六年十月更新</p>
             <div className="post-body">
               <p className="post-meta">教程 · Obsidian / AI · 附起步包</p>
@@ -249,7 +249,7 @@ export default function Home() {
             <span className="post-arrow" aria-hidden="true">→</span>
           </a>
           <p className="writing-more rv">
-            更多教程、心得和踩坑记录，在 <a href={ghUrl('ai-songshu-garden/')} target="_blank" rel="noopener noreferrer">stone ↗</a>
+            更多教程、心得和踩坑记录，在 <a href={blogUrl('')} target="_blank" rel="noopener noreferrer">stone ↗</a>
           </p>
         </div>
       </section>
@@ -284,7 +284,7 @@ export default function Home() {
             </svg>
             <div className="contact-row">
               <a href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-              <a href={ghUrl('ai-songshu-garden/')} target="_blank" rel="noopener noreferrer">博客 ↗</a>
+              <a href={blogUrl('')} target="_blank" rel="noopener noreferrer">博客 ↗</a>
               <a href="https://t.me/ericlibro" target="_blank" rel="noopener noreferrer">Telegram ↗</a>
             </div>
           </div>
