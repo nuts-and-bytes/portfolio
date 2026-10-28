@@ -603,6 +603,9 @@ body::after {
 .plate figcaption span { color: var(--accent); letter-spacing: 0.2em; margin-right: 14px; }
 .section .plate .arch { background: var(--paper); border-color: var(--hairline); }
 .plate .arch-node { background: #fff; }
+.site-preview { margin-top: 28px; }
+.site-preview > a { display: block; }
+.site-preview img { display: block; width: 100%; height: auto; }
 
 /* 案例小标题：一短横 + 衬线 */
 .case-h {

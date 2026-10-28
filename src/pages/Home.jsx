@@ -224,6 +224,12 @@ export default function Home() {
               适合想在听完之后再读一遍，或更习惯用文字走进一段故事的人。
               <a className="case-repo" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">打开网站，开始阅读 ↗</a>
             </p>
+            <figure className="plate site-preview">
+              <a href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer" aria-label="打开游荡集播客精读网站">
+                <img src={`${import.meta.env.BASE_URL}shots/youdang.png`} width="1280" height="720" alt="游荡集网站首页：海浪背景、播客标题与精读检索入口" loading="lazy" />
+              </a>
+              <figcaption><span>图三</span>在声音里游荡世界。点击预览，走进游荡集。</figcaption>
+            </figure>
           </article>
         </div>
       </section>
