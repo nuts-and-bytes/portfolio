@@ -907,3 +907,7 @@ body::after {
   .stone-wordmark { font-size: 26px; letter-spacing: -1px; }
   .nav-links :is(button, a) { padding-inline: 6px; }
 }
+
+/* 博客预览沿用纸页风格，移动端随正文排列。 */
+.post-preview { width: min(30%, 280px); height: auto; object-fit: contain; align-self: center; border: 1px solid var(--hairline); border-radius: 8px; }
+@media (max-width: 768px) { .post-preview { width: 100%; max-width: none; } }

@@ -13,13 +13,6 @@ const now = [
 
 const experiments = [
   {
-    title: 'LLM 自动化知识库',
-    tag: 'Obsidian · Claude Code',
-    desc: '丢一个链接，说句 ingest，自动转录、写笔记、连双链。70+ 篇笔记，0 次手动整理。',
-    link: ghUrl('ai-songshu-garden/%E5%A6%82%E4%BD%95%E7%94%A8-Claude-Code-%E6%90%AD%E4%B8%80%E4%B8%AA%E4%BC%9A%E8%87%AA%E5%8A%A8%E6%95%B4%E7%90%86%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93'),
-    cta: '搭建教程',
-  },
-  {
     title: 'Daily Tree · 记忆森林',
     tag: 'Three.js · WebGL',
     desc: '每天记一件事，长成一棵 3D 的树。记录越多，森林越茂盛。96 commits。',
@@ -46,13 +39,6 @@ const experiments = [
     desc: '一次点击记录情绪，按周聚合出情绪波形。秒开，数据不出设备。',
     link: ghUrl('omm-daily-happy/'),
     cta: '试用',
-  },
-  {
-    title: 'stone · 博客',
-    tag: '开源 · 持续更新',
-    desc: '「用 AI 重做自己」的公开记录——教程、心得、踩坑，都老实写下来。',
-    link: ghUrl('ai-songshu-garden/'),
-    cta: '去逛逛',
   },
 ]
 
@@ -251,15 +237,16 @@ export default function Home() {
           </div>
 
           <a className="post rv" href={ghUrl('ai-songshu-garden/%E5%A6%82%E4%BD%95%E7%94%A8-Claude-Code-%E6%90%AD%E4%B8%80%E4%B8%AA%E4%BC%9A%E8%87%AA%E5%8A%A8%E6%95%B4%E7%90%86%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93')} target="_blank" rel="noopener noreferrer">
-            <p className="post-date" aria-hidden="true">二〇二六年六月</p>
+            <p className="post-date" aria-hidden="true">二〇二六年十月更新</p>
             <div className="post-body">
-              <p className="post-meta">精选 · AI / 工作流 / Obsidian · 12 分钟</p>
-              <h3>如何用 Claude Code 搭一个会自动整理的知识库</h3>
+              <p className="post-meta">教程 · Obsidian / AI · 附起步包</p>
+              <h3>用 Obsidian 打造你的第二大脑</h3>
               <p className="post-desc">
-                丢一个链接，说句 ingest，它就自动转录、写笔记、建 Wiki、连双链——70+ 篇笔记没有一篇是我手动整理的。
+                把读过的资料变成有来源、能找回、能关联的笔记。从一篇文章开始，附真实知识库截图、完整 AI 提示词和可下载起步包。
               </p>
             </div>
-            <span className="post-arrow">→</span>
+            <img className="post-preview" src="/images/second-brain.webp" alt="我的 Obsidian 知识库真实关系图谱" width="1920" height="1080" loading="lazy" />
+            <span className="post-arrow" aria-hidden="true">→</span>
           </a>
           <p className="writing-more rv">
             更多教程、心得和踩坑记录，在 <a href={ghUrl('ai-songshu-garden/')} target="_blank" rel="noopener noreferrer">stone ↗</a>
