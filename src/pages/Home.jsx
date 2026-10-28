@@ -118,47 +118,36 @@ export default function Home() {
 
           {/* —— CASE 01：商业情报 Agent —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 01 · 企业级 LLM 应用 · 2026.05–06</p>
+            <p className="case-kicker">Case 01 · 人才与企业信息查询工具</p>
             <h3 className="case-title">私域人才库 & 商业情报 Agent</h3>
-
-            <div className="case-grid">
-              <div>
-                <h4 className="case-h">问题</h4>
-                <p>
-                  一家猎头公司的上万份简历与高管人脉，散落在文档和聊天记录里——检索靠记忆，尽调靠翻群。
-                </p>
-                <h4 className="case-h">我做了什么</h4>
-                <p>
-                  独立完成从产品设计到部署的全流程：GraphRAG 三库架构（PostgreSQL 结构化 +
-                  ChromaDB 向量 + Neo4j 关系图谱），DeepSeek V3 批量抽取，FastAPI + React，
-                  Docker 部署阿里云。为真实商用补齐防幻觉溯源、实体消歧与 PIPL 合规设计。
-                </p>
-              </div>
-
+            <p className="case-purpose">给猎头顾问用的资料查询工具。把散落在简历、文档和聊天记录里的人才与企业信息整理到一起，方便找候选人、查企业背景，并回到原始资料核对。</p>
               <figure className="plate">
-                <div className="arch" aria-label="系统架构示意">
+                <div className="arch" aria-label="使用流程示意，并非产品界面截图">
                   <div className="arch-row"><span className="arch-node">简历 / 文档 / 对话</span></div>
-                  <div className="arch-arrow">↓ LLM 批量抽取</div>
+                  <div className="arch-arrow">↓ 整理并关联信息</div>
                   <div className="arch-row arch-dbs">
-                    <span className="arch-node">PostgreSQL</span>
-                    <span className="arch-node">ChromaDB</span>
-                    <span className="arch-node">Neo4j</span>
+                    <span className="arch-node">候选人</span>
+                    <span className="arch-node">人脉关系</span>
+                    <span className="arch-node">企业信息</span>
                   </div>
-                  <div className="arch-arrow">↓ Agent 检索 · 推理 · 溯源</div>
-                  <div className="arch-row"><span className="arch-node arch-out">精准招聘 · VC 尽调 · 企业 BI</span></div>
+                  <div className="arch-arrow">↓ 按需求查找，追溯原始资料</div>
+                  <div className="arch-row"><span className="arch-node arch-out">找人才 · 查企业 · 看业务线索</span></div>
                 </div>
-                <figcaption><span>图一</span>从散在聊天记录里的人脉，到顾问每天能查的知识库。</figcaption>
+                <figcaption><span>图一</span>使用流程示意：把分散的资料整理成可查询的知识库。</figcaption>
               </figure>
+            <div className="case-entry">
+              <p>内部业务系统，暂不提供公开试玩；上图为使用流程示意。</p>
+              <a className="link-strong" href="mailto:zhuxinyao99@gmail.com">联系我，了解项目 ↗</a>
             </div>
-
+            <div className="case-details">
+              <h4 className="case-h">实现与技术细节</h4>
+              <p>独立完成从产品设计到部署的全流程：GraphRAG 三库架构（PostgreSQL 结构化 + ChromaDB 向量 + Neo4j 关系图谱），DeepSeek V3 批量抽取，FastAPI + React，Docker 部署阿里云。为真实商用补齐防幻觉溯源、实体消歧与 PIPL 合规设计。</p>
             <div className="case-nums">
               <div><strong>≤ ¥200</strong><span>万份简历处理成本</span></div>
               <div><strong>3 个</strong><span>覆盖的业务场景</span></div>
               <div><strong>日常在用</strong><span>顾问团队真实使用</span></div>
             </div>
-            <p className="case-note">私域系统不便公开演示；架构与踩坑细节，欢迎当面聊。
-              <a className="case-repo" href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer">我的其他开源代码 ↗</a>
-            </p>
+            </div>
           </article>
 
           {/* —— CASE 02：Product Quest —— */}
@@ -168,26 +157,7 @@ export default function Home() {
               <a className="case-title-link" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">Product Quest · 产品经理大冒险<span className="title-arrow">↗</span></a>
             </h3>
 
-            <div className="case-grid">
-              <div>
-                <h4 className="case-h">问题</h4>
-                <p>
-                  AI 能帮你把代码写出来，却没法告诉你：该做什么、为谁做、凭什么赢。产品方法论太抽象，缺一个能「输」的练习场。
-                </p>
-                <h4 className="case-h">我做了什么</h4>
-                <p>
-                  把产品知识做成能通关的 RPG：引擎与内容彻底解耦（engine.js + JSON 数据层），像素角色、场景、音效
-                  100% 代码生成；「最优 / 次优 / 翻车」三级决策树，术语与案例逐条标注《Inspired》《精益创业》《The
-                  Mom Test》等 16 处出处。
-                </p>
-              </div>
-              <div className="case-nums case-nums-col">
-                <div><strong>9 章 37 关</strong><span>主线全部完结</span></div>
-                <div><strong>44 个</strong><span>三级博弈决策点</span></div>
-                <div><strong>30+</strong><span>内嵌术语图鉴</span></div>
-              </div>
-            </div>
-
+            <p className="case-purpose">一个边玩边学产品设计的闯关游戏。你会面对“给谁做、做什么、怎么选”的问题，在故事里做决定、看结果；没学过产品知识也能直接开始。</p>
             <figure className="plate quest-demo">
               {questLoaded ? (
                 <iframe
@@ -208,6 +178,18 @@ export default function Home() {
               </a>
               <figcaption><span>图二</span>不用看说明，直接在这里玩一关。</figcaption>
             </figure>
+            <div className="case-entry">
+              <a className="link-strong" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">打开游戏，开始闯关 ↗</a>
+            </div>
+            <div className="case-details">
+              <h4 className="case-h">内容与技术细节</h4>
+              <p>把产品知识做成能通关的 RPG：引擎与内容彻底解耦（engine.js + JSON 数据层），像素角色、场景、音效 100% 代码生成；“最优 / 次优 / 翻车”三级决策树，术语与案例逐条标注《Inspired》《精益创业》《The Mom Test》等 16 处出处。</p>
+              <div className="case-nums">
+                <div><strong>9 章 37 关</strong><span>主线全部完结</span></div>
+                <div><strong>44 个</strong><span>三级博弈决策点</span></div>
+                <div><strong>30+</strong><span>内嵌术语图鉴</span></div>
+              </div>
+            </div>
           </article>
 
           {/* —— CASE 03：游荡集 —— */}
@@ -216,13 +198,10 @@ export default function Home() {
             <h3 className="case-title">
               <a className="case-title-link" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">游荡集 · 把播客读成一本书<span className="title-arrow">↗</span></a>
             </h3>
-            <p>
-              一个围绕播客内容做的阅读网站。把长篇对谈整理成可以慢慢读的精读文章，配上音乐和地图，沿着故事探索不同的地方与生活方式。
+            <p className="case-purpose">
+              把许知远《游荡集》的长篇播客整理成精读文章，适合更喜欢阅读，或想在听完后回顾故事的人。还可以跟着音乐和地图，探索谈话中的地方与生活。
             </p>
-            <p className="case-note">
-              适合想在听完之后再读一遍，或更习惯用文字走进一段故事的人。
-              <a className="case-repo" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">打开网站，开始阅读 ↗</a>
-            </p>
+
             <figure className="plate site-preview">
               <a href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer" aria-label="打开游荡集播客精读网站">
                 <picture>
@@ -232,6 +211,10 @@ export default function Home() {
               </a>
               <figcaption><span>图三</span>在声音里游荡世界。点击预览，走进游荡集。</figcaption>
             </figure>
+            <div className="case-entry">
+              <a className="link-strong" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">打开游荡集，开始阅读 ↗</a>
+              <p>个人整理的非官方专题站，可从首页选择感兴趣的一期。</p>
+            </div>
           </article>
         </div>
       </section>
