@@ -51,7 +51,6 @@ export default function Navbar() {
               {l.label}
             </button>
           ))}
-          <a href="https://youdang.heystone.site/">游荡集</a>
         </div>
       </div>
     </nav>

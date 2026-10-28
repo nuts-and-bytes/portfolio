@@ -113,7 +113,7 @@ export default function Home() {
             <p className="sec-no">壹</p>
             <h2 className="sec-title">代表作<span className="sec-en">Selected Works</span></h2>
             <p className="sec-lede">
-              一个证明我能把 LLM 落进真实业务，一个证明我能把想法做成完整产品。
+              从真实业务中的 AI 应用，到可以试玩的游戏和慢慢读的内容网站。
             </p>
           </div>
 
@@ -209,6 +209,21 @@ export default function Home() {
               </a>
               <figcaption><span>图二</span>不用看说明，直接在这里玩一关。</figcaption>
             </figure>
+          </article>
+
+          {/* —— CASE 03：游荡集 —— */}
+          <article className="case rv">
+            <p className="case-kicker">Case 03 · 播客精读网站</p>
+            <h3 className="case-title">
+              <a className="case-title-link" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">游荡集 · 把播客读成一本书<span className="title-arrow">↗</span></a>
+            </h3>
+            <p>
+              一个围绕播客内容做的阅读网站。把长篇对谈整理成可以慢慢读的精读文章，配上音乐和地图，沿着故事探索不同的地方与生活方式。
+            </p>
+            <p className="case-note">
+              适合想在听完之后再读一遍，或更习惯用文字走进一段故事的人。
+              <a className="case-repo" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">打开网站，开始阅读 ↗</a>
+            </p>
           </article>
         </div>
       </section>
