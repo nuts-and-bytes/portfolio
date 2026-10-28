@@ -73,7 +73,7 @@ export default function Home() {
           </svg>
           <div className="hero-grid">
             <div className="hero-copy">
-              <p className="hero-kicker in-1">朱鑫垚 Xinyao Zhu · 北京</p>
+              <p className="hero-kicker in-1">Xinyao Zhu · 北京</p>
               <h1 className="hero-title in-2">
                 为 AI 世界，<br />留一点<span className="nowrap">人味<span className="accent-dot">。</span></span>
               </h1>
