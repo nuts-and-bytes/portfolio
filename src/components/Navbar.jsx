@@ -42,8 +42,8 @@ export default function Navbar() {
     <nav className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
       <div className="nav-progress" style={{ width: `${progress}%` }} />
       <div className="nav-inner">
-        <button className="nav-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          朱鑫垚 <span className="nav-logo-en">Xinyao Zhu</span>
+        <button className="nav-logo" aria-label="stone，返回首页顶部" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <img src={`${import.meta.env.BASE_URL}brand/stone-mark.svg`} width="32" height="32" alt="" /><span className="stone-wordmark">stone</span>
         </button>
         <div className="nav-links">
           {links.map((l) => (

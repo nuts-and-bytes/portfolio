@@ -48,7 +48,7 @@ const experiments = [
     cta: '试用',
   },
   {
-    title: 'nuts & bytes · 博客',
+    title: 'stone · 博客',
     tag: '开源 · 持续更新',
     desc: '「用 AI 重做自己」的公开记录——教程、心得、踩坑，都老实写下来。',
     link: ghUrl('ai-songshu-garden/'),
@@ -262,7 +262,7 @@ export default function Home() {
             <span className="post-arrow">→</span>
           </a>
           <p className="writing-more rv">
-            更多教程、心得和踩坑记录，在 <a href={ghUrl('ai-songshu-garden/')} target="_blank" rel="noopener noreferrer">nuts & bytes ↗</a>
+            更多教程、心得和踩坑记录，在 <a href={ghUrl('ai-songshu-garden/')} target="_blank" rel="noopener noreferrer">stone ↗</a>
           </p>
         </div>
       </section>

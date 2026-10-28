@@ -896,3 +896,14 @@ body::after {
   .case-entry { align-items: flex-start; flex-direction: column; gap: 8px; margin-top: 16px; }
   .case-details { margin-top: 24px; padding-top: 20px; }
 }
+
+/* Stone: approved stone-and-page mark, shared with the blog. */
+.nav-logo { display: inline-flex; align-items: center; gap: 7px; letter-spacing: 0; flex-shrink: 0; }
+.nav-logo img { display: block; width: 32px; height: 32px; }
+.stone-wordmark { font-family: Georgia, "Times New Roman", serif; font-size: 32px; font-weight: 400; line-height: 1; letter-spacing: -1.2px; }
+@media (min-width: 360px) and (max-width: 640px) {
+  .nav-logo { gap: 3px; }
+  .nav-logo img { width: 24px; height: 24px; }
+  .stone-wordmark { font-size: 26px; letter-spacing: -1px; }
+  .nav-links :is(button, a) { padding-inline: 6px; }
+}
