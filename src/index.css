@@ -810,3 +810,55 @@ body::after {
   .hero { padding-top: 136px; }
   section[id], header[id] { scroll-margin-top: 116px; }
 }
+
+/* 手机玻璃导航：材质仅用于操作层，正文保持纸色与阅读对比。 */
+@media (max-width: 640px) {
+  .nav, .nav.nav-scrolled {
+    top: calc(10px + env(safe-area-inset-top, 0px));
+    left: 12px; right: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    border-radius: 24px;
+    background: rgba(250, 247, 242, 0.96);
+    box-shadow: 0 8px 24px -12px rgba(50, 40, 30, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .nav-inner { padding: 6px 12px; gap: 4px 8px; }
+  .nav-logo { font-size: 1rem; }
+  .nav-links { gap: 2px; }
+  .nav-links :is(button, a) {
+    border-radius: 16px;
+    color: #403b36;
+    transition: background-color 160ms ease, transform 160ms ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-links .nav-active {
+    color: #80300f;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 2px 6px -4px rgba(50, 40, 30, 0.35);
+  }
+  .nav-links :is(button, a)::after { display: none; }
+  .nav-links :is(button, a):active { background: rgba(255, 255, 255, 0.9); transform: scale(0.96); }
+  .nav :is(button, a):focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+  .nav-progress { top: auto; bottom: 0; opacity: 0.5; }
+  section[id], header[id] { scroll-margin-top: calc(88px + env(safe-area-inset-top, 0px)); }
+  @supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+    .nav, .nav.nav-scrolled {
+      background: linear-gradient(125deg, rgba(255,255,255,0.8), rgba(250,247,242,0.72) 48%, rgba(255,255,255,0.65));
+      -webkit-backdrop-filter: blur(20px) saturate(145%);
+      backdrop-filter: blur(20px) saturate(145%);
+    }
+  }
+}
+@media (max-width: 359px) {
+  .nav-inner { gap: 0; }
+  section[id], header[id] { scroll-margin-top: calc(132px + env(safe-area-inset-top, 0px)); }
+}
+@media (max-width: 640px) and (prefers-reduced-transparency: reduce), (max-width: 640px) and (prefers-contrast: more) {
+  .nav, .nav.nav-scrolled { background: var(--paper); -webkit-backdrop-filter: none; backdrop-filter: none; border-color: var(--hairline); }
+  .nav-links .nav-active { background: var(--paper-deep); }
+}
+@media (max-width: 640px) and (prefers-reduced-motion: reduce) {
+  .nav-links :is(button, a) { transition: none; }
+  .nav-links :is(button, a):active { transform: none; }
+}
