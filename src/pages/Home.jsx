@@ -91,7 +91,7 @@ export default function Home() {
 
               <div className="hero-links in-5">
                 <button className="link-strong" onClick={() => document.getElementById('cases')?.scrollIntoView({ behavior: 'smooth' })}>
-                  看代表作 ↓
+                  看项目 ↓
                 </button>
                 <a href={ghUrl('ai-songshu-garden/')} target="_blank" rel="noopener noreferrer">博客 ↗</a>
               </div>
@@ -110,7 +110,7 @@ export default function Home() {
         <div className="container">
           <div className="section-head rv">
             <p className="sec-no">壹</p>
-            <h2 className="sec-title">代表作<span className="sec-en">Selected Works</span></h2>
+            <h2 className="sec-title">项目<span className="sec-en">Projects</span></h2>
             <p className="sec-lede">
               从真实业务中的 AI 应用，到可以试玩的游戏和慢慢读的内容网站。
             </p>
@@ -224,7 +224,7 @@ export default function Home() {
         <div className="container">
           <div className="section-head rv">
             <p className="sec-no">贰</p>
-            <h2 className="sec-title">实验架<span className="sec-en">Experiments</span></h2>
+            <h2 className="sec-title">工具箱<span className="sec-en">Tools</span></h2>
             <p className="sec-lede">给自己做的小工具和练手实验，点开就能用。</p>
           </div>
 
@@ -246,7 +246,7 @@ export default function Home() {
         <div className="container">
           <div className="section-head rv">
             <p className="sec-no">叁</p>
-            <h2 className="sec-title">写作<span className="sec-en">Writing</span></h2>
+            <h2 className="sec-title">博客<span className="sec-en">Blog</span></h2>
             <p className="sec-lede">把过程写下来，是我消化世界的方式。</p>
           </div>
 
