@@ -52,6 +52,11 @@ export default function Navbar() {
             </button>
           ))}
         </div>
+        <a className="nav-github" href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer" aria-label="GitHub（新窗口打开）" title="GitHub">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7M15 22v-3.8a3.3 3.3 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.8a5.3 5.3 0 0 0-1.5-3.7 4.9 4.9 0 0 0-.1-3.7S17.5 1 15 2.8a12.8 12.8 0 0 0-6 0C6.5 1 5.3 1.4 5.3 1.4a4.9 4.9 0 0 0-.1 3.7 5.3 5.3 0 0 0-1.5 3.7c0 5.3 3.2 6.5 6.2 6.8a3.3 3.3 0 0 0-.9 2.6V22" />
+          </svg>
+        </a>
       </div>
     </nav>
   )

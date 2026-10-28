@@ -93,7 +93,6 @@ export default function Home() {
                 <button className="link-strong" onClick={() => document.getElementById('cases')?.scrollIntoView({ behavior: 'smooth' })}>
                   看代表作 ↓
                 </button>
-                <a href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
                 <a href={ghUrl('ai-songshu-garden/')} target="_blank" rel="noopener noreferrer">博客 ↗</a>
               </div>
             </div>

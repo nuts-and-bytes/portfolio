@@ -863,3 +863,21 @@ body::after {
   .nav-links :is(button, a) { transition: none; }
   .nav-links :is(button, a):active { transform: none; }
 }
+
+/* GitHub 独立于站内目录，固定在右上角。 */
+.nav-inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; column-gap: 24px; }
+.nav-links { justify-content: flex-end; }
+.nav-github { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; }
+.nav-github:hover { color: var(--accent); background: var(--accent-soft); }
+.nav-github:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+@media (max-width: 640px) {
+  .nav-inner { column-gap: 4px; }
+  .nav-github { background: rgba(255,255,255,0.45); }
+  .nav-github:active { background: rgba(255,255,255,0.8); }
+}
+@media (max-width: 359px) {
+  .nav-inner { grid-template-columns: 1fr auto; }
+  .nav-logo { justify-self: start; }
+  .nav-github { grid-column: 2; grid-row: 1; }
+  .nav-links { grid-column: 1 / -1; grid-row: 2; justify-content: space-between; }
+}
