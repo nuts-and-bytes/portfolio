@@ -65,7 +65,7 @@ export default function Home() {
               </h1>
               <p className="hero-epi in-2">Machines write the code. Someone still has to care why.</p>
               <p className="hero-lede in-3">
-                我是朱鑫垚（Eric），商务出身，零基础用 AI agent 写代码。把想法做成能用的产品，也把这个过程里属于人的那部分记下来。
+                我用 AI 做工具，解决工作和生活里的具体问题；也从阅读和播客里整理想法，做成值得回看的作品。希望技术帮我们少一些重复，多一点时间，留给好奇、思考和真实的生活。
               </p>
 
               <div className="hero-now in-4">
