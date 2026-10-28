@@ -226,7 +226,10 @@ export default function Home() {
             </p>
             <figure className="plate site-preview">
               <a href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer" aria-label="打开游荡集播客精读网站">
-                <img src={`${import.meta.env.BASE_URL}shots/youdang.png`} width="1280" height="720" alt="游荡集网站首页：海浪背景、播客标题与精读检索入口" loading="lazy" />
+                <picture>
+                  <source media="(max-width: 640px)" srcSet={`${import.meta.env.BASE_URL}shots/youdang-mobile.png`} width="390" height="426" />
+                  <img src={`${import.meta.env.BASE_URL}shots/youdang.png`} width="1280" height="720" alt="游荡集网站首页：海浪背景与播客阅读主题" loading="lazy" />
+                </picture>
               </a>
               <figcaption><span>图三</span>在声音里游荡世界。点击预览，走进游荡集。</figcaption>
             </figure>

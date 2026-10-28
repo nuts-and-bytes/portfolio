@@ -765,3 +765,48 @@ body::after {
 .arch-arrow, .quest-load-sub, .quest-open { font-size: var(--fs-label); }
 /* 中文标题只在空格与标点处换行，避免把一个词拆成两行；放不下时再强制断开 */
 .case-title, .post h3, .exp-card h3 { word-break: keep-all; overflow-wrap: anywhere; }
+
+/* 手机阅读节奏：预览保留内容比例，避免案例与区块的底部留白叠加。 */
+@media (max-width: 640px) {
+  .container { padding-inline: 20px; }
+  .nav-inner { padding: 10px 20px; align-items: center; gap: 4px 12px; }
+  .nav-links { gap: 8px; }
+  .nav-links :is(button, a) { min-width: 44px; min-height: 44px; padding: 8px 4px; }
+  .nav-logo { min-height: 44px; }
+  .hero { padding: 112px 0 56px; }
+  .hero-kicker { margin-bottom: 20px; }
+  .hero-lede { margin-bottom: 28px; }
+  .hero-links { gap: 20px; margin-bottom: 32px; }
+  .hero-shot { margin-bottom: 32px; transform: none; }
+  .hero-shot img { aspect-ratio: 8 / 5; object-fit: contain; }
+  .section, #cases, #writing, #about { padding: 56px 0; }
+  .section-head { margin-bottom: 28px; }
+  .case { padding: 32px 0 40px; }
+  .case:last-child { padding-bottom: 0; }
+  .case-kicker { margin-bottom: 12px; }
+  .case-title { margin-bottom: 24px; }
+  .case-grid { gap: 24px; margin-bottom: 28px; }
+  .case-note { margin-top: 16px; }
+  .case-repo { display: table; margin-top: 8px; }
+  .site-preview { margin-top: 24px; }
+  .site-preview picture { display: block; }
+  .site-preview img { aspect-ratio: 390 / 426; }
+  .plate figcaption { padding: 12px 2px 14px; }
+  .plate figcaption span { margin-right: 8px; white-space: nowrap; }
+  .quest-load { aspect-ratio: 8 / 5; min-height: 200px; gap: 6px; font-size: 1rem; }
+  .quest-load-icon { width: 40px; height: 40px; }
+  .quest-bg { object-fit: contain; }
+  .plate.quest-demo .quest-open { top: 16px; right: 16px; }
+  .exp-grid { gap: 20px; }
+  .exp-card { padding: 24px 22px; transform: none; }
+  .post { padding: 24px; gap: 20px; transform: none; }
+  .post .post-arrow { align-self: flex-end; }
+  .about-quote { margin-bottom: 24px !important; }
+  .footer { padding: 24px 20px; }
+}
+@media (max-width: 359px) {
+  .nav-inner { gap: 0; }
+  .nav-links { width: 100%; justify-content: space-between; }
+  .hero { padding-top: 136px; }
+  section[id], header[id] { scroll-margin-top: 116px; }
+}
