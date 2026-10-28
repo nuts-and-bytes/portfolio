@@ -825,6 +825,7 @@ body::after {
   }
   .nav-inner { padding: 6px 12px; gap: 4px 8px; }
   .nav-logo { font-size: 1rem; }
+  .nav :is(button, a) { text-shadow: 0 1px 2px rgba(255,255,255,0.95), 0 0 5px rgba(255,255,255,0.85); }
   .nav-links { gap: 2px; }
   .nav-links :is(button, a) {
     border-radius: 16px;
@@ -844,9 +845,9 @@ body::after {
   section[id], header[id] { scroll-margin-top: calc(88px + env(safe-area-inset-top, 0px)); }
   @supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
     .nav, .nav.nav-scrolled {
-      background: linear-gradient(125deg, rgba(255,255,255,0.8), rgba(250,247,242,0.72) 48%, rgba(255,255,255,0.65));
-      -webkit-backdrop-filter: blur(20px) saturate(145%);
-      backdrop-filter: blur(20px) saturate(145%);
+      background: linear-gradient(125deg, rgba(255,255,255,0.32), rgba(250,247,242,0.18) 48%, rgba(255,255,255,0.24));
+      -webkit-backdrop-filter: blur(2px) saturate(120%);
+      backdrop-filter: blur(2px) saturate(120%);
     }
   }
 }
