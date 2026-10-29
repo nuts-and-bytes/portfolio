@@ -912,59 +912,49 @@ body::after {
 .post-preview { width: min(30%, 280px); height: auto; object-fit: contain; align-self: center; border: 1px solid var(--hairline); border-radius: 8px; }
 @media (max-width: 768px) { .post-preview { width: 100%; max-width: none; } }
 
-/* 猎光：数据与建设路径，细节按需展开。 */
+/* 首页直接进入作品；猎光只展示可核对的宏观数据。 */
+.hero-projects { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 28px 18px; align-self: center; position: relative; z-index: 1; }
+.hero-project { display: block; min-width: 0; }
+.hero-project img { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; border: 1px solid var(--hairline); transition: transform .18s ease; }
+.hero-project:hover img { transform: translateY(-3px); }
+.hero-project:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.hero-project-title { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 10px; font: 600 .9375rem/1.6 var(--serif); }
+.hero-project-title > span { color: var(--accent); }
+.hero-project-purpose { display: block; font-size: .75rem; color: var(--ink-2); margin-top: 3px; }
 .hunt-progress { padding: 28px; background: var(--paper-deep); border: 1px solid var(--hairline); }
 .hunt-progress-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .hunt-progress h4 { font: 600 1.35rem/1.6 var(--serif); }
 .hunt-status { color: var(--accent); font-size: .8125rem; }
-.hunt-dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 28px 0 16px; align-items: center; }
-.hunt-volume > span, .hunt-release-total > span { font-size: .875rem; color: var(--ink-2); }
-.hunt-volume > strong { display: block; font: 500 3rem/1.3 var(--serif); font-variant-numeric: tabular-nums; }
-.hunt-volume small { font: .875rem var(--sans); margin-left: 5px; }
-.hunt-release-total { display: flex; gap: 10px; align-items: baseline; }
-.hunt-release-total strong { font: 500 2rem/1.4 var(--serif); }
-.hunt-bar { display: flex; height: 10px; gap: 3px; margin: 10px 0; }
-.hunt-bar span:first-child { flex: 55; background: var(--accent); }
-.hunt-bar span:last-child { flex: 34; background: var(--ink-2); }
-.hunt-legend { display: flex; justify-content: space-between; gap: 12px; font-size: .75rem; color: var(--ink-2); }
-.hunt-legend b { color: var(--ink); font-variant-numeric: tabular-nums; }
-.hunt-source { font-size: .75rem; color: var(--ink-2); line-height: 1.8; }
-.hunt-build { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--hairline); }
-.hunt-progress h5 { font: 600 1.0625rem/1.6 var(--serif); }
-.hunt-ownership { font-size: .8125rem; color: var(--ink-2); margin-top: 8px; }
-.hunt-roadmap { display: grid; grid-template-columns: repeat(4,1fr); list-style: none; margin: 24px 0; }
-.hunt-roadmap li { position: relative; min-width: 0; }
-.hunt-roadmap li:not(:last-child)::after { content: ''; position: absolute; top: 51px; left: 44px; right: 0; height: 1px; background: var(--hairline); }
-.hunt-roadmap time { font: .75rem var(--mono); color: var(--ink-2); }
-.hunt-node { width: 44px; height: 44px; margin: 10px 0 12px; color: var(--accent); }
-.hunt-node svg { width: 32px; height: 32px; margin: 6px; }
-.hunt-roadmap h6 { font: 600 .9375rem/1.7 var(--sans); }
-.hunt-roadmap p { font-size: .75rem; color: var(--ink-2); margin-top: 4px; }
-.hunt-latest { padding-block: 18px; border-block: 1px solid var(--hairline); }
-.hunt-latest time { font: .75rem var(--mono); color: var(--ink-2); margin-left: 8px; }
-.hunt-latest ul { display: flex; gap: 10px 26px; flex-wrap: wrap; margin-top: 10px; padding-left: 16px; font-size: .875rem; }
-.hunt-latest li::marker { color: var(--accent); }
-.hunt-more summary { cursor: pointer; padding-top: 18px; min-height: 44px; font-size: .875rem; color: var(--ink-2); }
-.hunt-more summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-.hunt-detail-content { max-width: 70ch; font-size: .875rem; color: var(--ink-2); }
-.hunt-detail-content p { margin-top: 16px; }
-.hunt-detail-content strong { display: block; color: var(--ink); }
+.hunt-totals { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin: 28px 0; }
+.hunt-totals dt { font-size: .875rem; color: var(--ink-2); }
+.hunt-totals dd { font: 500 3rem/1.4 var(--serif); font-variant-numeric: tabular-nums; }
+.hunt-totals small, .hunt-inventory small { font: .875rem var(--sans); }
+.hunt-chart-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; padding-block: 24px; border-block: 1px solid var(--hairline); align-items: center; }
+.hunt-weekly { margin: 0; }
+.hunt-weekly figcaption { display: flex; justify-content: space-between; font-size: .875rem; }
+.hunt-weekly figcaption span { font-size: .75rem; color: var(--ink-2); }
+.hunt-columns { display: flex; gap: 14px; margin-top: 28px; }
+.hunt-column { flex: 1; min-width: 0; text-align: center; }
+.hunt-column-track { height: 100px; display: flex; align-items: flex-end; border-bottom: 1px solid var(--hairline); }
+.hunt-column-track > span { display: block; width: 100%; background: #a89a89; position: relative; }
+.hunt-column:last-child .hunt-column-track > span { background: var(--accent); }
+.hunt-column b { position: absolute; bottom: calc(100% + 3px); left: 0; width: 100%; font: 12px/1.4 var(--mono); color: var(--ink-2); }
+.hunt-column time { display: block; margin-top: 8px; font: 11px var(--mono); color: var(--ink-2); }
+.hunt-inventory { text-align: center; border-left: 1px solid var(--hairline); }
+.hunt-inventory > span { font-size: .8125rem; color: var(--ink-2); }
+.hunt-inventory strong { display: block; font: 500 2.5rem/1.6 var(--serif); }
+.hunt-source { font-size: .75rem; color: var(--ink-2); margin-top: 16px; line-height: 1.8; }
 @media (max-width: 640px) {
+  .hero-projects { gap: 22px 14px; }
+  .hero-project-title { font-size: .875rem; }
   .hunt-progress { padding: 20px 16px; }
   .hunt-progress h4 { font-size: 1.1875rem; }
-  .hunt-dashboard { gap: 18px; }
-  .hunt-volume > strong { font-size: 2.1rem; }
-  .hunt-volume small { font-size: .75rem; }
-  .hunt-release-total { gap: 6px; }
-  .hunt-release-total > span { font-size: .75rem; }
-  .hunt-release-total strong { font-size: 1.5rem; }
-  .hunt-roadmap { grid-template-columns: 1fr; gap: 20px; }
-  .hunt-roadmap li { display: grid; grid-template-columns: 40px 36px 1fr; column-gap: 12px; align-items: center; }
-  .hunt-roadmap time { grid-row: 1 / 3; }
-  .hunt-node { grid-row: 1 / 3; width: 36px; height: 36px; margin: 0; }
-  .hunt-node svg { width: 28px; height: 28px; margin: 4px; }
-  .hunt-roadmap li:not(:last-child)::after { left: 69px; right: auto; top: 42px; bottom: -18px; height: auto; width: 1px; }
-  .hunt-roadmap h6 { grid-column: 3; }
-  .hunt-roadmap p { grid-column: 3; }
-  .hunt-latest ul { display: grid; gap: 8px; }
+  .hunt-totals { gap: 12px; }
+  .hunt-totals dt { font-size: .75rem; }
+  .hunt-totals dd { font-size: 2.25rem; }
+  .hunt-chart-layout { grid-template-columns: 1fr; gap: 24px; }
+  .hunt-columns { gap: 10px; }
+  .hunt-inventory { border-left: 0; border-top: 1px solid var(--hairline); padding-top: 18px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .hunt-inventory strong { font-size: 2rem; }
 }
+@media (prefers-reduced-motion: reduce) { .hero-project img { transition: none; } .hero-project:hover img { transform: none; } }

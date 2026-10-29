@@ -43,6 +43,13 @@ const experiments = [
   },
 ]
 
+const featuredProjects = [
+  { title: 'Product Quest', purpose: '边闯关，边学产品设计', image: 'product-quest.png', link: ghUrl('Product-quest/') },
+  { title: '游荡集', purpose: '把播客读成一本书', image: 'youdang.png', link: 'https://youdang.heystone.site/' },
+  { title: 'Daily Tree', purpose: '每天一件事，长成记忆森林', image: 'daily-tree.jpg', link: ghUrl('daily-tree/app/') },
+  { title: 'Word Universe', purpose: '把词汇变成一片星系', image: 'word-universe.jpg', link: ghUrl('word-universe/') },
+]
+
 /* ---------- 页面 ---------- */
 
 export default function Home() {
@@ -84,10 +91,13 @@ export default function Home() {
               </div>
             </div>
 
-            <figure className="hero-shot in-3">
-              <img src={`${import.meta.env.BASE_URL}shots/product-quest.png`} alt="Product Quest 游戏截图" />
-              <figcaption>Product Quest · 原创像素 RPG，可直接试玩</figcaption>
-            </figure>
+            <div className="hero-projects in-3" aria-label="点击体验我的项目">
+              {featuredProjects.map(project => <a className="hero-project" key={project.title} href={project.link} target="_blank" rel="noopener noreferrer">
+                <img src={`${import.meta.env.BASE_URL}shots/${project.image}`} alt={`${project.title}网站预览`} width="400" height="250" />
+                <span className="hero-project-title">{project.title}<span aria-hidden="true">↗</span></span>
+                <span className="hero-project-purpose">{project.purpose}</span>
+              </a>)}
+            </div>
           </div>
         </div>
       </header>
@@ -108,10 +118,6 @@ export default function Home() {
             <HuntlineProgress />
             <div className="case-entry">
               <a className="link-strong" href="mailto:zhuxinyao99@gmail.com">联系我，了解项目 ↗</a>
-            </div>
-            <div className="case-details">
-              <h4 className="case-h">实现与技术细节</h4>
-              <p>独立完成从产品设计到部署的全流程：GraphRAG 三库架构（PostgreSQL 结构化 + ChromaDB 向量 + Neo4j 关系图谱），DeepSeek V3 批量抽取，FastAPI + React，Docker 部署阿里云。为真实商用补齐防幻觉溯源、实体消歧与 PIPL 合规设计。</p>
             </div>
           </article>
 
