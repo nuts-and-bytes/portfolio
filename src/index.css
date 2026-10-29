@@ -604,8 +604,8 @@ body::after {
 .section .plate .arch { background: var(--paper); border-color: var(--hairline); }
 .plate .arch-node { background: #fff; }
 .site-preview { margin-top: 28px; }
-.site-preview > a, .system-preview > a { display: block; }
-.site-preview img, .system-preview img { display: block; width: 100%; height: auto; }
+.site-preview > a { display: block; }
+.site-preview img { display: block; width: 100%; height: auto; }
 
 /* 案例小标题：一短横 + 衬线 */
 .case-h {
@@ -911,3 +911,40 @@ body::after {
 /* 博客预览沿用纸页风格，移动端随正文排列。 */
 .post-preview { width: min(30%, 280px); height: auto; object-fit: contain; align-self: center; border: 1px solid var(--hairline); border-radius: 8px; }
 @media (max-width: 768px) { .post-preview { width: 100%; max-width: none; } }
+
+/* 猎光：公开的建设与迭代记录，不展示业务界面。 */
+.hunt-progress { border-block: 1px solid var(--hairline); padding: 28px 0 32px; }
+.hunt-progress-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.hunt-progress-head h4 { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; }
+.hunt-status { font-size: 0.875rem; color: var(--accent); }
+.hunt-facts { display: grid; grid-template-columns: repeat(3, 1fr); margin: 28px 0 14px; gap: 24px; }
+.hunt-facts dt { font-size: 0.875rem; color: var(--ink-2); }
+.hunt-facts dd { font-family: var(--serif); font-size: 2rem; font-variant-numeric: tabular-nums; line-height: 1.5; }
+.hunt-facts dd span { font-family: var(--sans); font-size: 0.875rem; color: var(--ink-2); }
+.hunt-source { color: var(--ink-2); font-size: 0.75rem; line-height: 1.8; max-width: 80ch; }
+.hunt-story { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--hairline); }
+.hunt-story h5 { font: 600 1.125rem/1.6 var(--serif); margin-bottom: 12px; }
+.hunt-ownership, .hunt-timeline p, .hunt-current p { font-size: 0.9375rem; color: var(--ink-2); line-height: 1.85; }
+.hunt-timeline { list-style: none; margin-top: 24px; }
+.hunt-timeline li { display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding-bottom: 22px; }
+.hunt-timeline li:last-child { padding-bottom: 0; }
+.hunt-timeline time { font: 0.75rem/2 var(--mono); color: var(--accent); padding-top: 3px; }
+.hunt-timeline h6 { font: 600 0.9375rem/1.85 var(--sans); margin-bottom: 4px; }
+.hunt-current { border-left: 1px solid var(--hairline); padding-left: 28px; }
+.hunt-current .hunt-update-date { font-size: 0.75rem; margin-bottom: 20px; }
+.hunt-current ul { list-style: none; }
+.hunt-current li { margin-bottom: 20px; }
+.hunt-current strong { display: block; font-size: 0.9375rem; font-weight: 600; margin-bottom: 4px; }
+.hunt-current .hunt-note { padding-top: 16px; border-top: 1px solid var(--hairline); }
+@media (max-width: 640px) {
+  .hunt-progress { padding-block: 22px; }
+  .hunt-progress-head { gap: 8px; }
+  .hunt-progress-head h4 { font-size: 1.1875rem; }
+  .hunt-facts { gap: 12px; margin-top: 22px; }
+  .hunt-facts dt { font-size: 0.75rem; }
+  .hunt-facts dd { font-size: 1.5rem; }
+  .hunt-facts dd span { font-size: 0.75rem; }
+  .hunt-story { grid-template-columns: 1fr; gap: 28px; margin-top: 24px; padding-top: 24px; }
+  .hunt-current { border-left: 0; border-top: 1px solid var(--hairline); padding: 24px 0 0; }
+  .hunt-timeline li { grid-template-columns: 42px 1fr; gap: 12px; }
+}

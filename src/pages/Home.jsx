@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Footer from '../components/Footer'
+import HuntlineProgress from '../components/HuntlineProgress'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { blogUrl, ghUrl } from '../config'
 
@@ -104,12 +105,7 @@ export default function Home() {
             <p className="case-kicker">Case 01 · 为猎头顾问做的业务系统</p>
             <h3 className="case-title">猎光 · 智能招聘系统</h3>
             <p className="case-purpose">我做了一套给猎头顾问使用的招聘系统，把简历录入、人才检索、推荐报告和客户跟进放在一起，让分散的资料进入同一条工作流程。</p>
-            <figure className="plate system-preview">
-              <a href={`${import.meta.env.BASE_URL}shots/huntline-intake.jpg`} target="_blank" rel="noopener noreferrer" aria-label="查看猎光系统页面大图（已脱敏）">
-                <img src={`${import.meta.env.BASE_URL}shots/huntline-intake.jpg`} width="1010" height="880" alt="猎光真实系统页面：简历录入、人才标签与推荐报告生成，未展示个人或客户资料" loading="lazy" />
-              </a>
-              <figcaption><span>图一</span>真实系统页面：人才录入与推荐报告。已脱敏，点击可查看大图。</figcaption>
-            </figure>
+            <HuntlineProgress />
             <div className="case-entry">
               <p>内部业务系统，暂不提供公开试玩。</p>
               <a className="link-strong" href="mailto:zhuxinyao99@gmail.com">联系我，了解项目 ↗</a>
@@ -117,11 +113,6 @@ export default function Home() {
             <div className="case-details">
               <h4 className="case-h">实现与技术细节</h4>
               <p>独立完成从产品设计到部署的全流程：GraphRAG 三库架构（PostgreSQL 结构化 + ChromaDB 向量 + Neo4j 关系图谱），DeepSeek V3 批量抽取，FastAPI + React，Docker 部署阿里云。为真实商用补齐防幻觉溯源、实体消歧与 PIPL 合规设计。</p>
-            <div className="case-nums">
-              <div><strong>≤ ¥200</strong><span>万份简历处理成本</span></div>
-              <div><strong>3 个</strong><span>覆盖的业务场景</span></div>
-              <div><strong>日常在用</strong><span>顾问团队真实使用</span></div>
-            </div>
             </div>
           </article>
 
