@@ -97,32 +97,21 @@ export default function Home() {
           <div className="section-head rv">
             <p className="sec-no">壹</p>
             <h2 className="sec-title">项目<span className="sec-en">Projects</span></h2>
-            <p className="sec-lede">
-              从真实业务中的 AI 应用，到可以试玩的游戏和慢慢读的内容网站。
-            </p>
           </div>
 
-          {/* —— CASE 01：商业情报 Agent —— */}
+          {/* —— CASE 01：猎光智能招聘系统 —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 01 · 人才与企业信息查询工具</p>
-            <h3 className="case-title">私域人才库 & 商业情报 Agent</h3>
-            <p className="case-purpose">给猎头顾问用的资料查询工具。把散落在简历、文档和聊天记录里的人才与企业信息整理到一起，方便找候选人、查企业背景，并回到原始资料核对。</p>
-              <figure className="plate">
-                <div className="arch" aria-label="使用流程示意，并非产品界面截图">
-                  <div className="arch-row"><span className="arch-node">简历 / 文档 / 对话</span></div>
-                  <div className="arch-arrow">↓ 整理并关联信息</div>
-                  <div className="arch-row arch-dbs">
-                    <span className="arch-node">候选人</span>
-                    <span className="arch-node">人脉关系</span>
-                    <span className="arch-node">企业信息</span>
-                  </div>
-                  <div className="arch-arrow">↓ 按需求查找，追溯原始资料</div>
-                  <div className="arch-row"><span className="arch-node arch-out">找人才 · 查企业 · 看业务线索</span></div>
-                </div>
-                <figcaption><span>图一</span>使用流程示意：把分散的资料整理成可查询的知识库。</figcaption>
-              </figure>
+            <p className="case-kicker">Case 01 · 为猎头顾问做的业务系统</p>
+            <h3 className="case-title">猎光 · 智能招聘系统</h3>
+            <p className="case-purpose">我做了一套给猎头顾问使用的招聘系统，把简历录入、人才检索、推荐报告和客户跟进放在一起，让分散的资料进入同一条工作流程。</p>
+            <figure className="plate system-preview">
+              <a href={`${import.meta.env.BASE_URL}shots/huntline-intake.jpg`} target="_blank" rel="noopener noreferrer" aria-label="查看猎光系统页面大图（已脱敏）">
+                <img src={`${import.meta.env.BASE_URL}shots/huntline-intake.jpg`} width="1010" height="880" alt="猎光真实系统页面：简历录入、人才标签与推荐报告生成，未展示个人或客户资料" loading="lazy" />
+              </a>
+              <figcaption><span>图一</span>真实系统页面：人才录入与推荐报告。已脱敏，点击可查看大图。</figcaption>
+            </figure>
             <div className="case-entry">
-              <p>内部业务系统，暂不提供公开试玩；上图为使用流程示意。</p>
+              <p>内部业务系统，暂不提供公开试玩。</p>
               <a className="link-strong" href="mailto:zhuxinyao99@gmail.com">联系我，了解项目 ↗</a>
             </div>
             <div className="case-details">
