@@ -107,7 +107,6 @@ export default function Home() {
             <p className="case-purpose">我做了一套给猎头顾问使用的招聘系统，把简历录入、人才检索、推荐报告和客户跟进放在一起，让分散的资料进入同一条工作流程。</p>
             <HuntlineProgress />
             <div className="case-entry">
-              <p>内部业务系统，暂不提供公开试玩。</p>
               <a className="link-strong" href="mailto:zhuxinyao99@gmail.com">联系我，了解项目 ↗</a>
             </div>
             <div className="case-details">
