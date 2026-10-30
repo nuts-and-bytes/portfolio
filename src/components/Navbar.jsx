@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react'
 import {navigate} from '../lib/navigation'
 
+function NavIcon({id}) {
+ const paths={cases:'M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z',experiments:'M14 6l4 4 M4 20l6-6 M14 3a6 6 0 0 0-7 7L3 17a3 3 0 0 0 4 4l7-7a6 6 0 0 0 7-7l-4 4-4-4 4-4z',writing:'M12 5C9 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-7-1-10 1z M12 5v15',about:'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M4 21v-2a8 8 0 0 1 16 0v2',moments:'M21 11a9 9 0 0 1-9 9H7l-5 2 2-5v-5a9 9 0 0 1 17-1z M8 9h8 M8 13h5'}
+ return <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={paths[id]}/></svg>
+}
+
 const links = [
   { id: 'cases', label: '项目' },
   { id: 'experiments', label: '工具' },
@@ -11,7 +16,11 @@ const links = [
 export default function Navbar({route}) {
   const [scrolled, setScrolled] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [active, setActive] = useState('')
+  const [active, setActive] = useState('cases')
+  const [keyboard,setKeyboard]=useState(false)
+  const selected=location.pathname==='/moments'?'moments':active
+  const selectedIndex=[...links.map(l=>l.id),'moments'].indexOf(selected)
+  const behavior=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches||keyboard?'instant':'smooth'
 
   useEffect(() => {
     const onScroll = () => {
@@ -37,22 +46,22 @@ export default function Navbar({route}) {
     return () => io.disconnect()
   }, [route])
 
-  const go = (id) => { if(location.pathname !== '/') navigate(`/#${id}`); else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }
+  const go = (id) => { setActive(id); if(location.pathname !== '/') navigate(`/#${id}`); else document.getElementById(id)?.scrollIntoView({ behavior: behavior() }) }
 
   return (
     <nav className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
       <div className="nav-progress" style={{ width: `${progress}%` }} />
       <div className="nav-inner">
-        <button className="nav-logo" aria-label="stone，返回首页顶部" onClick={() => location.pathname !== '/' ? navigate('/') : window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <button className="nav-logo" aria-label="stone，返回首页顶部" onClick={() => location.pathname !== '/' ? navigate('/') : window.scrollTo({ top: 0, behavior: behavior() })}>
           <img src={`${import.meta.env.BASE_URL}brand/stone-mark.svg`} width="32" height="32" alt="" /><span className="stone-wordmark">stone</span>
         </button>
-        <div className="nav-links">
+        <div className={`nav-links stone-nav-tabs${keyboard?' keyboard-nav':''}`} onPointerDown={()=>setKeyboard(false)} onKeyDown={()=>setKeyboard(true)}><span className="nav-selection" aria-hidden="true" style={{transform:`translateX(${Math.max(0,selectedIndex)*100}%)`}}/>
           {links.map((l) => (
-            <button key={l.id} className={location.pathname === '/' && active === l.id ? 'nav-active' : ''} onClick={() => go(l.id)}>
-              {l.label}
+            <button key={l.id} aria-current={selected===l.id?'location':undefined} className={selected===l.id?'nav-active':''} onClick={() => go(l.id)}>
+              <NavIcon id={l.id}/><span>{l.label}</span>
             </button>
           ))}
-          <a href="/moments" className={location.pathname === '/moments' ? 'nav-active' : ''}>动态</a>
+          <a href="/moments" aria-current={selected==='moments'?'page':undefined} className={selected==='moments'?'nav-active':''}><NavIcon id="moments"/><span>动态</span></a>
         </div>
         <a className="nav-github" href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer" aria-label="GitHub（新窗口打开）" title="GitHub">
           <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

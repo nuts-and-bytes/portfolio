@@ -968,3 +968,29 @@ body::after {
 .contact-copy button:disabled { opacity: .6; cursor: wait; }
 .contact-copy [role="status"] { color: var(--paper); font-size: .8125rem; line-height: 1.6; }
 @media(max-width:640px){ .contact-email-line { gap: 8px; } .contact-copy { width: 100%; } }
+
+/* Stone segmented navigation: warm paper, ink and a moving selected surface. */
+.nav.nav { top: 0; left: 0; right: 0; border-radius: 0; border: 0; border-bottom: 1px solid var(--hairline); background: rgba(250,247,242,.97); box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; overflow: visible; }
+.nav .nav-inner { padding: 14px 28px; gap: 20px; }
+.nav .stone-nav-tabs { position: relative; display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); justify-self: end; width: min(100%,560px); padding: 4px; gap: 0; border: 1px solid var(--hairline); border-radius: 18px; background: var(--paper-deep); isolation: isolate; }
+.nav-selection { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px)/5); background: var(--paper); border-radius: 14px; box-shadow: 0 2px 5px rgba(45,37,28,.12), inset 0 0 0 1px rgba(45,37,28,.12); transition: transform 220ms var(--ease); z-index: -1; pointer-events: none; }
+.nav .stone-nav-tabs :is(button,a) { display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 0; min-height: 44px; padding: 8px; font-size: .875rem; line-height: 1.3; color: var(--ink-2); white-space: nowrap; border-radius: 14px; background: transparent; text-shadow: none; transition: color 160ms ease; transform: none; }
+.nav .stone-nav-tabs :is(button,a)::after { display: none; }
+.nav .stone-nav-tabs .nav-active { color: var(--ink); font-weight: 600; background: transparent; }
+.nav .stone-nav-tabs :is(button,a):active { background: transparent; transform: none; }
+.nav .stone-nav-tabs :is(button,a):focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.nav .stone-nav-tabs svg { flex-shrink: 0; }
+@media(hover:hover) and (pointer:fine){.nav .stone-nav-tabs :is(button,a):hover { color: var(--ink); }}
+.nav .keyboard-nav .nav-selection { transition: none; }
+@media(max-width:720px){
+ .nav .nav-inner { grid-template-columns: 1fr auto; padding: 8px 16px 10px; gap: 6px; }
+ .nav .nav-logo { grid-column: 1; grid-row: 1; justify-self: start; min-height: 40px; }
+ .nav .nav-github { grid-column: 2; grid-row: 1; width: 40px; height: 40px; background: transparent; }
+ .nav .stone-nav-tabs { grid-column: 1 / -1; grid-row: 2; width: 100%; }
+ .nav .stone-nav-tabs :is(button,a) { gap: 5px; padding: 8px 4px; font-size: .8125rem; }
+ .nav .stone-nav-tabs svg { width: 16px; height: 16px; }
+ .hero { padding-top: 156px; }
+ .moments-page { padding-top: 144px; }
+ section[id],header[id] { scroll-margin-top: 138px; }
+}
+@media(prefers-reduced-motion:reduce){.nav-selection { transition: none; }}
