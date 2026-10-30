@@ -40,7 +40,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .container-narrow { max-width: 720px; }
 
 /* ── 渐显（JS 就绪前完全可见）── */
-.rv-armed { opacity: 0; transform: translateY(16px); }
+.rv-armed { opacity: 1; transform: none; }
 .rv-on { opacity: 1; transform: none; transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
 
 /* ═══ 导航 ═══ */
@@ -708,7 +708,7 @@ body::after {
   --fs-small: 0.875rem;
   --fs-label: 0.75rem;
   /* 标签灰：纸色上约 5:1，白卡上约 5.5:1 */
-  --ink-3: #6F6862;
+  --ink-3: #59534E;
 }
 
 /* 1 · 字号收成 8 档 */
@@ -1018,3 +1018,13 @@ body::after {
  .nav .stone-nav-tabs { background: var(--paper-deep); border-color: var(--hairline); }
  .nav .nav-selection { background: var(--paper); }
 }
+
+/* Content stays visible before scrolling, including full-page captures. */
+.case-nums strong, .arch > * { opacity: 1; transform: none; }
+.footer { color: rgba(250,247,242,.8); }
+.hunt-column time { font-size: 13px; }
+.nav .stone-nav-tabs :is(button, a) { color: #403b36; }
+.stone-nav-tabs .nav-active { color: var(--ink); }
+.project-actions { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; margin-top: 16px; }
+.project-actions a, .case-entry .case-repo { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 5px; }
+.project-actions .case-repo { margin-top: 0; font-size: var(--fs-small); }

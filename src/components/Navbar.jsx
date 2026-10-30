@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import {navigate} from '../lib/navigation'
+import {api} from '../lib/moments'
+import {loadFeed} from '../lib/moments-feed'
 
 function NavIcon({id}) {
  const paths={cases:'M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z',experiments:'M14 6l4 4 M4 20l6-6 M14 3a6 6 0 0 0-7 7L3 17a3 3 0 0 0 4 4l7-7a6 6 0 0 0 7-7l-4 4-4-4 4-4z',writing:'M12 5C9 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-7-1-10 1z M12 5v15',about:'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M4 21v-2a8 8 0 0 1 16 0v2',moments:'M21 11a9 9 0 0 1-9 9H7l-5 2 2-5v-5a9 9 0 0 1 17-1z M8 9h8 M8 13h5'}
@@ -61,7 +63,7 @@ export default function Navbar({route}) {
               <NavIcon id={l.id}/><span>{l.label}</span>
             </button>
           ))}
-          <a href="/moments" aria-current={selected==='moments'?'page':undefined} className={selected==='moments'?'nav-active':''}><NavIcon id="moments"/><span>动态</span></a>
+          <a href="/moments" onPointerEnter={()=>loadFeed(()=>api('moments')).catch(()=>{})} onFocus={()=>loadFeed(()=>api('moments')).catch(()=>{})} onTouchStart={()=>loadFeed(()=>api('moments')).catch(()=>{})} aria-current={selected==='moments'?'page':undefined} className={selected==='moments'?'nav-active':''}><NavIcon id="moments"/><span>动态</span></a>
         </div>
         <a className="nav-github" href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer" aria-label="GitHub（新窗口打开）" title="GitHub">
           <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

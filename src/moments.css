@@ -69,3 +69,9 @@
  .moment-text { font-size: 1rem; }
  .moment-media img { height: 168px; }
 }
+
+.moment-loading { padding: 24px 0; color: var(--ink-2); }
+.moment-placeholder { margin-top: 24px; border-bottom: 1px solid var(--hairline); padding-bottom: 32px; }
+.moment-placeholder i { display: block; height: 12px; margin-top: 18px; width: 85%; background: var(--hairline); border-radius: 3px; }
+.moment-placeholder i:first-child { width: 140px; height: 32px; }
+.moment-placeholder i:last-child { width: 60%; }

@@ -2,7 +2,6 @@ import { useState } from 'react'
 import Footer from '../components/Footer'
 import CopyEmail from '../components/CopyEmail'
 import HuntlineProgress from '../components/HuntlineProgress'
-import { useScrollReveal } from '../hooks/useScrollReveal'
 import { blogUrl, ghUrl } from '../config'
 
 /* ---------- 数据 ---------- */
@@ -19,6 +18,7 @@ const experiments = [
     tag: 'Three.js · WebGL',
     desc: '每天记一件事，长成一棵 3D 的树。记录越多，森林越茂盛。96 commits。',
     link: ghUrl('daily-tree/app/'),
+    repo: 'https://github.com/nuts-and-bytes/daily-tree',
     cta: '试用',
   },
   {
@@ -26,6 +26,7 @@ const experiments = [
     tag: 'D3.js · LLM Embedding',
     desc: '用 embedding 把单词之间的语义距离画成一片星空。',
     link: ghUrl('word-universe/'),
+    repo: 'https://github.com/nuts-and-bytes/word-universe',
     cta: '试用',
   },
   {
@@ -33,6 +34,7 @@ const experiments = [
     tag: 'TypeScript · PWA · Cloudflare',
     desc: '受够了广告和付费墙，给自己写了个本地优先的无广告打卡工具——周报、热力图、离线 PWA，数据不出设备。',
     link: 'https://tiezheng.pages.dev',
+    repo: 'https://github.com/nuts-and-bytes/tiezheng',
     cta: '试用',
   },
   {
@@ -40,6 +42,7 @@ const experiments = [
     tag: 'React · 零后端',
     desc: '一次点击记录情绪，按周聚合出情绪波形。秒开，数据不出设备。',
     link: ghUrl('omm-daily-happy/'),
+    repo: 'https://github.com/nuts-and-bytes/omm-daily-happy',
     cta: '试用',
   },
 ]
@@ -47,7 +50,6 @@ const experiments = [
 /* ---------- 页面 ---------- */
 
 export default function Home() {
-  useScrollReveal()
   const [questLoaded, setQuestLoaded] = useState(false)
 
   return (
@@ -140,10 +142,11 @@ export default function Home() {
               <a className="quest-open" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">
                 新窗口打开 ↗
               </a>
-              <figcaption><span>图二</span>不用看说明，直接在这里玩一关。</figcaption>
+              <figcaption>在故事里做产品决策，看看你的选择会带来什么结果。</figcaption>
             </figure>
             <div className="case-entry">
               <a className="link-strong" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">打开游戏，开始闯关 ↗</a>
+              <a className="case-repo" href="https://github.com/nuts-and-bytes/Product-quest" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
             </div>
             <div className="case-details">
               <h4 className="case-h">内容与技术细节</h4>
@@ -160,20 +163,20 @@ export default function Home() {
           <article className="case rv">
             <p className="case-kicker">Case 03 · 播客精读网站</p>
             <h3 className="case-title">
-              <a className="case-title-link" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">游荡集 · 把播客读成一本书<span className="title-arrow">↗</span></a>
+              游荡集 · 把播客读成一本书
             </h3>
             <p className="case-purpose">
               把许知远《游荡集》的长篇播客整理成精读文章，适合更喜欢阅读，或想在听完后回顾故事的人。还可以跟着音乐和地图，探索谈话中的地方与生活。
             </p>
 
             <figure className="plate site-preview">
-              <a href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer" aria-label="打开游荡集播客精读网站">
+              <div>
                 <picture>
                   <source media="(max-width: 640px)" srcSet={`${import.meta.env.BASE_URL}shots/youdang-mobile.png`} width="390" height="426" />
                   <img src={`${import.meta.env.BASE_URL}shots/youdang.png`} width="1280" height="720" alt="游荡集网站首页：海浪背景与播客阅读主题" loading="lazy" />
                 </picture>
-              </a>
-              <figcaption><span>图三</span>在声音里游荡世界。点击预览，走进游荡集。</figcaption>
+              </div>
+              <figcaption>在声音里游荡世界，把长篇谈话留在纸上。</figcaption>
             </figure>
             <div className="case-entry">
               <a className="link-strong" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">打开游荡集，开始阅读 ↗</a>
@@ -194,12 +197,12 @@ export default function Home() {
 
           <div className="exp-grid">
             {experiments.map((e, i) => (
-              <a key={e.title} className="exp-card rv" href={e.link} target="_blank" rel="noopener noreferrer">
+              <article key={e.title} className="exp-card rv">
                 <p className="exp-tag"><span className="exp-no">No.{String(i + 1).padStart(2, '0')}</span>{e.tag}</p>
                 <h3>{e.title}</h3>
                 <p className="exp-desc">{e.desc}</p>
-                <span className="exp-cta">{e.cta} →</span>
-              </a>
+                <div className="project-actions"><a className="exp-cta" href={e.link} target="_blank" rel="noopener noreferrer">{e.cta} ↗</a><a className="case-repo" href={e.repo} target="_blank" rel="noopener noreferrer">查看源码 ↗</a></div>
+              </article>
             ))}
           </div>
         </div>

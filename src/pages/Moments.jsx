@@ -3,6 +3,7 @@ import {upload} from '@vercel/blob/client'
 import Footer from '../components/Footer'
 import {api,checkFiles,draft,postId,postUrl,TYPES} from '../lib/moments'
 import '../moments.css'
+import {loadFeed,clearFeedCache} from '../lib/moments-feed'
 
 function Attachment({file}){
  const [url,setUrl]=useState('')
@@ -28,7 +29,7 @@ export default function Moments({route,active=true}){
  const [session,setSession]=useState(null),[login,setLogin]=useState(false),[key,setKey]=useState(''),[posts,setPosts]=useState([]),[cursor,setCursor]=useState(null),[loading,setLoading]=useState(true),[error,setError]=useState(''),[notice,setNotice]=useState(''),[text,setText]=useState(''),[files,setFiles]=useState([]),[id,setId]=useState(postId),[busy,setBusy]=useState(false),[progress,setProgress]=useState(''),[restored,setRestored]=useState(false),[sharing,setSharing]=useState(null)
  const input=useRef();const uploaded=useRef(new Map());const lock=useRef(false)
  const selected=new URLSearchParams(location.search).get('post')
- async function load(next){setLoading(true);try{const data=await api(`moments${selected?`?id=${encodeURIComponent(selected)}`:next?`?cursor=${encodeURIComponent(next)}`:''}`);setPosts(p=>next?[...p,...data.posts]:data.post?[data.post]:data.posts);setCursor(data.cursor||null);setError('')}catch(e){setError(e.message)}finally{setLoading(false)}}
+ async function load(next,force=false){setLoading(true);try{const path=`moments${selected?`?id=${encodeURIComponent(selected)}`:next?`?cursor=${encodeURIComponent(next)}`:''}`;const data=await (selected||next?api(path):loadFeed(()=>api(path),{force}));setPosts(p=>next?[...p,...data.posts]:data.post?[data.post]:data.posts);setCursor(data.cursor||null);setError('')}catch(e){setError(e.message)}finally{setLoading(false)}}
  useEffect(()=>{if(!active)return;api('moments-session').then(setSession).catch(()=>setSession({owner:false,configured:false,configurationIssue:'无法连接登录服务，请刷新页面重试。'}));load()},[active,route])
  useEffect(()=>{if(!session?.owner)return;let active=true;draft('get').then(value=>{if(!active)return;if(value){setText(value.text||'');setFiles(value.files||[]);setId(value.id||postId());setNotice('已恢复此设备的草稿')}setRestored(true)}).catch(()=>{setRestored(true);setNotice('此浏览器无法保存本地草稿，请勿在发布前关闭页面')});return()=>{active=false}},[session?.owner])
  useEffect(()=>{if(!session?.owner||!restored||busy)return;const timer=setTimeout(()=>draft('put',{id,text,files}).catch(()=>setNotice('本地草稿保存失败，请保持页面打开')),500);return()=>clearTimeout(timer)},[id,text,files,restored,busy,session?.owner])
@@ -40,7 +41,7 @@ export default function Moments({route,active=true}){
  async function publish(){if(lock.current)return;lock.current=true;setBusy(true);setError('');try{
   checkFiles(files);if(!text.trim()&&!files.length)throw Error('请写点内容或添加附件')
   const media=[];for(let i=0;i<files.length;i++){const file=files[i];let path=uploaded.current.get(file);if(!path){const ext=file.type.split('/')[1].replace('jpeg','jpg').replace('quicktime','mov');const result=await upload(`uploads/${crypto.randomUUID()}.${ext}`,file,{access:'private',handleUploadUrl:'/api/moments-upload',clientPayload:JSON.stringify({type:file.type,size:file.size}),multipart:file.size>5*1024*1024,onUploadProgress:p=>setProgress(`上传附件 ${i+1}/${files.length} · ${Math.round(p.percentage)}%`)});path=result.pathname;uploaded.current.set(file,path)}media.push({pathname:path,type:file.type,size:file.size})}
-  setProgress('正在发布…');const {post}=await api('moments',{method:'POST',body:JSON.stringify({id,text,media})});setPosts(p=>[post,...p.filter(x=>x.id!==post.id)]);setSharing(post.id);setText('');setFiles([]);setId(postId());uploaded.current.clear();await draft('clear').catch(()=>{});setNotice('已发布到个人网站。分享到平台时，仍需你确认发布。')
+  setProgress('正在发布…');const {post}=await api('moments',{method:'POST',body:JSON.stringify({id,text,media})});clearFeedCache();setPosts(p=>[post,...p.filter(x=>x.id!==post.id)]);setSharing(post.id);setText('');setFiles([]);setId(postId());uploaded.current.clear();await draft('clear').catch(()=>{});setNotice('已发布到个人网站。分享到平台时，仍需你确认发布。')
  }catch(e){setError(e.message);setNotice('未发布成功，内容和附件仍保留，可重试')}finally{lock.current=false;setBusy(false);setProgress('')}}
  return <><main className="moments-page"><header className="moments-heading"><h1 tabIndex={-1}>动态</h1><p>想法、日常，和正在做的事。</p></header>
  {session?.owner&&<section className="moment-composer" aria-label="发布动态" onPaste={paste} onDragOver={e=>e.preventDefault()} onDrop={e=>{e.preventDefault();add(e.dataTransfer.files)}}>
@@ -52,8 +53,8 @@ export default function Moments({route,active=true}){
   <small>最多 9 张图片（每张 10 MB）或 1 个视频（50 MB）。粘贴不可用时可选择文件。草稿仅保存在当前设备。</small>
   {busy&&<p role="status">{progress}</p>}
  </section>}
- {notice&&<p className="moment-notice" role="status">{notice}</p>}{error&&<p className="moment-error" role="alert">{error} <button onClick={()=>load()}>重新加载列表</button></p>}
- {loading&&<p role="status">正在加载动态…</p>}
+ {notice&&<p className="moment-notice" role="status">{notice}</p>}{error&&<p className="moment-error" role="alert">{error} <button onClick={()=>load(undefined,true)}>重新加载列表</button></p>}
+ {loading&&!posts.length&&<div className="moment-loading" role="status"><span>正在读取最新动态…</span><div aria-hidden="true" className="moment-placeholder"><i/><i/><i/></div></div>}
  {!loading&&!error&&!posts.length&&<div className="moments-empty"><h2>故事还在路上</h2><p>新的想法和记录，会留在这里。</p></div>}
  <div className="moments-feed">{posts.map(p=><article className="moment-post" key={p.id}><header className="moment-row"><div className="moment-author"><img src={`${import.meta.env.BASE_URL}brand/stone-mark.svg`} width="44" height="44" alt=""/><div><strong>朱鑫垚 <span>stone</span></strong><a href={`/moments?post=${p.id}`}><time dateTime={p.createdAt}>{new Date(p.createdAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',dateStyle:'medium',timeStyle:'short'})}</time></a></div></div><span className="moment-visibility">公开</span></header><p className="moment-text">{p.text}</p><div className={`moment-media ${p.media.length===1?'single':''}`}>{p.media.map(m=>m.type.startsWith('video/')?<video key={m.url} src={m.url} controls playsInline preload="metadata"/>:<a key={m.url} href={m.url} target="_blank" rel="noopener noreferrer"><img src={m.url} loading="lazy" alt="动态配图"/></a>)}</div>{session?.owner&&<div className="moment-actions"><button onClick={()=>setSharing(sharing===p.id?null:p.id)}>分享这条动态</button></div>}{sharing===p.id&&<Share post={p} onClose={()=>setSharing(null)}/>}</article>)}</div>
  {cursor&&!selected&&<button disabled={loading} onClick={()=>load(cursor)}>查看更多动态</button>}
