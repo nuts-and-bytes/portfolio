@@ -1003,7 +1003,9 @@ body::after {
 }
 @media(prefers-reduced-motion:reduce){.nav-selection { transition: none; }}
 @media(min-width:721px){
- .nav.nav { top: 12px; left: max(20px,calc((100vw - 1060px)/2)); right: max(20px,calc((100vw - 1060px)/2)); border: 1px solid rgba(255,255,255,.75); border-radius: 24px; background: var(--paper); box-shadow: 0 8px 24px -12px rgba(50,40,30,.28), inset 0 1px 0 rgba(255,255,255,.85); overflow: hidden; }
+ .nav .nav-inner { grid-template-columns: auto minmax(0,1fr) auto; padding: 10px 16px; gap: 16px; }
+ .nav .stone-nav-tabs { width: 100%; }
+ .nav.nav { top: 12px; left: max(20px,calc((100vw - 800px)/2)); right: max(20px,calc((100vw - 800px)/2)); border: 1px solid rgba(255,255,255,.75); border-radius: 24px; background: var(--paper); box-shadow: 0 8px 24px -12px rgba(50,40,30,.28), inset 0 1px 0 rgba(255,255,255,.85); overflow: hidden; }
  @supports ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
   .nav.nav { background: linear-gradient(125deg,rgba(255,255,255,.32),rgba(250,247,242,.18) 48%,rgba(255,255,255,.24)); -webkit-backdrop-filter: blur(2px) saturate(120%); backdrop-filter: blur(2px) saturate(120%); }
   .nav .stone-nav-tabs { background: rgba(243,238,230,.22); border-color: rgba(255,255,255,.5); }
