@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Footer from '../components/Footer'
+import CopyEmail from '../components/CopyEmail'
 import HuntlineProgress from '../components/HuntlineProgress'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { blogUrl, ghUrl } from '../config'
@@ -255,7 +256,7 @@ export default function Home() {
 
           <div className="contact rv">
             <p className="contact-lead">想聊聊，就写信给我。</p>
-            <a href="mailto:zhuxinyao99@gmail.com" className="contact-mail">zhuxinyao99@gmail.com</a>
+            <div className="contact-email-line"><a href="mailto:zhuxinyao99@gmail.com" className="contact-mail">zhuxinyao99@gmail.com</a><CopyEmail email="zhuxinyao99@gmail.com" /></div>
             <svg className="sign" viewBox="0 0 260 60" aria-hidden="true">
               <path pathLength="1" d="M6 44 C40 42 70 10 94 14 C114 18 100 50 78 46 C58 42 92 24 140 30 S214 42 254 20" />
             </svg>

@@ -958,3 +958,13 @@ body::after {
   .hunt-inventory strong { font-size: 2rem; }
 }
 @media (prefers-reduced-motion: reduce) { .hero-project img { transition: none; } .hero-project:hover img { transform: none; } }
+
+.contact-email-line { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.contact-email-line .contact-mail { overflow-wrap: anywhere; min-width: 0; -webkit-user-select: text; user-select: text; }
+.contact-copy { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.contact-copy button { min-height: 44px; padding: 8px 16px; border: 1px solid rgba(250,247,242,.5); border-radius: 8px; color: var(--paper); font: inherit; font-size: .875rem; }
+.contact-copy button:hover { background: rgba(250,247,242,.12); }
+.contact-copy button:focus-visible { outline: 2px solid #E8895F; outline-offset: 3px; }
+.contact-copy button:disabled { opacity: .6; cursor: wait; }
+.contact-copy [role="status"] { color: var(--paper); font-size: .8125rem; line-height: 1.6; }
+@media(max-width:640px){ .contact-email-line { gap: 8px; } .contact-copy { width: 100%; } }
