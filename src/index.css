@@ -1028,3 +1028,16 @@ body::after {
 .project-actions { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; margin-top: 16px; }
 .project-actions a, .case-entry .case-repo { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 5px; }
 .project-actions .case-repo { margin-top: 0; font-size: var(--fs-small); }
+
+/* Dark sections need their own glass surface and foreground, including the logo. */
+.nav.nav-dark-backdrop { background: rgba(28,25,23,.82); border-color: rgba(250,247,242,.45); box-shadow: 0 8px 24px -12px rgba(0,0,0,.45), inset 0 1px 0 rgba(250,247,242,.2); }
+.nav.nav-dark-backdrop .stone-nav-tabs { background: rgba(28,25,23,.28); border-color: rgba(250,247,242,.3); }
+.nav.nav-dark-backdrop .stone-nav-tabs :is(button,a), .nav.nav-dark-backdrop .nav-logo, .nav.nav-dark-backdrop .nav-github { color: #FAF7F2; text-shadow: none; }
+.nav.nav-dark-backdrop .nav-logo img { filter: brightness(0) invert(1); }
+.nav.nav-dark-backdrop .nav-selection { background: #FAF7F2; }
+.nav.nav-dark-backdrop .stone-nav-tabs .nav-active { color: #1C1917; }
+.nav.nav-dark-backdrop :is(button,a):focus-visible { outline-color: #F5A77D; }
+@media(prefers-reduced-transparency:reduce), (prefers-contrast:more) {
+ .nav.nav-dark-backdrop { background: #1C1917; }
+ .nav.nav-dark-backdrop .stone-nav-tabs { background: #1C1917; }
+}

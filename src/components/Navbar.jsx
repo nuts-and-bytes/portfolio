@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {navigate} from '../lib/navigation'
 import {api} from '../lib/moments'
 import {loadFeed} from '../lib/moments-feed'
@@ -16,6 +16,8 @@ const links = [
 ]
 
 export default function Navbar({route}) {
+  const navRef = useRef(null)
+  const [darkBackdrop, setDarkBackdrop] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [progress, setProgress] = useState(0)
   const [active, setActive] = useState('cases')
@@ -27,13 +29,19 @@ export default function Navbar({route}) {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 24)
+      const nav = navRef.current?.getBoundingClientRect()
+      if (nav) setDarkBackdrop(Array.from(document.querySelectorAll('.section-dark, .footer')).some(el => {
+        const rect = el.getBoundingClientRect()
+        return rect.height > 0 && rect.top < nav.bottom && rect.bottom > nav.top
+      }))
       const max = document.documentElement.scrollHeight - window.innerHeight
       setProgress(max > 0 ? (window.scrollY / max) * 100 : 0)
     }
     window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    window.addEventListener('resize', onScroll)
+    const frame = requestAnimationFrame(onScroll)
+    return () => { cancelAnimationFrame(frame); window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll) }
+  }, [route])
 
   useEffect(() => {
     if (!('IntersectionObserver' in window)) return
@@ -51,7 +59,7 @@ export default function Navbar({route}) {
   const go = (id) => { setActive(id); if(location.pathname !== '/') navigate(`/#${id}`); else document.getElementById(id)?.scrollIntoView({ behavior: behavior() }) }
 
   return (
-    <nav className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
+    <nav ref={navRef} className={`nav ${darkBackdrop ? 'nav-dark-backdrop' : ''} ${scrolled ? 'nav-scrolled' : ''}`}>
       <div className="nav-progress" style={{ width: `${progress}%` }} />
       <div className="nav-inner">
         <button className="nav-logo" aria-label="stone，返回首页顶部" onClick={() => location.pathname !== '/' ? navigate('/') : window.scrollTo({ top: 0, behavior: behavior() })}>
