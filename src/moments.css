@@ -40,3 +40,32 @@
 .moment-owner input { display: block; margin: 8px 0 12px; }
 .moment-back { display: block; margin-top: 24px; }
 @media(max-width:640px){ .moments-page { padding: 110px 20px 50px; } .moment-composer,.moment-share { padding: 16px; } .moment-media { grid-template-columns: repeat(2,minmax(0,1fr)); } .moment-media img { height: 150px; } .moment-row { gap: 8px; } .moment-previews { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+/* A continuous reading feed; author and date anchor each entry. */
+.moments-page { max-width: 960px; padding-top: 112px; }
+.moments-heading { padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid var(--hairline); }
+.moments-heading h1 { font-size: 2rem; margin: 0 0 8px; }
+.moments-heading h1:focus { outline: none; }
+.moment-composer { background: transparent; border: 0; border-bottom: 1px solid var(--hairline); padding: 0 0 24px; }
+.moment-composer textarea { border: 0; background: transparent; padding: 8px 0; min-height: 112px; }
+.moment-post { padding: 32px 0; }
+.moment-author { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.moment-author > img { flex: 0 0 44px; padding: 8px; border: 1px solid var(--hairline); border-radius: 50%; }
+.moment-author > div { display: grid; gap: 4px; }
+.moment-post .moment-author strong { font: 600 1rem/1.5 var(--sans, sans-serif); }
+.moment-author strong span { font-weight: 400; color: var(--ink-2); margin-left: 8px; }
+.moment-visibility { font-size: .75rem; color: var(--ink-2); }
+.moment-text,.moment-media,.moment-post > .moment-actions,.moment-post > .moment-share { margin-left: 56px; }
+.moment-text { font-size: 1.0625rem; line-height: 1.85; margin-top: 20px; }
+.moment-media { gap: 8px; }
+.moment-media img { height: 224px; border-radius: 12px; }
+.moment-media.single img { max-height: 720px; }
+.moment-media video { border-radius: 12px; }
+.moment-post > .moment-actions button { border-color: transparent; color: var(--ink-2); padding-left: 0; }
+@media(max-width:640px){
+ .moments-page { padding-top: 104px; }
+ .moments-heading h1 { font-size: 1.75rem; }
+ .moment-post { padding: 24px 0; }
+ .moment-text,.moment-media,.moment-post > .moment-actions,.moment-post > .moment-share { margin-left: 0; }
+ .moment-text { font-size: 1rem; }
+ .moment-media img { height: 168px; }
+}

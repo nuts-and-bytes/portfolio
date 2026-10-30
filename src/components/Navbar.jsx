@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import {navigate} from '../lib/navigation'
 
 const links = [
   { id: 'cases', label: '项目' },
@@ -7,7 +8,7 @@ const links = [
   { id: 'about', label: '关于' },
 ]
 
-export default function Navbar() {
+export default function Navbar({route}) {
   const [scrolled, setScrolled] = useState(false)
   const [progress, setProgress] = useState(0)
   const [active, setActive] = useState('')
@@ -34,20 +35,20 @@ export default function Navbar() {
       if (el) io.observe(el)
     })
     return () => io.disconnect()
-  }, [])
+  }, [route])
 
-  const go = (id) => { if(location.pathname !== '/') location.href = `/#${id}`; else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }
+  const go = (id) => { if(location.pathname !== '/') navigate(`/#${id}`); else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }
 
   return (
     <nav className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
       <div className="nav-progress" style={{ width: `${progress}%` }} />
       <div className="nav-inner">
-        <button className="nav-logo" aria-label="stone，返回首页顶部" onClick={() => location.pathname !== '/' ? location.assign('/') : window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <button className="nav-logo" aria-label="stone，返回首页顶部" onClick={() => location.pathname !== '/' ? navigate('/') : window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <img src={`${import.meta.env.BASE_URL}brand/stone-mark.svg`} width="32" height="32" alt="" /><span className="stone-wordmark">stone</span>
         </button>
         <div className="nav-links">
           {links.map((l) => (
-            <button key={l.id} className={active === l.id ? 'nav-active' : ''} onClick={() => go(l.id)}>
+            <button key={l.id} className={location.pathname === '/' && active === l.id ? 'nav-active' : ''} onClick={() => go(l.id)}>
               {l.label}
             </button>
           ))}
