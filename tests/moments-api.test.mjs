@@ -5,6 +5,11 @@ import posts from '../api/moments.js'
 import media from '../api/moments-media.js'
 
 function response(){return {headers:{},setHeader(k,v){this.headers[k]=v},status(n){this.code=n;return this},json(body){this.body=body;return this},end(){this.ended=true;return this}}}
+test('incomplete configuration explains the missing step without exposing credentials',async()=>{
+ const previous=process.env.STONE_ADMIN_KEY
+ process.env.STONE_ADMIN_KEY='short-test-value'
+ try{const res=response();await session({method:'GET',headers:{}},res);assert.equal(res.body.configured,false);assert.match(res.body.configurationIssue,/至少 32/);assert.equal(JSON.stringify(res.body).includes('short-test-value'),false)}finally{if(previous===undefined)delete process.env.STONE_ADMIN_KEY;else process.env.STONE_ADMIN_KEY=previous}
+})
 test('public visitors cannot publish, including a forged owner field',async()=>{
  const res=response();await posts({method:'POST',headers:{origin:'https://heystone.site'},body:{owner:true,text:'forged'},query:{}},res)
  assert.equal(res.code,401)

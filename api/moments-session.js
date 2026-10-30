@@ -1,7 +1,8 @@
 import {issueSession,safeEqual} from '../server/moments-core.mjs'
 import {isOwner,requireOrigin,json,readBody,secret,storageReady} from '../server/moments-auth.mjs'
 export default async function handler(req,res){try{
- if(req.method==='GET')return json(res,200,{owner:isOwner(req),configured:secret().length>=32&&storageReady()})
+ const configurationIssue=secret().length<32?'管理员口令需至少 32 位字符。请在 Vercel 更新 STONE_ADMIN_KEY 并重新部署。':!storageReady()?'动态存储尚未连接，请检查服务端存储配置。':null
+ if(req.method==='GET')return json(res,200,{owner:isOwner(req),configured:!configurationIssue,configurationIssue})
  requireOrigin(req)
  if(req.method==='DELETE'){res.setHeader('Set-Cookie','stone_session=; Path=/api; HttpOnly; Secure; SameSite=Strict; Max-Age=0');return json(res,200,{ok:true})}
  if(req.method!=='POST')return json(res,405,{error:'不支持此操作'})
