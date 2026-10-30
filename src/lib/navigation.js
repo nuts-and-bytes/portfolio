@@ -6,6 +6,10 @@ export function internalRoute(event, origin) {
 }
 export function navigate(to){
  const url=new URL(to,location.origin)
- if(url.href===location.href){document.querySelector('main h1')?.focus();return}
+ if(url.href===location.href){
+  if(url.hash)document.getElementById(decodeURIComponent(url.hash.slice(1)))?.scrollIntoView()
+  else window.scrollTo(0,0)
+  return
+ }
  history.pushState(null,'',url);window.dispatchEvent(new PopStateEvent('popstate'))
 }

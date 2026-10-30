@@ -17,3 +17,9 @@ test('navigation updates browser history and notifies React without reloading th
  globalThis.PopStateEvent=class{constructor(type){this.type=type}}
  try{navigate('/moments');assert.equal(next,'https://heystone.site/moments');assert.equal(event,'popstate')}finally{for(const [k,v] of Object.entries(previous)){if(v===undefined)delete globalThis[k];else globalThis[k]=v}}
 })
+test('clicking the same contact anchor again still scrolls to its section',()=>{
+ const oldLocation=globalThis.location,oldDocument=globalThis.document;let scrolled=false
+ globalThis.location={origin:'https://heystone.site',href:'https://heystone.site/#about'}
+ globalThis.document={getElementById:id=>{assert.equal(id,'about');return {scrollIntoView:()=>{scrolled=true}}}}
+ try{navigate('/#about');assert.equal(scrolled,true)}finally{if(oldLocation===undefined)delete globalThis.location;else globalThis.location=oldLocation;if(oldDocument===undefined)delete globalThis.document;else globalThis.document=oldDocument}
+})
