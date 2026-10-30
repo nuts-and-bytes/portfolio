@@ -983,6 +983,14 @@ body::after {
 @media(hover:hover) and (pointer:fine){.nav .stone-nav-tabs :is(button,a):hover { color: var(--ink); }}
 .nav .keyboard-nav .nav-selection { transition: none; }
 @media(max-width:720px){
+ /* Keep the mobile glass material above the shared desktop paper styles. */
+ .nav.nav { top: calc(10px + env(safe-area-inset-top,0px)); left: 12px; right: 12px; border: 1px solid rgba(255,255,255,.75); border-radius: 24px; background: var(--paper); box-shadow: 0 8px 24px -12px rgba(50,40,30,.28), inset 0 1px 0 rgba(255,255,255,.85); overflow: hidden; }
+ @supports ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+  .nav.nav { background: linear-gradient(125deg,rgba(255,255,255,.32),rgba(250,247,242,.18) 48%,rgba(255,255,255,.24)); -webkit-backdrop-filter: blur(2px) saturate(120%); backdrop-filter: blur(2px) saturate(120%); }
+  .nav .stone-nav-tabs { background: rgba(243,238,230,.22); border-color: rgba(255,255,255,.5); }
+  .nav .nav-selection { background: rgba(255,253,249,.66); }
+ }
+ .nav .stone-nav-tabs :is(button,a) { text-shadow: 0 1px 2px rgba(255,255,255,.9); }
  .nav .nav-inner { grid-template-columns: 1fr auto; padding: 8px 16px 10px; gap: 6px; }
  .nav .nav-logo { grid-column: 1; grid-row: 1; justify-self: start; min-height: 40px; }
  .nav .nav-github { grid-column: 2; grid-row: 1; width: 40px; height: 40px; background: transparent; }
@@ -991,6 +999,11 @@ body::after {
  .nav .stone-nav-tabs svg { width: 16px; height: 16px; }
  .hero { padding-top: 156px; }
  .moments-page { padding-top: 144px; }
- section[id],header[id] { scroll-margin-top: 138px; }
+ section[id],header[id] { scroll-margin-top: calc(148px + env(safe-area-inset-top,0px)); }
 }
 @media(prefers-reduced-motion:reduce){.nav-selection { transition: none; }}
+@media(max-width:720px) and (prefers-reduced-transparency:reduce), (max-width:720px) and (prefers-contrast:more){
+ .nav.nav { background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; border-color: var(--hairline); }
+ .nav .stone-nav-tabs { background: var(--paper-deep); border-color: var(--hairline); }
+ .nav .nav-selection { background: var(--paper); }
+}
