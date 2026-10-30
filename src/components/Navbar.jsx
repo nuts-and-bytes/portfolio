@@ -36,13 +36,13 @@ export default function Navbar() {
     return () => io.disconnect()
   }, [])
 
-  const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  const go = (id) => { if(location.pathname !== '/') location.href = `/#${id}`; else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }
 
   return (
     <nav className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
       <div className="nav-progress" style={{ width: `${progress}%` }} />
       <div className="nav-inner">
-        <button className="nav-logo" aria-label="stone，返回首页顶部" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <button className="nav-logo" aria-label="stone，返回首页顶部" onClick={() => location.pathname !== '/' ? location.assign('/') : window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <img src={`${import.meta.env.BASE_URL}brand/stone-mark.svg`} width="32" height="32" alt="" /><span className="stone-wordmark">stone</span>
         </button>
         <div className="nav-links">
@@ -51,6 +51,7 @@ export default function Navbar() {
               {l.label}
             </button>
           ))}
+          <a href="/moments" className={location.pathname === '/moments' ? 'nav-active' : ''}>动态</a>
         </div>
         <a className="nav-github" href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer" aria-label="GitHub（新窗口打开）" title="GitHub">
           <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

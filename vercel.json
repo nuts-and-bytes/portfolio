@@ -250,5 +250,11 @@
       "destination": "https://youdang.heystone.site/2026-10-28-%E6%B8%B8%E8%8D%A1%E9%9B%8688-%E7%B2%BE%E8%AF%BB.html",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/moments",
+      "destination": "/index.html"
+    }
   ]
 }

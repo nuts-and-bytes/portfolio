@@ -43,13 +43,6 @@ const experiments = [
   },
 ]
 
-const featuredProjects = [
-  { title: 'Product Quest', purpose: '边闯关，边学产品设计', image: 'product-quest.png', link: ghUrl('Product-quest/') },
-  { title: '游荡集', purpose: '把播客读成一本书', image: 'youdang.png', link: 'https://youdang.heystone.site/' },
-  { title: 'Daily Tree', purpose: '每天一件事，长成记忆森林', image: 'daily-tree.jpg', link: ghUrl('daily-tree/app/') },
-  { title: 'Word Universe', purpose: '把词汇变成一片星系', image: 'word-universe.jpg', link: ghUrl('word-universe/') },
-]
-
 /* ---------- 页面 ---------- */
 
 export default function Home() {
@@ -91,13 +84,12 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="hero-projects in-3" aria-label="点击体验我的项目">
-              {featuredProjects.map(project => <a className="hero-project" key={project.title} href={project.link} target="_blank" rel="noopener noreferrer">
-                <img src={`${import.meta.env.BASE_URL}shots/${project.image}`} alt={`${project.title}网站预览`} width="400" height="250" />
-                <span className="hero-project-title">{project.title}<span aria-hidden="true">↗</span></span>
-                <span className="hero-project-purpose">{project.purpose}</span>
-              </a>)}
-            </div>
+            <figure className="hero-shot in-3">
+              <a href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer" aria-label="打开游荡集，阅读播客精读">
+                <img src={`${import.meta.env.BASE_URL}shots/youdang.png`} alt="游荡集网站预览" width="1280" height="720" style={{height:'auto'}} />
+                <figcaption>游荡集 · 把播客读成一本书 ↗</figcaption>
+              </a>
+            </figure>
           </div>
         </div>
       </header>
