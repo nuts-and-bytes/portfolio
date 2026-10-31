@@ -12,10 +12,39 @@
   --hairline: #E4DCD0;
   --accent: #C2410C;
   --accent-soft: rgba(194, 65, 12, 0.08);
-  --serif: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  --serif: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
   --sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/noto-serif-sc-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./fonts/noto-serif-sc-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('./fonts/noto-serif-sc-900.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/cormorant-garamond-italic.woff2') format('woff2');
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -532,11 +561,7 @@ body::after {
 @keyframes ink-draw { to { stroke-dashoffset: 0; } }
 .hero-grid { position: relative; z-index: 1; }
 
-.hero-title { font-size: clamp(2.5rem, 5.6vw, 4rem); line-height: 1.22; margin-bottom: 18px; }
-.hero-epi {
-  font-family: var(--display-en); font-style: italic; font-weight: 400;
-  font-size: 1.3125rem; color: var(--ink-2); margin-bottom: 28px; line-height: 1.5;
-}
+.hero-title { font-size: clamp(2.5rem, 5.6vw, 4rem); line-height: 1.22; margin-bottom: 28px; }
 
 /* 截图像一张冲印出来的照片 */
 .hero-shot { transform: rotate(-1.6deg); transition: transform 0.6s var(--ease); }
@@ -562,14 +587,6 @@ body::after {
   font-size: 0.6em; color: var(--ink-3); margin-left: 16px; letter-spacing: 0;
 }
 .section-dark .sec-en { color: rgba(250, 247, 242, 0.45); }
-
-/* 关于页题记 */
-.about-quote {
-  font-family: var(--serif); font-size: clamp(1.25rem, 2.6vw, 1.625rem);
-  line-height: 1.7; margin-bottom: 36px !important;
-  padding-left: 22px; border-left: 2px solid #E8895F;
-}
-.section-dark .about .about-quote { color: var(--paper); }
 
 @media (max-width: 640px) {
   .hero-ink { right: -120px; top: 60px; width: 380px; opacity: 0.28; }
@@ -801,7 +818,6 @@ body::after {
   .exp-card { padding: 24px 22px; transform: none; }
   .post { padding: 24px; gap: 20px; transform: none; }
   .post .post-arrow { align-self: flex-end; }
-  .about-quote { margin-bottom: 24px !important; }
   .footer { padding: 24px 20px; }
 }
 @media (max-width: 359px) {

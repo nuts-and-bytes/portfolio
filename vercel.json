@@ -255,6 +255,10 @@
     {
       "source": "/moments",
       "destination": "/moments.html"
+    },
+    {
+      "source": "/moments/",
+      "destination": "/moments.html"
     }
   ]
 }

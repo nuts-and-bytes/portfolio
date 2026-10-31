@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://heystone.site/sitemap.xml
