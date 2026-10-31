@@ -4,7 +4,7 @@ const weeks = [ ['09.14',3], ['09.21',2], ['09.28',24], ['10.05',10], ['10.12',8
 export default function HuntlineProgress() {
   return (
     <section className="hunt-progress" aria-label="猎光累计数据">
-      <header className="hunt-progress-head"><h4>从 0 到 1，持续迭代中</h4><span className="hunt-status">已投入真实业务使用</span></header>
+      <header className="hunt-progress-head"><h4>已经在业务里跑着，还在每周改</h4><span className="hunt-status">已投入真实业务使用</span></header>
       <dl className="hunt-totals">
         <div><dt>累计更新</dt><dd>89<small> 条</small></dd></div>
         <div><dt>功能新增记录</dt><dd>55<small> 条</small></dd></div>

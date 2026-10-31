@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import {navigate} from '../lib/navigation'
+import {navigate,normalizePath} from '../lib/navigation'
 import {api} from '../lib/moments'
 import {loadFeed} from '../lib/moments-feed'
 
@@ -22,7 +22,8 @@ export default function Navbar({route}) {
   const [progress, setProgress] = useState(0)
   const [active, setActive] = useState('cases')
   const [keyboard,setKeyboard]=useState(false)
-  const selected=location.pathname==='/moments'?'moments':active
+  const pathName=()=>normalizePath(location.pathname)
+  const selected=pathName()==='/moments'?'moments':active
   const selectedIndex=[...links.map(l=>l.id),'moments'].indexOf(selected)
   const behavior=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches||keyboard?'instant':'smooth'
 
@@ -56,13 +57,18 @@ export default function Navbar({route}) {
     return () => io.disconnect()
   }, [route])
 
-  const go = (id) => { setActive(id); if(location.pathname !== '/') navigate(`/#${id}`); else document.getElementById(id)?.scrollIntoView({ behavior: behavior() }) }
+  const go = (id) => { setActive(id); if(pathName() !== '/') navigate(`/#${id}`); else document.getElementById(id)?.scrollIntoView({ behavior: behavior() }) }
+  const openMoments = (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+    e.preventDefault()
+    navigate('/moments')
+  }
 
   return (
     <nav ref={navRef} className={`nav ${darkBackdrop ? 'nav-dark-backdrop' : ''} ${scrolled ? 'nav-scrolled' : ''}`}>
       <div className="nav-progress" style={{ width: `${progress}%` }} />
       <div className="nav-inner">
-        <button className="nav-logo" aria-label="stone，返回首页顶部" onClick={() => location.pathname !== '/' ? navigate('/') : window.scrollTo({ top: 0, behavior: behavior() })}>
+        <button className="nav-logo" aria-label="stone，返回首页顶部" onClick={() => pathName() !== '/' ? navigate('/') : window.scrollTo({ top: 0, behavior: behavior() })}>
           <img src={`${import.meta.env.BASE_URL}brand/stone-mark.svg`} width="32" height="32" alt="" /><span className="stone-wordmark">stone</span>
         </button>
         <div className={`nav-links stone-nav-tabs${keyboard?' keyboard-nav':''}`} onPointerDown={()=>setKeyboard(false)} onKeyDown={()=>setKeyboard(true)}><span className="nav-selection" aria-hidden="true" style={{transform:`translateX(${Math.max(0,selectedIndex)*100}%)`}}/>
@@ -71,7 +77,7 @@ export default function Navbar({route}) {
               <NavIcon id={l.id}/><span>{l.label}</span>
             </button>
           ))}
-          <a href="/moments" onPointerEnter={()=>loadFeed(()=>api('moments')).catch(()=>{})} onFocus={()=>loadFeed(()=>api('moments')).catch(()=>{})} onTouchStart={()=>loadFeed(()=>api('moments')).catch(()=>{})} aria-current={selected==='moments'?'page':undefined} className={selected==='moments'?'nav-active':''}><NavIcon id="moments"/><span>动态</span></a>
+          <a href="/moments" onClick={openMoments} onPointerEnter={()=>loadFeed(()=>api('moments')).catch(()=>{})} onFocus={()=>loadFeed(()=>api('moments')).catch(()=>{})} onTouchStart={()=>loadFeed(()=>api('moments')).catch(()=>{})} aria-current={selected==='moments'?'page':undefined} className={selected==='moments'?'nav-active':''}><NavIcon id="moments"/><span>动态</span></a>
         </div>
         <a className="nav-github" href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer" aria-label="GitHub（新窗口打开）" title="GitHub">
           <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

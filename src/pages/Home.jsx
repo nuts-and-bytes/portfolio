@@ -8,7 +8,7 @@ import { blogUrl, ghUrl } from '../config'
 
 const now = [
   '北京外国语大学 · 国际商务硕士在读',
-  '迭代私域商业情报 Agent（GraphRAG）',
+  '继续改猎头用的情报助手（GraphRAG 还在试）',
   '在博客记录 AI 工作流实验',
 ]
 
@@ -57,7 +57,7 @@ export default function Home() {
       {/* ══════════ HERO ══════════ */}
       <header className="hero" id="hero">
         <div className="container hero-container">
-          <p className="hero-vertical" aria-hidden="true">EXPLORE · LEARN · BUILD · SHIP</p>
+          <p className="hero-vertical" aria-hidden="true">北京 · 石头 · 在建</p>
           <svg className="hero-ink" viewBox="0 0 400 400" aria-hidden="true">
             <path pathLength="1" d="M200 40 C320 30 380 150 300 260 S120 380 110 240 S150 90 240 120 S300 220 220 250" />
           </svg>
@@ -67,9 +67,8 @@ export default function Home() {
               <h1 className="hero-title in-2">
                 为 AI 世界，<br />留一点<span className="nowrap">人味<span className="accent-dot">。</span></span>
               </h1>
-              <p className="hero-epi in-2">Machines write the code. Someone still has to care why.</p>
               <p className="hero-lede in-3">
-                我是朱鑫垚。我用 AI 做工具，解决工作和生活里的具体问题；也从阅读和播客里整理想法，做成值得回看的作品。希望技术帮我们少一些重复，多一点时间，留给好奇、思考和真实的生活。
+                我是朱鑫垚。我用 AI 做工具，解决手头的具体问题；也把读过、听过的东西整理成还能回看的作品。希望机器多干点杂活，人能多留点神。
               </p>
 
               <div className="hero-now in-4">
@@ -109,7 +108,7 @@ export default function Home() {
           <article className="case rv">
             <p className="case-kicker">Case 01 · 为猎头顾问做的业务系统</p>
             <h3 className="case-title">猎光 · 智能招聘系统</h3>
-            <p className="case-purpose">我做了一套给猎头顾问使用的招聘系统，把简历录入、人才检索、推荐报告和客户跟进放在一起，让分散的资料进入同一条工作流程。</p>
+            <p className="case-purpose">我做了一套给猎头顾问使用的招聘系统，把简历录入、人才检索、推荐报告和客户跟进放在同一个地方，顾问不用再在好几个表格和聊天窗口之间来回切。</p>
             <HuntlineProgress />
             <div className="case-entry">
               <a className="link-strong" href="/#about">联系我，了解项目 ↓</a>
@@ -150,10 +149,10 @@ export default function Home() {
             </div>
             <div className="case-details">
               <h4 className="case-h">内容与技术细节</h4>
-              <p>把产品知识做成能通关的 RPG：引擎与内容彻底解耦（engine.js + JSON 数据层），像素角色、场景、音效 100% 代码生成；“最优 / 次优 / 翻车”三级决策树，术语与案例逐条标注《Inspired》《精益创业》《The Mom Test》等 16 处出处。</p>
+              <p>做成能通关的 RPG：剧情和引擎分开写（engine.js + JSON），像素和音效都是代码画的。每个选择分最优 / 凑合 / 翻车，术语旁边标了《Inspired》《精益创业》《The Mom Test》等 16 处出处。</p>
               <div className="case-nums">
                 <div><strong>9 章 37 关</strong><span>主线全部完结</span></div>
-                <div><strong>44 个</strong><span>三级博弈决策点</span></div>
+                <div><strong>44 个</strong><span>最优 / 凑合 / 翻车</span></div>
                 <div><strong>30+</strong><span>内嵌术语图鉴</span></div>
               </div>
             </div>
@@ -176,7 +175,7 @@ export default function Home() {
                   <img src={`${import.meta.env.BASE_URL}shots/youdang.png`} width="1280" height="720" alt="游荡集网站首页：海浪背景与播客阅读主题" loading="lazy" />
                 </picture>
               </div>
-              <figcaption>在声音里游荡世界，把长篇谈话留在纸上。</figcaption>
+              <figcaption>听完容易忘，所以我整理成能读的文章。</figcaption>
             </figure>
             <div className="case-entry">
               <a className="link-strong" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">打开游荡集，开始阅读 ↗</a>
@@ -221,7 +220,7 @@ export default function Home() {
             <p className="post-date" aria-hidden="true">二〇二六年十月更新</p>
             <div className="post-body">
               <p className="post-meta">教程 · Obsidian / AI · 附起步包</p>
-              <h3>用 Obsidian 打造你的第二大脑</h3>
+              <h3>用 Claude Code 搭一个会自动整理的知识库</h3>
               <p className="post-desc">
                 把读过的资料变成有来源、能找回、能关联的笔记。从一篇文章开始，附真实知识库截图、完整 AI 提示词和可下载起步包。
               </p>
@@ -244,15 +243,13 @@ export default function Home() {
           </div>
 
           <div className="about rv">
-            <p className="about-quote">机器会写代码，但总得有人知道，为什么要写它。</p>
             <p>
               北京外国语大学国际商务硕士在读；本科西安外国语大学商务英语（ACCA
               方向），专八。做过海外猎头和投资机构的实习；毕业论文用 Python 爬了 50+
               家跨境电商的招聘数据研究人才技能缺口，评了优秀。
             </p>
             <p>
-              我不是计算机科班——这正是重点。我在验证的事情是：一个爱探索、学得快的人，加上
-              AI，能把想法推多远。目前的答案是：从一句 prompt，到猎头顾问每天在用的系统。
+              我本科学的是商务英语，不是计算机。但靠着爱鼓捣和 AI，我把想法一点点做成了东西——包括猎头顾问现在每天在用的招聘系统。
             </p>
             <p className="about-langs">中文 · English（TEM-8）· Español（A1）</p>
           </div>

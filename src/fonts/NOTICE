@@ -1,0 +1,9 @@
+Self-hosted so the site does not request fonts.googleapis.com.
+
+Noto Serif SC, chinese-simplified weights 400 / 700 / 900
+  Build: @fontsource/noto-serif-sc 5.2.8
+  Copyright Google Inc. Licensed under the SIL Open Font License 1.1 (OFL.txt).
+
+Cormorant Garamond, latin italic 400
+  Build: @fontsource/cormorant-garamond 5.2.8
+  Licensed under the SIL Open Font License 1.1 (OFL.txt).
