@@ -89,7 +89,7 @@ export default function Home() {
 
             <figure className="hero-shot in-3">
               <a href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer" aria-label="打开游荡集，阅读播客精读">
-                <img src={`${import.meta.env.BASE_URL}shots/youdang.png`} alt="游荡集网站预览" width="1280" height="720" style={{height:'auto'}} />
+                <img src={`${import.meta.env.BASE_URL}shots/youdang-reading-mobile.png`} alt="游荡集精读：一碗面，和一个微小又温柔的梦，附原声回听时间" width="390" height="650" />
                 <figcaption>游荡集 · 把播客读成一本书 ↗</figcaption>
               </a>
             </figure>
@@ -132,16 +132,26 @@ export default function Home() {
                   loading="lazy"
                 />
               ) : (
-                <button className="quest-load" onClick={() => setQuestLoaded(true)}>
-                  <img className="quest-bg" src={`${import.meta.env.BASE_URL}shots/product-quest.png`} alt="" loading="lazy" />
-                  <span className="quest-load-icon">▶</span>
-                  在这里直接试玩
-                  <span className="quest-load-sub">加载约 1 秒 · 零基础可玩</span>
-                </button>
+                <div className="quest-showcase">
+                  <div className="quest-scenes">
+                    <div className="quest-scene">
+                      <p className="preview-label">01 · 你会先做哪件事？</p>
+                      <img src={`${import.meta.env.BASE_URL}shots/quest-decision-mobile.png`} width="390" height="614" alt="真实关卡：入职第一天，选择先访谈用户、研究竞品，还是制作原型" loading="lazy" />
+                    </div>
+                    <div className="quest-scene quest-result">
+                      <p className="preview-label">02 · 每个选择，都有反馈</p>
+                      <img src={`${import.meta.env.BASE_URL}shots/quest-feedback.png`} width="360" height="398" alt="选择访谈用户后的真实反馈：最优判断，先验证问题真实存在，再谈方案" loading="lazy" />
+                      <p className="quest-takeaway">从“先做什么”，学会“为什么这样做”。</p>
+                    </div>
+                  </div>
+                  <button className="quest-try" onClick={() => setQuestLoaded(true)}>
+                    <span aria-hidden="true">▶</span> 在这里直接试玩 <span className="quest-try-note">零基础可玩</span>
+                  </button>
+                </div>
               )}
-              <a className="quest-open" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">
+              {questLoaded && <a className="quest-open" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">
                 新窗口打开 ↗
-              </a>
+              </a>}
               <figcaption>在故事里做产品决策，看看你的选择会带来什么结果。</figcaption>
             </figure>
             <div className="case-entry">
@@ -172,11 +182,11 @@ export default function Home() {
             <figure className="plate site-preview">
               <div>
                 <picture>
-                  <source media="(max-width: 640px)" srcSet={`${import.meta.env.BASE_URL}shots/youdang-mobile.png`} width="390" height="426" />
-                  <img src={`${import.meta.env.BASE_URL}shots/youdang.png`} width="1280" height="720" alt="游荡集网站首页：海浪背景与播客阅读主题" loading="lazy" />
+                  <source media="(max-width: 640px)" srcSet={`${import.meta.env.BASE_URL}shots/youdang-reading-mobile.png`} width="390" height="650" />
+                  <img src={`${import.meta.env.BASE_URL}shots/youdang-reading-desktop.png`} width="1000" height="560" alt="游荡集真实精读页面：章节正文、回听原声与闲情偶寄书籍旁注" loading="lazy" />
                 </picture>
               </div>
-              <figcaption>在声音里游荡世界，把长篇谈话留在纸上。</figcaption>
+              <figcaption>真实精读 · Vol.101｜正文、原声与书籍，在同一页相遇。</figcaption>
             </figure>
             <div className="case-entry">
               <a className="link-strong" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">打开游荡集，开始阅读 ↗</a>
