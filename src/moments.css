@@ -79,3 +79,7 @@
 .moment-owner .moment-remember { display: flex; align-items: center; gap: 10px; line-height: 1.5; cursor: pointer; }
 .moment-owner .moment-remember input { width: 18px; height: 18px; flex: 0 0 18px; margin: 0; accent-color: var(--ink, #24221f); }
 .moment-login-hint { font-size: 13px; line-height: 1.6; margin: 8px 0 16px; }
+
+.moment-editor { margin: 24px 0 0 56px; padding: 20px; background: var(--paper-deep); border: 1px solid var(--hairline); border-radius: 12px; }
+.moments-page .moment-danger { color: #9a3412; }
+@media(max-width:640px){ .moment-editor { margin-left: 0; padding: 16px; } }
