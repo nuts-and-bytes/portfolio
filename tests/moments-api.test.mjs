@@ -22,6 +22,8 @@ test('session login issues a secure cookie and logout clears it',async()=>{
  process.env.STONE_ADMIN_KEY='local-test-only-key-with-at-least-32-characters';process.env.BLOB_STORE_ID='test-store'
  try{
   const res=response();await session({method:'POST',headers:{origin:'https://heystone.site'},body:{key:process.env.STONE_ADMIN_KEY}},res)
+  assert.match(res.headers['Set-Cookie'],/Max-Age=604800/);
+  const remembered=response();await session({method:'POST',headers:{origin:'https://heystone.site'},body:{key:process.env.STONE_ADMIN_KEY,remember:true}},remembered);assert.match(remembered.headers['Set-Cookie'],/Max-Age=15552000/);
   assert.equal(res.code,200);assert.match(res.headers['Set-Cookie'],/HttpOnly; Secure; SameSite=Strict/)
   const read=response();await session({method:'GET',headers:{cookie:res.headers['Set-Cookie'].split(';')[0]}},read);assert.equal(read.body.owner,true)
   const out=response();await session({method:'DELETE',headers:{origin:'https://heystone.site'}},out);assert.match(out.headers['Set-Cookie'],/Max-Age=0/)

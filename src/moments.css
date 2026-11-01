@@ -75,3 +75,7 @@
 .moment-placeholder i { display: block; height: 12px; margin-top: 18px; width: 85%; background: var(--hairline); border-radius: 3px; }
 .moment-placeholder i:first-child { width: 140px; height: 32px; }
 .moment-placeholder i:last-child { width: 60%; }
+
+.moment-owner .moment-remember { display: flex; align-items: center; gap: 10px; line-height: 1.5; cursor: pointer; }
+.moment-owner .moment-remember input { width: 18px; height: 18px; flex: 0 0 18px; margin: 0; accent-color: var(--ink, #24221f); }
+.moment-login-hint { font-size: 13px; line-height: 1.6; margin: 8px 0 16px; }

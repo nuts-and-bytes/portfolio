@@ -35,3 +35,12 @@ test('private uploads cannot be accessed until referenced by a published post',(
  assert.equal(mediaBelongsToPost({status:'published',media:[{pathname:path}]},path),true)
  assert.equal(mediaBelongsToPost({status:'published',media:[]},path),false)
 })
+
+test('remembered sessions last 180 days and reject tampering and key rotation',()=>{
+ const now=1700000000000,key='test-only-secret-with-at-least-32-characters'
+ const token=issueSession(key,now,true)
+ assert.equal(verifySession(token,key,now+179*86400000),true)
+ assert.equal(verifySession(token,key,now+180*86400000),false)
+ assert.equal(verifySession(token,key+'changed',now),false)
+ assert.equal(verifySession(token+'x',key,now),false)
+})
