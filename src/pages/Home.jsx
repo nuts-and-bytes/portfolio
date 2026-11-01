@@ -71,7 +71,7 @@ export default function Home() {
               </h1>
               <p className="hero-epi in-2">Machines write the code. Someone still has to care why.</p>
               <p className="hero-lede in-3">
-                我是朱鑫垚。我用 AI 做工具，解决工作和生活里的具体问题；也从阅读和播客里整理想法，做成值得回看的作品。希望技术帮我们少一些重复，多一点时间，留给好奇、思考和真实的生活。
+                Hi，我是石头。喜欢读书、听播客，也喜欢用 AI 把脑子里的小想法做出来。这里放着我做的工具、写下的文字，还有一些慢慢生长的作品。欢迎随便逛逛，遇到感兴趣的，也来找我聊聊。
               </p>
 
               <div className="hero-now in-4">
