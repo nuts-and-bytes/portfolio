@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Footer from '../components/Footer'
 import CopyEmail from '../components/CopyEmail'
+import ContactIcon from '../components/ContactIcon'
 import HuntlineProgress from '../components/HuntlineProgress'
 import StoneCorner from '../components/StoneCorner'
 import { blogUrl, ghUrl } from '../config'
@@ -254,30 +255,22 @@ export default function Home() {
             <h2 className="sec-title">关于<span className="sec-en">About</span></h2>
           </div>
 
-          <div className="about rv">
-            <p className="about-quote">机器会写代码，但总得有人知道，为什么要写它。</p>
-            <p>
-              北京外国语大学国际商务硕士在读；本科西安外国语大学商务英语（ACCA
-              方向），专八。做过海外猎头和投资机构的实习；毕业论文用 Python 爬了 50+
-              家跨境电商的招聘数据研究人才技能缺口，评了优秀。
-            </p>
-            <p>
-              我不是计算机科班——这正是重点。我在验证的事情是：一个爱探索、学得快的人，加上
-              AI，能把想法推多远。目前的答案是：从一句 prompt，到猎头顾问每天在用的系统。
-            </p>
-            <p className="about-langs">中文 · English（TEM-8）· Español（A1）</p>
-          </div>
-
-          <div className="contact rv">
-            <p className="contact-lead">想聊聊，就写信给我。</p>
-            <div className="contact-email-line"><a href="mailto:zhuxinyao99@gmail.com" className="contact-mail">zhuxinyao99@gmail.com</a><CopyEmail email="zhuxinyao99@gmail.com" /></div>
-            <svg className="sign" viewBox="0 0 260 60" aria-hidden="true">
-              <path pathLength="1" d="M6 44 C40 42 70 10 94 14 C114 18 100 50 78 46 C58 42 92 24 140 30 S214 42 254 20" />
-            </svg>
-            <div className="contact-row">
-              <a href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-              <a href={blogUrl('')} target="_blank" rel="noopener noreferrer">博客 ↗</a>
-              <a href="https://t.me/ericlibro" target="_blank" rel="noopener noreferrer">Telegram ↗</a>
+          <div className="about-layout">
+            <div className="about about-short rv">
+              <p className="about-intro">我是朱鑫垚，也叫 Stone。</p>
+              <p>在北外读国际商务，用 AI 做些工作和生活里用得上的东西。平时读书、听播客，也在这里记下想法。</p>
+            </div>
+            <div className="contact contact-compact rv">
+              <h3>聊聊想法，或打个招呼。</h3>
+              <div className="contact-email-line">
+                <a href="mailto:zhuxinyao99@gmail.com" className="contact-mail"><ContactIcon type="mail" /><span>zhuxinyao99@gmail.com</span></a>
+                <CopyEmail email="zhuxinyao99@gmail.com" />
+              </div>
+              <div className="contact-row">
+                <a href="https://github.com/nuts-and-bytes" target="_blank" rel="noopener noreferrer"><ContactIcon type="github" /><span>GitHub</span></a>
+                <a href={blogUrl('')} target="_blank" rel="noopener noreferrer"><ContactIcon type="book" /><span>博客</span></a>
+                <a href="https://t.me/ericlibro" target="_blank" rel="noopener noreferrer"><ContactIcon type="telegram" /><span>Telegram</span></a>
+              </div>
             </div>
           </div>
         </div>

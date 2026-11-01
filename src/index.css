@@ -1125,3 +1125,23 @@ body::after {
  .corner-object:focus-visible span { opacity: 1; }
  .corner-legend { gap: 4px 18px; }
 }
+
+/* Short introduction and practical contact details share one balanced row. */
+.about-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.about-short .about-intro { font: 500 1.5rem/1.6 var(--serif); color: var(--ink); margin-bottom: 16px; }
+.about-short p:last-child { margin-bottom: 0; line-height: 1.9; }
+.about-paper .contact-compact { margin: 0; padding: 4px 0 0 32px; border-top: 0; border-left: 1px solid var(--hairline); max-width: none; }
+.contact-compact h3 { font: 500 1.125rem/1.6 var(--serif); margin: 0 0 16px; }
+.contact-compact .contact-mail { display: inline-flex; gap: 10px; align-items: center; font: 400 .9375rem/1.6 var(--sans); border: 0; min-height: 44px; margin: 0; letter-spacing: 0; }
+.contact-compact svg { flex-shrink: 0; }
+.contact-compact .contact-email-line { gap: 4px 12px; }
+.contact-compact .contact-copy button { font-size: .8125rem; padding: 6px 12px; }
+.contact-compact .contact-row { flex-wrap: wrap; gap: 8px 24px; margin-top: 16px; }
+.contact-compact .contact-row a { display: inline-flex; gap: 8px; align-items: center; min-height: 44px; border: 0; font-size: .875rem; }
+.contact-compact a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (max-width: 760px) {
+ .about-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+ .about-paper .contact-compact { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--hairline); }
+ .contact-compact .contact-copy { width: auto; }
+ .about-short .about-intro { font-size: 1.375rem; margin-bottom: 12px; }
+}
