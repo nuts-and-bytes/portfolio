@@ -922,20 +922,21 @@ body::after {
 .hero-project-title > span { color: var(--accent); }
 .hero-project-purpose { display: block; font-size: .75rem; color: var(--ink-2); margin-top: 3px; }
 .hunt-progress { padding: 28px; background: var(--paper-deep); border: 1px solid var(--hairline); }
-.hunt-progress-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.hunt-progress h4 { font: 600 1.35rem/1.6 var(--serif); }
-.hunt-status { color: var(--accent); font-size: .8125rem; }
-.hunt-totals { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin: 28px 0; }
+.hunt-progress-head { display: block; padding-bottom: 24px; border-bottom: 1px solid var(--hairline); }
+.hunt-progress h4 { font: 600 clamp(1.6rem, 3vw, 2.25rem)/1.5 var(--serif); color: var(--ink); }
+.hunt-status { color: var(--ink-2); font-size: .9375rem; margin: 8px 0 0; }
+.hunt-totals { display: grid; grid-template-columns: 1.3fr 1fr 1fr; align-items: end; gap: 20px; margin: 24px 0; }
 .hunt-totals dt { font-size: .875rem; color: var(--ink-2); }
-.hunt-totals dd { font: 500 3rem/1.4 var(--serif); font-variant-numeric: tabular-nums; }
+.hunt-totals dd { font: 500 2.25rem/1.4 var(--serif); font-variant-numeric: tabular-nums; }
+.hunt-totals > div:first-child dd { font-size: 3.5rem; color: var(--accent); }
 .hunt-totals small, .hunt-inventory small { font: .875rem var(--sans); }
 .hunt-chart-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; padding-block: 24px; border-block: 1px solid var(--hairline); align-items: center; }
-.hunt-weekly { margin: 0; }
+.hunt-weekly { margin: 0; min-width: 0; }
 .hunt-weekly figcaption { display: flex; justify-content: space-between; font-size: .875rem; }
 .hunt-weekly figcaption span { font-size: .75rem; color: var(--ink-2); }
 .hunt-columns { display: flex; gap: 14px; margin-top: 28px; }
 .hunt-column { flex: 1; min-width: 0; text-align: center; }
-.hunt-column-track { height: 100px; display: flex; align-items: flex-end; border-bottom: 1px solid var(--hairline); }
+.hunt-column-track { height: 72px; display: flex; align-items: flex-end; border-bottom: 1px solid var(--hairline); }
 .hunt-column-track > span { display: block; width: 100%; background: #a89a89; position: relative; }
 .hunt-column:last-child .hunt-column-track > span { background: var(--accent); }
 .hunt-column b { position: absolute; bottom: calc(100% + 3px); left: 0; width: 100%; font: 12px/1.4 var(--mono); color: var(--ink-2); }
@@ -948,11 +949,12 @@ body::after {
   .hero-projects { gap: 22px 14px; }
   .hero-project-title { font-size: .875rem; }
   .hunt-progress { padding: 20px 16px; }
-  .hunt-progress h4 { font-size: 1.1875rem; }
+  .hunt-progress h4 { font-size: 1.5rem; }
   .hunt-totals { gap: 12px; }
   .hunt-totals dt { font-size: .75rem; }
-  .hunt-totals dd { font-size: 2.25rem; }
-  .hunt-chart-layout { grid-template-columns: 1fr; gap: 24px; }
+  .hunt-totals dd { font-size: 1.875rem; }
+  .hunt-totals > div:first-child dd { font-size: 2.75rem; }
+  .hunt-chart-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .hunt-columns { gap: 10px; }
   .hunt-inventory { border-left: 0; border-top: 1px solid var(--hairline); padding-top: 18px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
   .hunt-inventory strong { font-size: 2rem; }
@@ -1043,7 +1045,7 @@ body::after {
 }
 
 /* Real product close-ups: keep reading and decisions legible at card size. */
-.quest-scenes { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 22px; background: var(--paper-deep); align-items: center; }
+.quest-scenes { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 300px); justify-content: center; gap: 32px; padding: 20px; background: var(--paper-deep); align-items: center; }
 .quest-scene { min-width: 0; }
 .preview-label { font: 500 0.8125rem/1.6 var(--sans); color: var(--ink-2); margin: 0 0 12px; letter-spacing: .04em; }
 .quest-scene img { display: block; width: 100%; height: auto; box-shadow: 0 12px 28px -20px rgba(28,25,23,.5); }
@@ -1054,8 +1056,12 @@ body::after {
 .quest-try > span:first-child { color: var(--accent); font-size: .75rem; }
 .quest-try-note { font: 400 .8125rem/1.5 var(--sans); color: var(--ink-2); }
 @media (max-width: 640px) {
-  .quest-scenes { grid-template-columns: 1fr; gap: 28px; padding: 12px; }
+  .quest-scenes { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 12px; }
   .quest-result { padding: 0 8px 8px; }
   .quest-takeaway { margin-top: 14px; font-size: .9375rem; }
   .quest-try { gap: 9px; flex-wrap: wrap; }
+}
+
+@media (max-width: 640px) {
+  .hunt-column time { font-size: 11px; }
 }
