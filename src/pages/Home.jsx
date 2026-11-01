@@ -89,7 +89,7 @@ export default function Home() {
 
             <figure className="hero-shot in-3">
               <a href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer" aria-label="打开游荡集，阅读播客精读">
-                <img src={`${import.meta.env.BASE_URL}shots/youdang-reading-mobile.png`} alt="游荡集精读：一碗面，和一个微小又温柔的梦，附原声回听时间" width="390" height="650" />
+                <img src={`${import.meta.env.BASE_URL}shots/youdang.png`} alt="游荡集网站预览" width="1280" height="720" style={{height:'auto'}} />
                 <figcaption>游荡集 · 把播客读成一本书 ↗</figcaption>
               </a>
             </figure>
@@ -182,11 +182,11 @@ export default function Home() {
             <figure className="plate site-preview">
               <div>
                 <picture>
-                  <source media="(max-width: 640px)" srcSet={`${import.meta.env.BASE_URL}shots/youdang-reading-mobile.png`} width="390" height="650" />
-                  <img src={`${import.meta.env.BASE_URL}shots/youdang-reading-desktop.png`} width="1000" height="560" alt="游荡集真实精读页面：章节正文、回听原声与闲情偶寄书籍旁注" loading="lazy" />
+                  <source media="(max-width: 640px)" srcSet={`${import.meta.env.BASE_URL}shots/youdang-mobile.png`} width="390" height="426" />
+                  <img src={`${import.meta.env.BASE_URL}shots/youdang.png`} width="1280" height="720" alt="游荡集网站首页：海浪背景与播客阅读主题" loading="lazy" />
                 </picture>
               </div>
-              <figcaption>真实精读 · Vol.101｜正文、原声与书籍，在同一页相遇。</figcaption>
+              <figcaption>在声音里游荡世界，把长篇谈话留在纸上。</figcaption>
             </figure>
             <div className="case-entry">
               <a className="link-strong" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">打开游荡集，开始阅读 ↗</a>

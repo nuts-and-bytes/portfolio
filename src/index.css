@@ -1043,9 +1043,6 @@ body::after {
 }
 
 /* Real product close-ups: keep reading and decisions legible at card size. */
-.hero-shot img { width: 100%; height: auto; aspect-ratio: 390 / 650; object-fit: contain; }
-.hero-shot { max-width: 390px; justify-self: end; }
-.site-preview img { aspect-ratio: 1000 / 560; height: auto; }
 .quest-scenes { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 22px; background: var(--paper-deep); align-items: center; }
 .quest-scene { min-width: 0; }
 .preview-label { font: 500 0.8125rem/1.6 var(--sans); color: var(--ink-2); margin: 0 0 12px; letter-spacing: .04em; }
@@ -1057,8 +1054,6 @@ body::after {
 .quest-try > span:first-child { color: var(--accent); font-size: .75rem; }
 .quest-try-note { font: 400 .8125rem/1.5 var(--sans); color: var(--ink-2); }
 @media (max-width: 640px) {
-  .hero-shot { max-width: none; width: 100%; }
-  .hero-shot img, .site-preview img { aspect-ratio: 390 / 650; height: auto; }
   .quest-scenes { grid-template-columns: 1fr; gap: 28px; padding: 12px; }
   .quest-result { padding: 0 8px 8px; }
   .quest-takeaway { margin-top: 14px; font-size: .9375rem; }
