@@ -1065,3 +1065,32 @@ body::after {
 @media (max-width: 640px) {
   .hunt-column time { font-size: 11px; }
 }
+
+/* An original editorial illustration; hotspots follow the pictured objects. */
+.stone-corner { padding: 64px 20px 40px; background: var(--paper); color: var(--ink); text-align: center; }
+.stone-corner h2 { font: 500 clamp(1.5rem, 3vw, 2rem)/1.5 var(--serif); }
+.corner-intro { margin: 12px auto 24px; color: var(--ink-2); font-size: .9375rem; line-height: 1.8; }
+.corner-scene { position: relative; max-width: 680px; margin: 0 auto; }
+.corner-scene > img { display: block; width: 100%; height: auto; }
+.corner-object { position: absolute; display: flex; align-items: end; justify-content: center; min-width: 44px; min-height: 44px; border: 0; background: transparent; color: var(--ink); cursor: pointer; border-radius: 12px; text-decoration: none; }
+.corner-object span { padding: 5px 9px; background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px; white-space: nowrap; font: 500 .75rem/1.5 var(--sans); opacity: 0; transform: translateY(4px); transition: opacity .16s, transform .16s; }
+.corner-object:hover span, .corner-object:focus-visible span { opacity: 1; transform: none; }
+.corner-object:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.corner-books { left: 9%; top: 43%; width: 31%; height: 23%; }
+.corner-computer { left: 43%; top: 23%; width: 27%; height: 35%; }
+.corner-headphones { left: 74%; top: 38%; width: 19%; height: 20%; }
+.corner-note { left: 50%; top: 59%; width: 17%; height: 12%; }
+.corner-pebble { left: 85%; top: 58%; width: 7%; height: 9%; }
+.corner-message { max-width: 480px; min-height: 3.6em; margin: 16px auto 0; color: var(--ink-2); font-size: .875rem; line-height: 1.8; }
+@media (hover: none), (max-width: 640px) {
+ .corner-object span { opacity: 1; transform: none; font-size: .6875rem; padding: 3px 5px; }
+ .stone-corner { padding: 48px 16px 24px; }
+ .corner-intro { max-width: 19em; margin-bottom: 16px; }
+ .corner-object { align-items: flex-end; }
+ .corner-books { top: 44%; height: 25%; }
+ .corner-computer { top: 22%; height: 35%; }
+ .corner-headphones { top: 37%; height: 22%; }
+ .corner-note { top: 61%; height: 14%; }
+ .corner-pebble { left: 84%; top: 60%; height: 14%; }
+}
+@media (prefers-reduced-motion: reduce) { .corner-object span { transition: none; transform: none; } }

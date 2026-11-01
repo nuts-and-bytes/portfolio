@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Footer from '../components/Footer'
 import CopyEmail from '../components/CopyEmail'
 import HuntlineProgress from '../components/HuntlineProgress'
+import StoneCorner from '../components/StoneCorner'
 import { blogUrl, ghUrl } from '../config'
 
 /* ---------- 数据 ---------- */
@@ -282,6 +283,7 @@ export default function Home() {
         </div>
       </section>
 
+      <StoneCorner />
       <Footer />
     </>
   )
