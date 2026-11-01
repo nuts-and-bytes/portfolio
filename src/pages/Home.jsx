@@ -247,7 +247,7 @@ export default function Home() {
       </section>
 
       {/* ══════════ 04 关于 ══════════ */}
-      <section id="about" className="section section-dark">
+      <section id="about" className="section about-paper">
         <div className="container container-narrow">
           <div className="section-head rv">
             <p className="sec-no">肆</p>
@@ -284,7 +284,7 @@ export default function Home() {
       </section>
 
       <StoneCorner />
-      <Footer />
+      <Footer light />
     </>
   )
 }

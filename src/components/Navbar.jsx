@@ -30,7 +30,7 @@ export default function Navbar({route}) {
     const onScroll = () => {
       setScrolled(window.scrollY > 24)
       const nav = navRef.current?.getBoundingClientRect()
-      if (nav) setDarkBackdrop(Array.from(document.querySelectorAll('.section-dark, .footer')).some(el => {
+      if (nav) setDarkBackdrop(Array.from(document.querySelectorAll('.section-dark, .footer:not(.footer-light)')).some(el => {
         const rect = el.getBoundingClientRect()
         return rect.height > 0 && rect.top < nav.bottom && rect.bottom > nav.top
       }))

@@ -1094,3 +1094,34 @@ body::after {
  .corner-pebble { left: 84%; top: 60%; height: 14%; }
 }
 @media (prefers-reduced-motion: reduce) { .corner-object span { transition: none; transform: none; } }
+
+/* A continuous paper-toned ending, with the illustration as a quiet signature. */
+#about.about-paper { padding: 80px 0 40px; background: var(--paper); color: var(--ink); border-top: 1px solid var(--hairline); }
+.about-paper .container-narrow { max-width: 900px; }
+.about-paper .section-head { margin-bottom: 40px; }
+.about-paper .sec-title { font-size: clamp(2rem, 4vw, 3rem); }
+.about-paper .contact { margin-top: 36px; padding-top: 28px; }
+.about-paper .contact-lead, .about-paper .contact-copy [role="status"] { color: var(--ink-2); }
+.about-paper .contact-copy button { color: var(--ink); border-color: var(--hairline); }
+.about-paper .contact-copy button:hover { background: var(--paper-deep); }
+.about-paper .contact-copy button:focus-visible { outline-color: var(--accent); }
+.footer.footer-light { background: var(--paper); color: var(--ink-2); border-top: 1px solid var(--hairline); }
+.stone-corner { padding: 40px 20px 24px; }
+.stone-corner h2 { font: 400 1.125rem/1.6 var(--serif); color: var(--ink-2); }
+.corner-intro { margin: 8px auto 16px; font-size: .8125rem; }
+.corner-scene { max-width: 460px; }
+.corner-legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 20px; margin: 8px auto 0; }
+.corner-legend a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-2); font-size: .8125rem; text-decoration: underline; text-decoration-color: var(--hairline); text-underline-offset: 5px; }
+.corner-legend a:hover { color: var(--accent); }
+.corner-legend a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.corner-message { font-size: .8125rem; margin-top: 4px; min-height: 3.6em; }
+@media (max-width: 640px) {
+ #about.about-paper { padding: 48px 0 24px; }
+ .about-paper .section-head { margin-bottom: 28px; }
+ .stone-corner { padding: 24px 16px 16px; }
+ .corner-scene { max-width: 340px; }
+ .corner-intro { max-width: 24em; }
+ .corner-object span { opacity: 0; }
+ .corner-object:focus-visible span { opacity: 1; }
+ .corner-legend { gap: 4px 18px; }
+}
