@@ -791,6 +791,8 @@ body::after {
   .site-preview { margin-top: 24px; }
   .site-preview picture { display: block; }
   .site-preview img { aspect-ratio: 390 / 426; }
+  /* 游荡集的手机截图是 390/426；16:9 封面保持原比例，避免被拉高。 */
+  .site-preview img.shot-16x9 { aspect-ratio: 16 / 9; object-fit: cover; }
   .plate figcaption { padding: 12px 2px 14px; }
   .plate figcaption span { margin-right: 8px; white-space: nowrap; }
   .quest-load { aspect-ratio: 8 / 5; min-height: 200px; gap: 6px; font-size: 1rem; }
