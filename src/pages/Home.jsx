@@ -195,6 +195,25 @@ export default function Home() {
               <p>个人整理的非官方专题站，可从首页选择感兴趣的一期。</p>
             </div>
           </article>
+
+          {/* —— CASE 04：Research Edition —— */}
+          <article className="case rv">
+            <p className="case-kicker">Case 04 · AI 产业阅读</p>
+            <h3 className="case-title">
+              Research Edition · AI 产业长文与报告
+            </h3>
+            <p className="case-purpose">精选知名投资与研究机构的 AI 深度报告，覆盖产业史观、竞争格局、具身智能、技术前沿与预测，配中文导读，为静心完整阅读而设计。</p>
+
+            <figure className="plate site-preview">
+              <div>
+                <img className="shot-16x9" src={`${import.meta.env.BASE_URL}shots/research-edition.webp`} width="1280" height="720" alt="Research Edition 首页：AI 产业长文与报告" loading="lazy" />
+              </div>
+              <figcaption>从目录挑一篇，一次读完。</figcaption>
+            </figure>
+            <div className="case-entry">
+              <a className="link-strong" href="https://read.heystone.site" target="_blank" rel="noopener noreferrer">打开 Research Edition，开始阅读 ↗</a>
+            </div>
+          </article>
         </div>
       </section>
 
