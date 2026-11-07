@@ -10,7 +10,7 @@ import { blogUrl, ghUrl } from '../config'
 
 const now = [
   '北京外国语大学 · 国际商务硕士在读',
-  '迭代私域商业情报 Agent（GraphRAG）',
+  '继续改私域商业情报助手（GraphRAG）',
   '在博客记录 AI 工作流实验',
 ]
 

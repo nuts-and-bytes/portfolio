@@ -1067,6 +1067,13 @@ body::after {
 @media (max-width: 640px) {
   .hunt-column time { font-size: 11px; }
 }
+@media (max-width: 359px) {
+  .hunt-totals { grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+  .hunt-totals > div:first-child { grid-column: 1 / -1; }
+  .hunt-columns { gap: 4px; }
+  .hunt-column time { display: flex; flex-direction: column; align-items: center; font-size: 10px; line-height: 1.2; letter-spacing: 0; }
+  .hunt-sep { display: none; }
+}
 
 /* An original editorial illustration; hotspots follow the pictured objects. */
 .stone-corner { padding: 64px 20px 40px; background: var(--paper); color: var(--ink); text-align: center; }

@@ -14,7 +14,7 @@ export default function HuntlineProgress() {
         <figure className="hunt-weekly">
           <figcaption>每周迭代记录<span>条 / 周</span></figcaption>
           <div className="hunt-columns" role="img" aria-label="各周更新记录：9月14日当周3条，9月21日2条，9月28日24条，10月5日10条，10月12日8条，10月19日19条，10月26日截至29日23条。">
-            {weeks.map(([date,count]) => <div key={date} className="hunt-column"><div className="hunt-column-track"><span style={{height:`${count / 24 * 100}%`}}><b>{count}</b></span></div><time>{date}</time></div>)}
+            {weeks.map(([date,count]) => <div key={date} className="hunt-column"><div className="hunt-column-track"><span style={{height:`${count / 24 * 100}%`}}><b>{count}</b></span></div><time><span className="hunt-md">{date.slice(0,2)}</span><span className="hunt-sep">.</span><span className="hunt-day">{date.slice(3)}</span></time></div>)}
           </div>
         </figure>
         <div className="hunt-inventory"><span>已接入人才库</span><strong>4,000<small>+</small></strong><span>份简历</span></div>
