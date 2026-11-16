@@ -120,16 +120,16 @@ export default function Home() {
 
           {/* —— CASE 02：Product Quest —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 02 · 原创像素 RPG · 可试玩</p>
+            <p className="case-kicker">Case 02 · 3D 开放世界产品 RPG · 可试玩</p>
             <h3 className="case-title">
-              <a className="case-title-link" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">Product Quest · 产品经理大冒险<span className="title-arrow">↗</span></a>
+              <a className="case-title-link" href={ghUrl('Product-quest/?v=2.5')} target="_blank" rel="noopener noreferrer">Product Quest · 产品经理大冒险<span className="title-arrow">↗</span></a>
             </h3>
 
-            <p className="case-purpose">一个边玩边学产品设计的闯关游戏。你会面对“给谁做、做什么、怎么选”的问题，在故事里做决定、看结果；没学过产品知识也能直接开始。</p>
+            <p className="case-purpose">一个边玩边学产品设计的 3D 开放世界闯关游戏。你可以漫游实时昼夜变化的星火岛、捏出专属 3D 粘土人 PM 形象，在故事里面对“给谁做、做什么、怎么选”；没学过产品知识也能直接开始。</p>
             <figure className="plate quest-demo">
               {questLoaded ? (
                 <iframe
-                  src={ghUrl('Product-quest/')}
+                  src={ghUrl('Product-quest/?v=2.5')}
                   title="Product Quest 试玩"
                   loading="lazy"
                 />
@@ -138,7 +138,7 @@ export default function Home() {
                   <div className="quest-scenes">
                     <div className="quest-scene">
                       <p className="preview-label">01 · 你会先做哪件事？</p>
-                      <img src={`${import.meta.env.BASE_URL}shots/quest-decision-mobile.png`} width="390" height="614" alt="真实关卡：入职第一天，选择先访谈用户、研究竞品，还是制作原型" loading="lazy" />
+                      <img src={`${import.meta.env.BASE_URL}shots/quest-decision-mobile.png`} width="473" height="1024" alt="真实关卡：入职第一天，选择先访谈用户、研究竞品，还是制作原型" loading="lazy" />
                     </div>
                     <div className="quest-scene quest-result">
                       <p className="preview-label">02 · 每个选择，都有反馈</p>
@@ -151,18 +151,18 @@ export default function Home() {
                   </button>
                 </div>
               )}
-              {questLoaded && <a className="quest-open" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">
+              {questLoaded && <a className="quest-open" href={ghUrl('Product-quest/?v=2.5')} target="_blank" rel="noopener noreferrer">
                 新窗口打开 ↗
               </a>}
-              <figcaption>在故事里做产品决策，看看你的选择会带来什么结果。</figcaption>
+              <figcaption>在 3D 星火岛的故事里做产品决策，看看你的选择会带来什么结果。</figcaption>
             </figure>
             <div className="case-entry">
-              <a className="link-strong" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">打开游戏，开始闯关 ↗</a>
+              <a className="link-strong" href={ghUrl('Product-quest/?v=2.5')} target="_blank" rel="noopener noreferrer">打开游戏，开始闯关 ↗</a>
               <a className="case-repo" href="https://github.com/nuts-and-bytes/Product-quest" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
             </div>
             <div className="case-details">
               <h4 className="case-h">内容与技术细节</h4>
-              <p>把产品知识做成能通关的 RPG：引擎与内容彻底解耦（engine.js + JSON 数据层），像素角色、场景、音效 100% 代码生成；“最优 / 次优 / 翻车”三级决策树，术语与案例逐条标注《Inspired》《精益创业》《The Mom Test》等 16 处出处。</p>
+              <p>把产品知识做成能通关的 3D 开放世界 RPG：支持平移/环绕/漫步/第一人称游览实时昼夜变化的星火岛，引擎与内容彻底解耦（engine.js + island3d.js + JSON 数据层），3D 角色、建筑与音效代码生成；“最优 / 次优 / 翻车”三级决策树，术语与案例逐条标注《Inspired》《精益创业》《The Mom Test》等 16 处出处。</p>
               <div className="case-nums">
                 <div><strong>9 章 37 关</strong><span>主线全部完结</span></div>
                 <div><strong>44 个</strong><span>三级博弈决策点</span></div>
