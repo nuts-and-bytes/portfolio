@@ -1047,11 +1047,11 @@ body::after {
 }
 
 /* Real product close-ups: keep reading and decisions legible at card size. */
-.quest-scenes { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 300px); justify-content: center; gap: 32px; padding: 20px; background: var(--paper-deep); align-items: center; }
+.quest-scenes { display: grid; grid-template-columns: repeat(3, minmax(0, 260px)); justify-content: center; gap: 20px; padding: 20px; background: var(--paper-deep); align-items: start; }
 .quest-scene { min-width: 0; }
 .preview-label { font: 500 0.8125rem/1.6 var(--sans); color: var(--ink-2); margin: 0 0 12px; letter-spacing: .04em; }
-.quest-scene img { display: block; width: 100%; height: auto; box-shadow: 0 12px 28px -20px rgba(28,25,23,.5); }
-.quest-takeaway { font: 400 1rem/1.8 var(--serif); color: var(--ink-2); margin: 20px 0 0; }
+.quest-scene img { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 12px 28px -20px rgba(28,25,23,.5); }
+.quest-takeaway { font: 400 0.9375rem/1.7 var(--serif); color: var(--ink-2); margin: 14px 0 0; }
 .quest-try { width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 18px 16px; border: 1px solid var(--hairline); background: var(--paper); color: var(--ink); font: 600 1rem/1.5 var(--serif); cursor: pointer; transition: background .2s; }
 .quest-try:hover { background: var(--paper-deep); }
 .quest-try:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }

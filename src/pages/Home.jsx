@@ -137,13 +137,17 @@ export default function Home() {
                 <div className="quest-showcase">
                   <div className="quest-scenes">
                     <div className="quest-scene">
-                      <p className="preview-label">01 · 你会先做哪件事？</p>
-                      <img src={`${import.meta.env.BASE_URL}shots/quest-decision-mobile.png`} width="473" height="1024" alt="真实关卡：入职第一天，选择先访谈用户、研究竞品，还是制作原型" loading="lazy" />
+                      <p className="preview-label">01 · 实时昼夜的 3D 星火岛</p>
+                      <img src={`${import.meta.env.BASE_URL}shots/quest-island-3d.png?v=2.6`} width="721" height="1024" alt="3D 开放世界星火岛：实时昼夜光照、环形公路车流、漫步市民与建筑关卡" loading="lazy" />
+                    </div>
+                    <div className="quest-scene">
+                      <p className="preview-label">02 · 捏出专属 3D 粘土人 PM</p>
+                      <img src={`${import.meta.env.BASE_URL}shots/quest-avatar-3d.png?v=2.6`} width="721" height="1024" alt="3D 粘土人 PM 形象工坊：6 款马卡龙预设与 360° 旋转展台" loading="lazy" />
                     </div>
                     <div className="quest-scene quest-result">
-                      <p className="preview-label">02 · 每个选择，都有反馈</p>
-                      <img src={`${import.meta.env.BASE_URL}shots/quest-feedback.png`} width="360" height="398" alt="选择访谈用户后的真实反馈：最优判断，先验证问题真实存在，再谈方案" loading="lazy" />
-                      <p className="quest-takeaway">从“先做什么”，学会“为什么这样做”。</p>
+                      <p className="preview-label">03 · 漫步海岛与场景决策</p>
+                      <img src={`${import.meta.env.BASE_URL}shots/quest-decision-mobile.png?v=2.6`} width="721" height="1024" alt="真实关卡决策：入职第一天，选择先访谈用户、研究竞品，还是制作原型" loading="lazy" />
+                      <p className="quest-takeaway">从“漫游探索”到“动手决策”，每一步选择都有即时反馈。</p>
                     </div>
                   </div>
                   <button className="quest-try" onClick={() => setQuestLoaded(true)}>
