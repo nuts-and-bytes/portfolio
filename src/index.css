@@ -195,8 +195,19 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 /* Product Quest 试玩 */
 .quest-demo { position: relative; margin-top: 8px; }
 .quest-frame-wrap { position: relative; }
-.quest-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: #172e37; color: #f7eee0; font: 600 1rem/1.5 var(--serif); pointer-events: none; }
-.quest-loading span { font: 400 .85rem/1.5 var(--sans); color: #e2d5c3; }
+.quest-loading { position: absolute; inset: 0; display: grid; place-items: center; background: #172e37; pointer-events: none; }
+.loading-scene { --loading-face: #fff9ee; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 26px 16px; text-align: center; color: #a3543c; }
+.loading-scene-art { width: 120px; height: 75px; }
+.loading-scene strong { color: var(--ink); font: 600 1rem/1.6 var(--serif); }
+.loading-scene span { color: var(--ink-2); font: 400 .85rem/1.5 var(--sans); }
+.loading-scene-dark { color: #e2b984; }
+.loading-scene-dark strong { color: #f7eee0; }
+.loading-scene-dark span { color: #e2d5c3; }
+.loading-pebble { transform-origin: 80px 84px; animation: pebble-breathe 2s ease-in-out infinite; }
+.loading-spark { animation: pebble-spark 2s ease-in-out infinite alternate; }
+@keyframes pebble-breathe { 50% { transform: translateY(-5px) rotate(3deg); } }
+@keyframes pebble-spark { from { opacity: .35; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .loading-pebble, .loading-spark { animation: none; } }
 .quest-demo iframe {
   width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--ink);
   background: #0d0d1a; display: block;

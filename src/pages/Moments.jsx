@@ -1,6 +1,7 @@
 import {useEffect,useRef,useState} from 'react'
 import {upload} from '@vercel/blob/client'
 import Footer from '../components/Footer'
+import LoadingScene from '../components/LoadingScene'
 import {api,checkFiles,draft,postId,postUrl,TYPES} from '../lib/moments'
 import '../moments.css'
 import {loadFeed,clearFeedCache} from '../lib/moments-feed'
@@ -88,7 +89,7 @@ export default function Moments({route,active=true}){
   {busy&&<p role="status">{progress}</p>}
  </section>}
  {notice&&<p className="moment-notice" role="status">{notice}</p>}{error&&<p className="moment-error" role="alert">{error} <button onClick={()=>load(undefined,true)}>重新加载列表</button></p>}
- {loading&&!posts.length&&<div className="moment-loading" role="status"><span>正在读取最新动态…</span><div aria-hidden="true" className="moment-placeholder"><i/><i/><i/></div></div>}
+ {loading&&!posts.length&&<LoadingScene title="小石头正在翻找最近的故事…" detail="动态马上就来" />}
  {!loading&&!error&&!posts.length&&<div className="moments-empty"><h2>故事还在路上</h2><p>新的想法和记录，会留在这里。</p></div>}
  <div className="moments-feed">{posts.map(p=><article className="moment-post" key={p.id}><header className="moment-row"><div className="moment-author"><img src={`${import.meta.env.BASE_URL}brand/stone-mark.svg`} width="44" height="44" alt=""/><div><strong>朱鑫垚 <span>stone</span></strong><a href={`/moments?post=${p.id}`}><time dateTime={p.createdAt}>{new Date(p.createdAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',dateStyle:'medium',timeStyle:'short'})}</time></a></div></div><span className="moment-visibility">{p.updatedAt?'已编辑 · 公开':'公开'}</span></header><p className="moment-text">{p.text}</p><div className={`moment-media ${p.media.length===1?'single':''}`}>{p.media.map(m=>m.type.startsWith('video/')?<video key={m.url} src={m.url} controls playsInline preload="metadata"/>:<a key={m.url} href={m.url} target="_blank" rel="noopener noreferrer"><img src={m.url} loading="lazy" alt="动态配图"/></a>)}</div>{session?.owner&&<>{editing===p.id?<EditPost key={p.id} post={p} onSave={savedPost} onCancel={()=>setEditing(null)}/>:<div className="moment-actions"><button disabled={!!editing||!!deleting} onClick={()=>{setEditing(p.id);setSharing(null)}}>编辑</button><button className="moment-danger" disabled={!!editing||!!deleting} onClick={()=>removePost(p)}>{deleting===p.id?'删除中…':'删除'}</button><button onClick={()=>setSharing(sharing===p.id?null:p.id)}>分享这条动态</button></div>}</>}{sharing===p.id&&<Share post={p} onClose={()=>setSharing(null)}/>}</article>)}</div>
  {cursor&&!selected&&<button disabled={loading} onClick={()=>load(cursor)}>查看更多动态</button>}

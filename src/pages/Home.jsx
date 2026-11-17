@@ -4,6 +4,7 @@ import CopyEmail from '../components/CopyEmail'
 import ContactIcon from '../components/ContactIcon'
 import HuntlineProgress from '../components/HuntlineProgress'
 import StoneCorner from '../components/StoneCorner'
+import LoadingScene from '../components/LoadingScene'
 import { blogUrl, ghUrl } from '../config'
 
 /* ---------- 数据 ---------- */
@@ -142,7 +143,7 @@ export default function Home() {
                     title="Product Quest 试玩"
                     onLoad={() => setQuestFrameReady(true)}
                   />
-                  {!questFrameReady && <div className="quest-loading" role="status">正在加载 3D 世界…<span>首次进入可能需要一点时间</span></div>}
+                  {!questFrameReady && <div className="quest-loading"><LoadingScene dark title="小石头正在铺好通往群岛的路…" detail="3D 世界正在加载，首次进入可能需要一点时间" /></div>}
                 </div>
               ) : (
                 <div className="quest-showcase">
