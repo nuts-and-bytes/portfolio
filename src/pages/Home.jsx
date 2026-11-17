@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import CopyEmail from '../components/CopyEmail'
 import ContactIcon from '../components/ContactIcon'
@@ -54,6 +54,13 @@ const experiments = [
 export default function Home() {
   const [questLoaded, setQuestLoaded] = useState(false)
   const [questFrameReady, setQuestFrameReady] = useState(false)
+
+  useEffect(() => {
+    if (!questLoaded || questFrameReady) return
+    // The frame's load event can be delayed by optional third-party resources.
+    const timer = window.setTimeout(() => setQuestFrameReady(true), 8000)
+    return () => window.clearTimeout(timer)
+  }, [questLoaded, questFrameReady])
 
   return (
     <>
