@@ -53,6 +53,7 @@ const experiments = [
 
 export default function Home() {
   const [questLoaded, setQuestLoaded] = useState(false)
+  const [questFrameReady, setQuestFrameReady] = useState(false)
 
   return (
     <>
@@ -128,20 +129,25 @@ export default function Home() {
             <p className="case-purpose">漫游四座相连的岛屿，创建角色，走进蓝山咖啡馆交谈和调查。用线索组合试验，观察顾客与店员的变化；任务演出随试验结果推进，原有产品经理剧情也可以继续游玩。</p>
             <figure className="plate quest-demo">
               {questLoaded ? (
-                <iframe
-                  src={ghUrl('Product-quest/')}
-                  title="Product Quest 试玩"
-                  loading="lazy"
-                />
+                <div className="quest-frame-wrap">
+                  <iframe
+                    src={ghUrl('Product-quest/')}
+                    title="Product Quest 试玩"
+                    onLoad={() => setQuestFrameReady(true)}
+                  />
+                  {!questFrameReady && <div className="quest-loading" role="status">正在加载 3D 世界…<span>首次进入可能需要一点时间</span></div>}
+                </div>
               ) : (
                 <div className="quest-showcase">
                   <button type="button" className="quest-hero-frame" onClick={() => setQuestLoaded(true)} aria-label="点击画面直接试玩 Product Quest">
                     <img
                       className="shot-16x9 quest-hero-img"
-                      src={`${import.meta.env.BASE_URL}shots/product-quest.png?v=3.0`}
-                      width="1024"
-                      height="576"
-                      alt="Product Quest 3D 开放群岛实机画面：线性 HDR 光影、灯塔体积光、动态海面与 GPU 粒子渲染"
+                      src={`${import.meta.env.BASE_URL}shots/quest-1920.webp`}
+                      srcSet={`${import.meta.env.BASE_URL}shots/quest-960.webp 960w, ${import.meta.env.BASE_URL}shots/quest-1920.webp 1920w`}
+                      sizes="(max-width: 1000px) 95vw, 960px"
+                      width="1920"
+                      height="1080"
+                      alt="Product Quest 星火岛的游戏实景"
                       loading="lazy"
                     />
                   </button>
@@ -153,7 +159,7 @@ export default function Home() {
               {questLoaded && <a className="quest-open" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">
                 新窗口打开 ↗
               </a>}
-              <figcaption>实时 3D 开放群岛实机画面（HDR 光影、动态海面与 GPU 粒子渲染）；点击上方画面或按钮可直接试玩。</figcaption>
+              <figcaption>游戏实景截图。点击画面或按钮加载互动试玩；如果加载较慢，可以在新窗口打开。</figcaption>
             </figure>
             <div className="case-entry">
               <a className="link-strong" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">进入群岛，开始探索 ↗</a>
