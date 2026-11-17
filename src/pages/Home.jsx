@@ -135,21 +135,16 @@ export default function Home() {
                 />
               ) : (
                 <div className="quest-showcase">
-                  <div className="quest-scenes">
-                    <div className="quest-scene">
-                      <p className="preview-label">01 · 实时昼夜的 3D 星火岛</p>
-                      <img src={`${import.meta.env.BASE_URL}shots/quest-island-3d.png?v=2.6`} width="721" height="1024" alt="3D 开放世界星火岛：实时昼夜光照、环形公路车流、漫步市民与建筑关卡" loading="lazy" />
-                    </div>
-                    <div className="quest-scene">
-                      <p className="preview-label">02 · 捏出专属 3D 粘土人 PM</p>
-                      <img src={`${import.meta.env.BASE_URL}shots/quest-avatar-3d.png?v=2.6`} width="721" height="1024" alt="3D 粘土人 PM 形象工坊：6 款马卡龙预设与 360° 旋转展台" loading="lazy" />
-                    </div>
-                    <div className="quest-scene quest-result">
-                      <p className="preview-label">03 · 漫步海岛与场景决策</p>
-                      <img src={`${import.meta.env.BASE_URL}shots/quest-decision-mobile.png?v=2.6`} width="721" height="1024" alt="真实关卡决策：入职第一天，选择先访谈用户、研究竞品，还是制作原型" loading="lazy" />
-                      <p className="quest-takeaway">从“漫游探索”到“动手决策”，每一步选择都有即时反馈。</p>
-                    </div>
-                  </div>
+                  <button type="button" className="quest-hero-frame" onClick={() => setQuestLoaded(true)} aria-label="点击画面直接试玩 Product Quest">
+                    <img
+                      className="shot-16x9 quest-hero-img"
+                      src={`${import.meta.env.BASE_URL}shots/product-quest.png?v=3.0`}
+                      width="1024"
+                      height="576"
+                      alt="Product Quest 3D 开放群岛实机画面：线性 HDR 光影、灯塔体积光、动态海面与 GPU 粒子渲染"
+                      loading="lazy"
+                    />
+                  </button>
                   <button className="quest-try" onClick={() => setQuestLoaded(true)}>
                     <span aria-hidden="true">▶</span> 在这里直接试玩 <span className="quest-try-note">零基础可玩</span>
                   </button>
@@ -158,7 +153,7 @@ export default function Home() {
               {questLoaded && <a className="quest-open" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">
                 新窗口打开 ↗
               </a>}
-              <figcaption>剧情决策与反馈示例；完整群岛与咖啡馆调查可以直接试玩。</figcaption>
+              <figcaption>实时 3D 开放群岛实机画面（HDR 光影、动态海面与 GPU 粒子渲染）；点击上方画面或按钮可直接试玩。</figcaption>
             </figure>
             <div className="case-entry">
               <a className="link-strong" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">进入群岛，开始探索 ↗</a>

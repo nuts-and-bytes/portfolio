@@ -1046,22 +1046,23 @@ body::after {
  .nav.nav-dark-backdrop .stone-nav-tabs { background: #1C1917; }
 }
 
-/* Real product close-ups: keep reading and decisions legible at card size. */
-.quest-scenes { display: grid; grid-template-columns: repeat(3, minmax(0, 260px)); justify-content: center; gap: 20px; padding: 20px; background: var(--paper-deep); align-items: start; }
-.quest-scene { min-width: 0; }
-.preview-label { font: 500 0.8125rem/1.6 var(--sans); color: var(--ink-2); margin: 0 0 12px; letter-spacing: .04em; }
-.quest-scene img { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 12px 28px -20px rgba(28,25,23,.5); }
-.quest-takeaway { font: 400 0.9375rem/1.7 var(--serif); color: var(--ink-2); margin: 14px 0 0; }
+/* Widescreen 16:9 HD game hero shot inside the editorial plate. */
+.quest-showcase { display: flex; flex-direction: column; gap: 14px; }
+.quest-hero-frame { display: block; width: 100%; padding: 0; border: 0; background: #0c1d28; cursor: pointer; overflow: hidden; border-radius: 6px; }
+.quest-hero-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.quest-hero-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; transition: transform 0.55s var(--ease); }
+.quest-hero-frame:hover .quest-hero-img { transform: scale(1.018); }
 .quest-try { width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 18px 16px; border: 1px solid var(--hairline); background: var(--paper); color: var(--ink); font: 600 1rem/1.5 var(--serif); cursor: pointer; transition: background .2s; }
 .quest-try:hover { background: var(--paper-deep); }
 .quest-try:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .quest-try > span:first-child { color: var(--accent); font-size: .75rem; }
 .quest-try-note { font: 400 .8125rem/1.5 var(--sans); color: var(--ink-2); }
 @media (max-width: 640px) {
-  .quest-scenes { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 12px; }
-  .quest-result { padding: 0 8px 8px; }
-  .quest-takeaway { margin-top: 14px; font-size: .9375rem; }
   .quest-try { gap: 9px; flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quest-hero-img { transition: none; }
+  .quest-hero-frame:hover .quest-hero-img { transform: none; }
 }
 
 @media (max-width: 640px) {
