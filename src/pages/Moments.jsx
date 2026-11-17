@@ -78,19 +78,19 @@ export default function Moments({route,active=true}){
   const media=await uploadMedia(files,uploaded.current,setProgress)
   setProgress('正在发布…');const {post}=await api('moments',{method:'POST',body:JSON.stringify({id,text,media})});clearFeedCache();setPosts(p=>[post,...p.filter(x=>x.id!==post.id)]);setSharing(post.id);setText('');setFiles([]);setId(postId());uploaded.current.clear();await draft('clear').catch(()=>{});setNotice('已发布到个人网站。分享到平台时，仍需你确认发布。')
  }catch(e){setError(e.message);setNotice('未发布成功，内容和附件仍保留，可重试')}finally{lock.current=false;setBusy(false);setProgress('')}}
- return <><main className="moments-page"><header className="moments-heading"><h1 tabIndex={-1}>动态</h1><p>想法、日常，和正在做的事。</p></header>
+ return <><main className="moments-page"><header className="moments-heading"><h1 tabIndex={-1}>动态</h1><p>还没长成文章的零碎念头、日常切片，和正在折腾的小事。</p></header>
  {session?.owner&&<section className="moment-composer" aria-label="发布动态" onPaste={paste} onDragOver={e=>e.preventDefault()} onDrop={e=>{e.preventDefault();add(e.dataTransfer.files)}}>
-  <div className="moment-row"><h2>写一条动态</h2><button onClick={logout} disabled={busy||!!editing||!!deleting}>退出登录</button></div>
-  <textarea value={text} onChange={e=>setText(e.target.value)} maxLength={10000} placeholder="此刻想分享什么？可以直接粘贴图片或视频文件。" aria-label="动态正文" disabled={busy}/>
+  <div className="moment-row"><h2>记一条日常</h2><button onClick={logout} disabled={busy||!!editing||!!deleting}>退出登录</button></div>
+  <textarea value={text} onChange={e=>setText(e.target.value)} maxLength={10000} placeholder="记下此刻闪过的念头、读到的一句话，也可以直接粘贴刚拍的图片或视频…" aria-label="动态正文" disabled={busy}/>
   <div className="moment-previews">{files.map((f,i)=><figure key={`${f.name}-${i}`}><Attachment file={f}/><button disabled={busy} onClick={()=>setFiles(a=>a.filter((_,j)=>i!==j))} aria-label={`移除附件 ${i+1}`}>移除</button></figure>)}</div>
   <input ref={input} type="file" accept={TYPES.join(',')} multiple hidden onChange={e=>{add(e.target.files);e.target.value=''}}/>
   <div className="moment-row"><button disabled={busy} onClick={()=>input.current.click()}>添加图片 / 视频</button><span>{text.length} / 10000</span><button className="moment-primary" disabled={busy||(!text.trim()&&!files.length)} onClick={publish}>{busy?'发布中…':'发布到网站'}</button></div>
   <small>最多 9 张图片（每张 10 MB）或 1 个视频（50 MB）。粘贴不可用时可选择文件。草稿仅保存在当前设备。</small>
   {busy&&<p role="status">{progress}</p>}
  </section>}
- {notice&&<p className="moment-notice" role="status">{notice}</p>}{error&&<p className="moment-error" role="alert">{error} <button onClick={()=>load(undefined,true)}>重新加载列表</button></p>}
- {loading&&!posts.length&&<LoadingScene title="小石头正在翻找最近的故事…" detail="动态马上就来" />}
- {!loading&&!error&&!posts.length&&<div className="moments-empty"><h2>故事还在路上</h2><p>新的想法和记录，会留在这里。</p></div>}
+ {notice&&<p className="moment-notice" role="status">{notice}</p>}{error&&<p className="moment-error" role="alert">{error} <button onClick={()=>load(undefined,true)}>再试一次</button></p>}
+ {loading&&!posts.length&&<LoadingScene title="小石头正在翻找最近的故事…" detail="稍等片刻，马上铺开" />}
+ {!loading&&!error&&!posts.length&&<div className="moments-empty"><h2>抽屉里暂时还空着</h2><p>等攒下了新的日常切片与小念头，会留在这一页。</p></div>}
  <div className="moments-feed">{posts.map(p=><article className="moment-post" key={p.id}><header className="moment-row"><div className="moment-author"><img src={`${import.meta.env.BASE_URL}brand/stone-mark.svg`} width="44" height="44" alt=""/><div><strong>朱鑫垚 <span>stone</span></strong><a href={`/moments?post=${p.id}`}><time dateTime={p.createdAt}>{new Date(p.createdAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',dateStyle:'medium',timeStyle:'short'})}</time></a></div></div><span className="moment-visibility">{p.updatedAt?'已编辑 · 公开':'公开'}</span></header><p className="moment-text">{p.text}</p><div className={`moment-media ${p.media.length===1?'single':''}`}>{p.media.map(m=>m.type.startsWith('video/')?<video key={m.url} src={m.url} controls playsInline preload="metadata"/>:<a key={m.url} href={m.url} target="_blank" rel="noopener noreferrer"><img src={m.url} loading="lazy" alt="动态配图"/></a>)}</div>{session?.owner&&<>{editing===p.id?<EditPost key={p.id} post={p} onSave={savedPost} onCancel={()=>setEditing(null)}/>:<div className="moment-actions"><button disabled={!!editing||!!deleting} onClick={()=>{setEditing(p.id);setSharing(null)}}>编辑</button><button className="moment-danger" disabled={!!editing||!!deleting} onClick={()=>removePost(p)}>{deleting===p.id?'删除中…':'删除'}</button><button onClick={()=>setSharing(sharing===p.id?null:p.id)}>分享这条动态</button></div>}</>}{sharing===p.id&&<Share post={p} onClose={()=>setSharing(null)}/>}</article>)}</div>
  {cursor&&!selected&&<button disabled={loading} onClick={()=>load(cursor)}>查看更多动态</button>}
  {selected&&<a href="/moments" className="moment-back">查看全部动态 →</a>}

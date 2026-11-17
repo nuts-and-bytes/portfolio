@@ -11,42 +11,46 @@ import { blogUrl, ghUrl } from '../config'
 
 const now = [
   '北京外国语大学 · 国际商务硕士在读',
-  '继续改私域商业情报助手（GraphRAG）',
-  '在博客记录 AI 工作流实验',
+  '打磨私域商业情报助手（GraphRAG），帮散落的业务线索长出关联',
+  '在博客边做边记 AI 工作流的实验与踩坑',
 ]
 
 const experiments = [
   {
     title: 'Daily Tree · 记忆森林',
-    tag: 'Canvas · 浏览器本地记录',
-    desc: '每天留下一件事和图片，让树随记录生长。文字与图片保存在当前浏览器；导出备份时要另外保留原图。',
+    tag: 'Canvas · 本地日常手记',
+    desc: '想让每天攒下的小事有一点看得见的生命力。每天写下一句话、贴一张图，屏幕里的小树就会跟着你的记录慢慢抽枝长叶。',
+    note: '记录保存在当前浏览器里；导出备份时记得顺手留好原图。',
     link: ghUrl('daily-tree/app/'),
     repo: 'https://github.com/nuts-and-bytes/daily-tree',
-    cta: '试用',
+    cta: '打开试试',
   },
   {
     title: 'Word Universe · 词义星系',
     tag: 'D3.js · LLM Embedding',
-    desc: '把词汇、释义与掌握度放进可探索的星空。默认使用本地回退算法，可选接入 OpenAI 语义向量。',
+    desc: '总觉得背单词不该只是死磕列表，词与词之间本来就有引力。于是把学过的词放进一片能漫游的星空，意思相近的词会彼此靠近，生疏与熟悉一眼就能看清。',
+    note: '打开即用本地算法排布；也可接入 OpenAI 语义向量看更细腻的引力。',
     link: ghUrl('word-universe/app/'),
     repo: 'https://github.com/nuts-and-bytes/word-universe',
-    cta: '试用',
+    cta: '打开试试',
   },
   {
     title: '铁证 IRONPROOF · 训练与营养记录',
     tag: 'TypeScript · PWA · Cloudflare',
-    desc: '记录训练、体重与饮食，回看趋势并生成训练海报。核心记录本地优先，可选 AI 估算有独立的联网与权限边界。',
+    desc: '健身和吃饭最怕「凭感觉」，干脆给自己打了个顺手的随身账本。练完记一组、随手记下体重与三餐，攒久了能回看趋势，也能生成一张给自己打气的训练海报。',
+    note: '核心数据本地优先保存；可选的 AI 饮食估算走独立联网权限，互不打扰。',
     link: 'https://tiezheng.pages.dev',
     repo: 'https://github.com/nuts-and-bytes/tiezheng',
-    cta: '试用',
+    cta: '打开试试',
   },
   {
     title: '哦莫日常 · 日常记录原型',
-    tag: '单文件网页 · 历史原型',
-    desc: '记录心情、待办和自我探索。保留为可直接预览的网页快照，AI 入口尚未配置。',
+    tag: '单文件网页 · 早期留档',
+    desc: '更早之前学着做东西时留下的一个小脚印，用来装每天的心情、待办和一点自我对话。虽然青涩但舍不得删，就把它封存成了一张随时能翻看的网页快照。',
+    note: '作为历史原型原样保留，里面的 AI 入口暂未接通。',
     link: ghUrl('omm-daily-happy/'),
     repo: 'https://github.com/nuts-and-bytes/omm-daily-happy',
-    cta: '试用',
+    cta: '翻看原型',
   },
 ]
 
@@ -80,7 +84,7 @@ export default function Home() {
               </h1>
               <p className="hero-epi in-2">Machines write the code. Someone still has to care why.</p>
               <p className="hero-lede in-3">
-                Hi，我是石头。喜欢读书、听播客，也喜欢用 AI 把脑子里的小想法做出来。这里放着我做的工具、写下的文字，还有一些慢慢生长的作品。欢迎随便逛逛，遇到感兴趣的，也来找我聊聊。
+                Hi，我是石头。代码跑得越来越快，我还是喜欢慢一点的笨功夫——平时在书和长播客里泡着，遇到工作或生活里顺手想解决的小麻烦，就拉着 AI 敲敲打打做成真能用的东西。这里像我敞着门的书桌，有在真实业务里运转的系统，也留着纯粹图好玩的半成品。随便翻翻就好，哪一处刚好和你有共鸣，随时来敲门聊聊。
               </p>
 
               <div className="hero-now in-4">
@@ -92,9 +96,9 @@ export default function Home() {
 
               <div className="hero-links in-5">
                 <button className="link-strong" onClick={() => document.getElementById('cases')?.scrollIntoView({ behavior: 'smooth' })}>
-                  看项目 ↓
+                  逛逛作品 ↓
                 </button>
-                <a href={blogUrl('')} target="_blank" rel="noopener noreferrer">博客 ↗</a>
+                <a href={blogUrl('')} target="_blank" rel="noopener noreferrer">去读博客 ↗</a>
               </div>
             </div>
 
@@ -114,27 +118,28 @@ export default function Home() {
           <div className="section-head rv">
             <p className="sec-no">壹</p>
             <h2 className="sec-title">项目<span className="sec-en">Projects</span></h2>
+            <p className="sec-lede">几件花了更长时间慢慢打磨的作品——有的在真实业务里天天运转，有的用来安放阅读与好奇心。</p>
           </div>
 
           {/* —— CASE 01：猎光智能招聘系统 —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 01 · 为猎头顾问做的业务系统</p>
+            <p className="case-kicker">Case 01 · 为猎头顾问搭的日常工作台</p>
             <h3 className="case-title">猎光 · 智能招聘系统</h3>
-            <p className="case-purpose">我做了一套给猎头顾问使用的招聘系统，把简历录入、人才检索、推荐报告和客户跟进放在一起，让分散的资料进入同一条工作流程。</p>
+            <p className="case-purpose">猎头顾问的日常，很容易被淹没在散落的简历文档、沟通记录和推荐报告里。我帮他们把这些琐碎动作收进了同一张顺手的工作台——从录入简历、检索人选，到生成报告、跟进客户，不用再在十几个窗口间来回腾挪，把心力留给真正需要判断的「看人」与沟通。</p>
             <HuntlineProgress />
             <div className="case-entry">
-              <a className="link-strong" href="/#about">联系我，了解项目 ↓</a>
+              <a className="link-strong" href="/#about">对业务工具落地感兴趣？来聊聊 ↓</a>
             </div>
           </article>
 
           {/* —— CASE 02：Product Quest —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 02 · 3D 开放群岛与调查游戏 · 可试玩</p>
+            <p className="case-kicker">Case 02 · 3D 开放群岛与调查游戏 · 网页直接可玩</p>
             <h3 className="case-title">
               <a className="case-title-link" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">Product Quest · 产品经理大冒险<span className="title-arrow">↗</span></a>
             </h3>
 
-            <p className="case-purpose">漫游四座相连的岛屿，创建角色，走进蓝山咖啡馆交谈和调查。用线索组合试验，观察顾客与店员的变化；任务演出随试验结果推进，原有产品经理剧情也可以继续游玩。</p>
+            <p className="case-purpose">如果学做产品不是背框架，而是推门走进一家遇到麻烦的咖啡馆呢？在这片由四座小岛连成的世界里，你可以捏个角色四处晃悠，在「蓝山咖啡馆」和店员、常客聊天，把零散观察拼成线索去动手试错，亲眼看看店里的生意和人物反应会怎么随你的决定改变。</p>
             <figure className="plate quest-demo">
               {questLoaded ? (
                 <div className="quest-frame-wrap">
@@ -143,7 +148,7 @@ export default function Home() {
                     title="Product Quest 试玩"
                     onLoad={() => setQuestFrameReady(true)}
                   />
-                  {!questFrameReady && <div className="quest-loading"><LoadingScene dark title="小石头正在铺好通往群岛的路…" detail="3D 世界正在加载，首次进入可能需要一点时间" /></div>}
+                  {!questFrameReady && <div className="quest-loading"><LoadingScene dark title="小石头正在铺好通往群岛的路…" detail="正在唤醒 3D 小岛，第一次登岛稍微等几秒就好" /></div>}
                 </div>
               ) : (
                 <div className="quest-showcase">
@@ -160,38 +165,38 @@ export default function Home() {
                     />
                   </button>
                   <button className="quest-try" onClick={() => setQuestLoaded(true)}>
-                    <span aria-hidden="true">▶</span> 在这里直接试玩 <span className="quest-try-note">零基础可玩</span>
+                    <span aria-hidden="true">▶</span> 点这里直接登岛试玩 <span className="quest-try-note">不用懂产品也能上手</span>
                   </button>
                 </div>
               )}
               {questLoaded && <a className="quest-open" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">
                 新窗口打开 ↗
               </a>}
-              <figcaption>游戏实景截图。点击画面或按钮加载互动试玩；如果加载较慢，可以在新窗口打开。</figcaption>
+              <figcaption>星火岛实景。点画面就能直接在网页里玩；要是初次加载稍慢，也可以开个新窗口慢慢逛。</figcaption>
             </figure>
             <div className="case-entry">
-              <a className="link-strong" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">进入群岛，开始探索 ↗</a>
+              <a className="link-strong" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">新窗口登岛探索 ↗</a>
               <a className="case-repo" href="https://github.com/nuts-and-bytes/Product-quest" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
             </div>
             <div className="case-details">
-              <h4 className="case-h">内容与技术细节</h4>
-              <p>开放群岛、蓝山调查和原有剧情由同一套存档连接。你可以在咖啡馆交谈、圈出线索、尝试方案，再比较周三早高峰与周末手冲日的不同结果；实时演出依据试验结果变化，没有联网 AI 评分。</p>
+              <h4 className="case-h">岛上的门道与幕后设计</h4>
+              <p>开放群岛、蓝山咖啡馆调查，还有最早那版产品经理主线剧情，都串在同一份存档里。你可以对比「周三早高峰」和「周末手冲日」两种截然不同的忙乱现场，自己圈线索、改方案。所有反馈都由实时状态演出驱动，没有接联网 AI 打分——好坏不在分数里，而在店里人的反应里。</p>
               <div className="case-nums">
-                <div><strong>4 座岛</strong><span>连续探索区域</span></div>
-                <div><strong>2 种情境</strong><span>观察不同经营瓶颈</span></div>
-                <div><strong>调查与主线</strong><span>两条入口并存</span></div>
+                <div><strong>4 座小岛</strong><span>步行相连的探索世界</span></div>
+                <div><strong>2 种营业现场</strong><span>早高峰与周末手冲日对照</span></div>
+                <div><strong>双线并存</strong><span>自由调查与主线共用存档</span></div>
               </div>
             </div>
           </article>
 
           {/* —— CASE 03：游荡集 —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 03 · 播客精读网站</p>
+            <p className="case-kicker">Case 03 · 播客精读专题站</p>
             <h3 className="case-title">
               游荡集 · 把播客读成一本书
             </h3>
             <p className="case-purpose">
-              把许知远《游荡集》的长篇播客整理成精读文章，适合更喜欢阅读，或想在听完后回顾故事的人。还可以沿游荡地图、人物作品索引和跨集线索，回到对应章节与音频。
+              有些播客里的长谈太绵密，耳机里听过一遍总觉得意犹未尽，很想能像翻书一样停下来细读。于是我把许知远《游荡集》里的声音整理成了安静的精读文章——你可以顺着游荡地图、人物书影音索引或是跨集线索慢慢翻阅，读到动心处，随时回到那一段原声。
             </p>
 
             <figure className="plate site-preview">
@@ -204,18 +209,18 @@ export default function Home() {
               <figcaption>在声音里游荡世界，把长篇谈话留在纸上。</figcaption>
             </figure>
             <div className="case-entry">
-              <a className="link-strong" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">打开游荡集，开始阅读 ↗</a>
-              <p>个人整理的非官方专题站，可从首页选择感兴趣的一期。</p>
+              <a className="link-strong" href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">翻开《游荡集》开始阅读 ↗</a>
+              <p>因喜欢而整理的个人非官方小站，挑一期顺眼的标题就能读进去。</p>
             </div>
           </article>
 
           {/* —— CASE 04：Research Edition —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 04 · AI 产业阅读</p>
+            <p className="case-kicker">Case 04 · 沉浸式 AI 深度阅读室</p>
             <h3 className="case-title">
               Research Edition · AI 产业长文与报告
             </h3>
-            <p className="case-purpose">精选知名投资与研究机构的 AI 深度报告，覆盖产业史观、竞争格局、具身智能、技术前沿与预测，配中文导读，为静心完整阅读而设计。</p>
+            <p className="case-purpose">AI 圈每天都在刷屏碎片快讯，但真正帮人建立坐标系的好研究，往往藏在几十页长报告里。我把自己在读的投资与研究机构深度长文挑出来，覆盖产业史观、竞争格局与具身智能，配上梳理脉络的中文导读——去掉杂音，留给愿意静下心一次读完的人。</p>
 
             <figure className="plate site-preview">
               <div>
@@ -224,7 +229,7 @@ export default function Home() {
               <figcaption>从目录挑一篇，一次读完。</figcaption>
             </figure>
             <div className="case-entry">
-              <a className="link-strong" href="https://read.heystone.site" target="_blank" rel="noopener noreferrer">打开 Research Edition，开始阅读 ↗</a>
+              <a className="link-strong" href="https://read.heystone.site" target="_blank" rel="noopener noreferrer">走进阅读室，挑一篇长文 ↗</a>
             </div>
           </article>
         </div>
@@ -236,7 +241,7 @@ export default function Home() {
           <div className="section-head rv">
             <p className="sec-no">贰</p>
             <h2 className="sec-title">工具箱<span className="sec-en">Tools</span></h2>
-            <p className="sec-lede">给自己做的小工具和练手实验，点开就能用。</p>
+            <p className="sec-lede">遇到生活里的小痒处，顺手给自己打的小工具和练手玩具。不用注册，点开就能试。</p>
           </div>
 
           <div className="exp-grid">
@@ -245,6 +250,7 @@ export default function Home() {
                 <p className="exp-tag"><span className="exp-no">No.{String(i + 1).padStart(2, '0')}</span>{e.tag}</p>
                 <h3>{e.title}</h3>
                 <p className="exp-desc">{e.desc}</p>
+                {e.note && <p className="exp-note">{e.note}</p>}
                 <div className="project-actions"><a className="exp-cta" href={e.link} target="_blank" rel="noopener noreferrer">{e.cta} ↗</a><a className="case-repo" href={e.repo} target="_blank" rel="noopener noreferrer">查看源码 ↗</a></div>
               </article>
             ))}
@@ -264,17 +270,17 @@ export default function Home() {
           <a className="post rv" href={blogUrl('posts/如何用-claude-code-搭一个会自动整理的知识库.html')} target="_blank" rel="noopener noreferrer">
             <p className="post-date" aria-hidden="true">二〇二六年十月更新</p>
             <div className="post-body">
-              <p className="post-meta">教程 · Obsidian / AI · 附起步包</p>
+              <p className="post-meta">长文教程 · Obsidian × AI · 附起步包</p>
               <h3>用 Obsidian 打造你的第二大脑</h3>
               <p className="post-desc">
-                把读过的资料变成有来源、能找回、能关联的笔记。从一篇文章开始，附真实知识库截图、完整 AI 提示词和可下载起步包。
+                读过的资料总像指缝里的沙子，收藏了也很少再翻开？这篇长文写了我自己正在用的笨办法：怎么从读完一篇文章开始，让 AI 帮忙攒出有出处、找得回、还能彼此长出关联的笔记。附上了真实图谱、完整提示词和拿走就能用的起步包。
               </p>
             </div>
             <img className="post-preview" src="/images/second-brain.webp" alt="我的 Obsidian 知识库真实关系图谱" width="1920" height="1080" loading="lazy" />
             <span className="post-arrow" aria-hidden="true">→</span>
           </a>
           <p className="writing-more rv">
-            更多教程、心得和踩坑记录，在 <a href={blogUrl('')} target="_blank" rel="noopener noreferrer">stone ↗</a>
+            更多折腾心得、读书笔记和踩坑实录，都收在独立博客 <a href={blogUrl('')} target="_blank" rel="noopener noreferrer">stone ↗</a>
           </p>
         </div>
       </section>
@@ -289,11 +295,18 @@ export default function Home() {
 
           <div className="about-layout">
             <div className="about about-short rv">
-              <p className="about-intro">我是朱鑫垚，也叫 Stone。</p>
-              <p>在北外读国际商务，用 AI 做些工作和生活里用得上的东西。平时读书、听播客，也在这里记下想法。</p>
+              <p className="about-intro">我是朱鑫垚，朋友们也叫我石头（Stone）。</p>
+              <p>目前在北京外国语大学读国际商务。商科让我习惯去关心真实世界里人与人的协作，而 AI 恰好给了我一把趁手的刻刀——让我这样一个非科班出身的人，也能把脑子里一闪而过的念头，或是身边人遇到的具体麻烦，亲手敲打成能跑起来的作品。</p>
+              <p>做这个小站，不是为了摆一份端着架子的作品集，更像是把书房的门虚掩着，留一盏灯。自己在屋里闷头做东西固然开心，但互联网最迷人的地方，还是能顺着这些散落的作品与文字，撞见遥远却同频的朋友——互相看看彼此最近在琢磨什么，交换一点各自的经验与好奇。</p>
             </div>
             <div className="contact contact-compact rv">
-              <h3>聊聊想法，或打个招呼。</h3>
+              <h3>写封信聊聊，或者顺路打个招呼。</h3>
+              <p className="contact-lead-note">不用准备正式的自我介绍，如果你刚好遇到下面任何一件事，随时敲门：</p>
+              <ul className="contact-prompts">
+                <li>也在折腾 AI 工作流、知识库或小众业务工具，想找个人交流踩坑心得、互相切磋；</li>
+                <li>最近读到一本后劲很长的书、听完一期舍不得关掉的播客，想分享给同样爱读爱听的人；</li>
+                <li>点开了上面某个项目或小玩具，试出了有意思的玩法、发现了 bug，或者单纯想说句「嗨」。</li>
+              </ul>
               <div className="contact-email-line">
                 <a href="mailto:zhuxinyao99@gmail.com" className="contact-mail"><ContactIcon type="mail" /><span>zhuxinyao99@gmail.com</span></a>
                 <CopyEmail email="zhuxinyao99@gmail.com" />

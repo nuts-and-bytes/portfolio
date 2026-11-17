@@ -19,9 +19,9 @@ export default function CopyEmail({email}) {
           if(!document.execCommand('copy'))throw new Error('Copy unavailable')
         } finally {field.remove();previous?.focus({preventScroll:true})}
       }
-      setStatus('邮箱已复制')
+      setStatus('邮箱已复制，期待来信')
     } catch {setStatus('未能自动复制，请长按邮箱地址复制。')}
     finally {setBusy(false)}
   }
-  return <div className="contact-copy"><button type="button" onClick={copy} disabled={busy} aria-label={`复制邮箱 ${email}`}>{busy?'正在复制…':status==='邮箱已复制'?'已复制':'复制邮箱'}</button><span role="status" aria-live="polite">{status}</span></div>
+  return <div className="contact-copy"><button type="button" onClick={copy} disabled={busy} aria-label={`复制邮箱 ${email}`}>{busy?'正在复制…':status.startsWith('邮箱已复制')?'已复制':'复制邮箱'}</button><span role="status" aria-live="polite">{status}</span></div>
 }

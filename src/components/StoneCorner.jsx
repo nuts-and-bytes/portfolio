@@ -6,7 +6,7 @@ export default function StoneCorner() {
   return (
     <section className="stone-corner" aria-labelledby="stone-corner-title">
       <h2 id="stone-corner-title">Stone 的一角</h2>
-      <p className="corner-intro">桌上的书、电脑、耳机和便笺，都可以点开。</p>
+      <p className="corner-intro">逛累了可以坐会儿——桌上的书、电脑、耳机和便笺都能随手翻看。</p>
       <div className="corner-scene">
         <img src={`${import.meta.env.BASE_URL}shots/stone-corner.webp`} width="1536" height="1024" loading="lazy" alt="一张阅读与创作的书桌：打开的书、电脑、耳机、手写便笺，以及一块陶土橙的小石头。" />
         <a className="corner-object corner-books" href={blogUrl('categories/书评.html')} target="_blank" rel="noopener noreferrer" aria-label="打开书评"><span>读书评 ↗</span></a>
@@ -21,7 +21,7 @@ export default function StoneCorner() {
         <a href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer">游荡集 ↗</a>
         <a href="/moments">动态 →</a>
       </nav>
-      <p className="corner-message" role="status">{greeted ? '你好，我是石头。谢谢你逛到这里，愿你今天也有一个小小的发现。' : '也可以点一下小石头，打个招呼。'}</p>
+      <p className="corner-message" role="status">{greeted ? '你好呀，我是石头。谢谢你一路逛到这里，愿你今天也有一个小小的发现，常来玩。' : '桌角那块陶土色的小石头，也可以戳一下打个招呼。'}</p>
     </section>
   )
 }

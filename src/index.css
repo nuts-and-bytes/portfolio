@@ -1176,3 +1176,42 @@ body::after {
  .about-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
  .about-paper .contact-compact { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--hairline); }
 }
+
+/* Warm voice layer: marginalia notes on tool cards + conversational hooks in About. */
+.exp-note {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+  line-height: 1.65;
+  padding-top: 10px;
+  margin-top: 2px;
+  border-top: 1px dashed var(--hairline);
+}
+.contact-lead-note {
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  margin: 0 0 14px;
+}
+.contact-prompts {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 14px 18px;
+  background: var(--paper-deep);
+  border-left: 2px solid var(--accent);
+  display: grid;
+  gap: 8px;
+}
+.contact-prompts li {
+  position: relative;
+  padding-left: 16px;
+  color: var(--ink-2);
+  font-size: 0.9063rem;
+  line-height: 1.75;
+}
+.contact-prompts li::before {
+  content: '·';
+  position: absolute;
+  left: 2px;
+  color: var(--accent);
+  font-weight: 700;
+}
