@@ -17,8 +17,8 @@ const now = [
 const experiments = [
   {
     title: 'Daily Tree · 记忆森林',
-    tag: 'Three.js · WebGL',
-    desc: '每天记一件事，长成一棵 3D 的树。记录越多，森林越茂盛。96 commits。',
+    tag: 'Canvas · 浏览器本地记录',
+    desc: '每天留下一件事和图片，让树随记录生长。文字与图片保存在当前浏览器；导出备份时要另外保留原图。',
     link: ghUrl('daily-tree/app/'),
     repo: 'https://github.com/nuts-and-bytes/daily-tree',
     cta: '试用',
@@ -26,23 +26,23 @@ const experiments = [
   {
     title: 'Word Universe · 词义星系',
     tag: 'D3.js · LLM Embedding',
-    desc: '用 embedding 把单词之间的语义距离画成一片星空。',
-    link: ghUrl('word-universe/'),
+    desc: '把词汇、释义与掌握度放进可探索的星空。默认使用本地回退算法，可选接入 OpenAI 语义向量。',
+    link: ghUrl('word-universe/app/'),
     repo: 'https://github.com/nuts-and-bytes/word-universe',
     cta: '试用',
   },
   {
-    title: '铁证 IRONPROOF · 健身打卡',
+    title: '铁证 IRONPROOF · 训练与营养记录',
     tag: 'TypeScript · PWA · Cloudflare',
-    desc: '受够了广告和付费墙，给自己写了个本地优先的无广告打卡工具——周报、热力图、离线 PWA，数据不出设备。',
+    desc: '记录训练、体重与饮食，回看趋势并生成训练海报。核心记录本地优先，可选 AI 估算有独立的联网与权限边界。',
     link: 'https://tiezheng.pages.dev',
     repo: 'https://github.com/nuts-and-bytes/tiezheng',
     cta: '试用',
   },
   {
-    title: '每日心情打卡',
-    tag: 'React · 零后端',
-    desc: '一次点击记录情绪，按周聚合出情绪波形。秒开，数据不出设备。',
+    title: '哦莫日常 · 日常记录原型',
+    tag: '单文件网页 · 历史原型',
+    desc: '记录心情、待办和自我探索。保留为可直接预览的网页快照，AI 入口尚未配置。',
     link: ghUrl('omm-daily-happy/'),
     repo: 'https://github.com/nuts-and-bytes/omm-daily-happy',
     cta: '试用',
@@ -120,16 +120,16 @@ export default function Home() {
 
           {/* —— CASE 02：Product Quest —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 02 · 3D 开放世界产品 RPG · 可试玩</p>
+            <p className="case-kicker">Case 02 · 3D 开放群岛与调查游戏 · 可试玩</p>
             <h3 className="case-title">
-              <a className="case-title-link" href={ghUrl('Product-quest/?v=2.5')} target="_blank" rel="noopener noreferrer">Product Quest · 产品经理大冒险<span className="title-arrow">↗</span></a>
+              <a className="case-title-link" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">Product Quest · 产品经理大冒险<span className="title-arrow">↗</span></a>
             </h3>
 
-            <p className="case-purpose">一个边玩边学产品设计的 3D 开放世界闯关游戏。你可以漫游实时昼夜变化的星火岛、捏出专属 3D 粘土人 PM 形象，在故事里面对“给谁做、做什么、怎么选”；没学过产品知识也能直接开始。</p>
+            <p className="case-purpose">漫游四座相连的岛屿，创建角色，走进蓝山咖啡馆交谈和调查。用线索组合试验，观察顾客与店员的变化；任务演出随试验结果推进，原有产品经理剧情也可以继续游玩。</p>
             <figure className="plate quest-demo">
               {questLoaded ? (
                 <iframe
-                  src={ghUrl('Product-quest/?v=2.5')}
+                  src={ghUrl('Product-quest/')}
                   title="Product Quest 试玩"
                   loading="lazy"
                 />
@@ -151,22 +151,22 @@ export default function Home() {
                   </button>
                 </div>
               )}
-              {questLoaded && <a className="quest-open" href={ghUrl('Product-quest/?v=2.5')} target="_blank" rel="noopener noreferrer">
+              {questLoaded && <a className="quest-open" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">
                 新窗口打开 ↗
               </a>}
-              <figcaption>在 3D 星火岛的故事里做产品决策，看看你的选择会带来什么结果。</figcaption>
+              <figcaption>剧情决策与反馈示例；完整群岛与咖啡馆调查可以直接试玩。</figcaption>
             </figure>
             <div className="case-entry">
-              <a className="link-strong" href={ghUrl('Product-quest/?v=2.5')} target="_blank" rel="noopener noreferrer">打开游戏，开始闯关 ↗</a>
+              <a className="link-strong" href={ghUrl('Product-quest/')} target="_blank" rel="noopener noreferrer">进入群岛，开始探索 ↗</a>
               <a className="case-repo" href="https://github.com/nuts-and-bytes/Product-quest" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
             </div>
             <div className="case-details">
               <h4 className="case-h">内容与技术细节</h4>
-              <p>把产品知识做成能通关的 3D 开放世界 RPG：支持平移/环绕/漫步/第一人称游览实时昼夜变化的星火岛，引擎与内容彻底解耦（engine.js + island3d.js + JSON 数据层），3D 角色、建筑与音效代码生成；“最优 / 次优 / 翻车”三级决策树，术语与案例逐条标注《Inspired》《精益创业》《The Mom Test》等 16 处出处。</p>
+              <p>开放群岛、蓝山调查和原有剧情由同一套存档连接。你可以在咖啡馆交谈、圈出线索、尝试方案，再比较周三早高峰与周末手冲日的不同结果；实时演出依据试验结果变化，没有联网 AI 评分。</p>
               <div className="case-nums">
-                <div><strong>9 章 37 关</strong><span>主线全部完结</span></div>
-                <div><strong>44 个</strong><span>三级博弈决策点</span></div>
-                <div><strong>30+</strong><span>内嵌术语图鉴</span></div>
+                <div><strong>4 座岛</strong><span>连续探索区域</span></div>
+                <div><strong>2 种情境</strong><span>观察不同经营瓶颈</span></div>
+                <div><strong>调查与主线</strong><span>两条入口并存</span></div>
               </div>
             </div>
           </article>
@@ -178,7 +178,7 @@ export default function Home() {
               游荡集 · 把播客读成一本书
             </h3>
             <p className="case-purpose">
-              把许知远《游荡集》的长篇播客整理成精读文章，适合更喜欢阅读，或想在听完后回顾故事的人。还可以跟着音乐和地图，探索谈话中的地方与生活。
+              把许知远《游荡集》的长篇播客整理成精读文章，适合更喜欢阅读，或想在听完后回顾故事的人。还可以沿游荡地图、人物作品索引和跨集线索，回到对应章节与音频。
             </p>
 
             <figure className="plate site-preview">
