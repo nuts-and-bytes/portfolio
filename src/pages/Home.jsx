@@ -11,8 +11,8 @@ import { blogUrl, ghUrl } from '../config'
 
 const now = [
   '北京外国语大学 · 国际商务硕士在读',
-  '打磨私域商业情报助手（GraphRAG），帮散落的业务线索长出关联',
-  '在博客边做边记 AI 工作流的实验与踩坑',
+  '打磨私域商业情报助手（GraphRAG）',
+  '在博客记录 AI 工作流的实验与踩坑',
 ]
 
 const experiments = [
@@ -84,7 +84,7 @@ export default function Home() {
               </h1>
               <p className="hero-epi in-2">Machines write the code. Someone still has to care why.</p>
               <p className="hero-lede in-3">
-                Hi，我是石头。代码跑得越来越快，我还是喜欢慢一点的笨功夫——平时在书和长播客里泡着，遇到工作或生活里顺手想解决的小麻烦，就拉着 AI 敲敲打打做成真能用的东西。这里像我敞着门的书桌，有在真实业务里运转的系统，也留着纯粹图好玩的半成品。随便翻翻就好，哪一处刚好和你有共鸣，随时来敲门聊聊。
+                Hi，我是石头。闲下来喜欢看书、听播客，遇到生活或工作里的小麻烦，也爱拉着 AI 敲敲打打做成能用的东西。这里像我敞着门的书桌，随便翻翻，有共鸣处随时来聊聊。
               </p>
 
               <div className="hero-now in-4">
@@ -295,17 +295,15 @@ export default function Home() {
 
           <div className="about-layout">
             <div className="about about-short rv">
-              <p className="about-intro">我是朱鑫垚，朋友们也叫我石头（Stone）。</p>
-              <p>目前在北京外国语大学读国际商务。商科让我习惯去关心真实世界里人与人的协作，而 AI 恰好给了我一把趁手的刻刀——让我这样一个非科班出身的人，也能把脑子里一闪而过的念头，或是身边人遇到的具体麻烦，亲手敲打成能跑起来的作品。</p>
-              <p>做这个小站，不是为了摆一份端着架子的作品集，更像是把书房的门虚掩着，留一盏灯。自己在屋里闷头做东西固然开心，但互联网最迷人的地方，还是能顺着这些散落的作品与文字，撞见遥远却同频的朋友——互相看看彼此最近在琢磨什么，交换一点各自的经验与好奇。</p>
+              <p className="about-intro">我是朱鑫垚，朋友们也叫我石头。</p>
+              <p>在北外读国际商务，虽非科班，但喜欢用 AI 把身边遇到的真问题做成能用的作品。建这个小站就像把书房门虚掩着留盏灯——比起单向展示，更期待顺着这些作品和文字，遇上同频的朋友，互相学习、交换好奇。</p>
             </div>
             <div className="contact contact-compact rv">
               <h3>写封信聊聊，或者顺路打个招呼。</h3>
-              <p className="contact-lead-note">不用准备正式的自我介绍，如果你刚好遇到下面任何一件事，随时敲门：</p>
               <ul className="contact-prompts">
-                <li>也在折腾 AI 工作流、知识库或小众业务工具，想找个人交流踩坑心得、互相切磋；</li>
-                <li>最近读到一本后劲很长的书、听完一期舍不得关掉的播客，想分享给同样爱读爱听的人；</li>
-                <li>点开了上面某个项目或小玩具，试出了有意思的玩法、发现了 bug，或者单纯想说句「嗨」。</li>
+                <li>也在折腾 AI 工作流、知识库或小工具，想交流切磋；</li>
+                <li>最近读到了后劲很长的书或播客，想找人分享；</li>
+                <li>试玩了上面的作品有反馈，或者单纯想说句「嗨」。</li>
               </ul>
               <div className="contact-email-line">
                 <a href="mailto:zhuxinyao99@gmail.com" className="contact-mail"><ContactIcon type="mail" /><span>zhuxinyao99@gmail.com</span></a>

@@ -1186,12 +1186,6 @@ body::after {
   margin-top: 2px;
   border-top: 1px dashed var(--hairline);
 }
-.contact-lead-note {
-  color: var(--ink-2);
-  font-size: 0.9375rem;
-  line-height: 1.8;
-  margin: 0 0 14px;
-}
 .contact-prompts {
   list-style: none;
   margin: 0 0 24px;
