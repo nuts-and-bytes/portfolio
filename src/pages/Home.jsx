@@ -17,6 +17,7 @@ const now = [
 
 const experiments = [
   {
+    kind: 'tree',
     title: 'Daily Tree · 记忆森林',
     tag: 'Canvas · 本地日常手记',
     desc: '想让每天攒下的小事有一点看得见的生命力。每天写下一句话、贴一张图，屏幕里的小树就会跟着你的记录慢慢抽枝长叶。',
@@ -26,6 +27,7 @@ const experiments = [
     cta: '打开试试',
   },
   {
+    kind: 'stars',
     title: 'Word Universe · 词义星系',
     tag: 'D3.js · LLM Embedding',
     desc: '总觉得背单词不该只是死磕列表，词与词之间本来就有引力。于是把学过的词放进一片能漫游的星空，意思相近的词会彼此靠近，生疏与熟悉一眼就能看清。',
@@ -35,6 +37,7 @@ const experiments = [
     cta: '打开试试',
   },
   {
+    kind: 'plaque',
     title: '铁证 IRONPROOF · 训练与营养记录',
     tag: 'TypeScript · PWA · Cloudflare',
     desc: '健身和吃饭最怕「凭感觉」，干脆给自己打了个顺手的随身账本。练完记一组、随手记下体重与三餐，攒久了能回看趋势，也能生成一张给自己打气的训练海报。',
@@ -44,6 +47,7 @@ const experiments = [
     cta: '打开试试',
   },
   {
+    kind: 'page',
     title: '哦莫日常 · 日常记录原型',
     tag: '单文件网页 · 早期留档',
     desc: '更早之前学着做东西时留下的一个小脚印，用来装每天的心情、待办和一点自我对话。虽然青涩但舍不得删，就把它封存成了一张随时能翻看的网页快照。',
@@ -53,6 +57,113 @@ const experiments = [
     cta: '翻看原型',
   },
 ]
+
+function ToolStage({ kind }) {
+  if (kind === 'tree') {
+    return (
+      <div className="tool-stage tool-stage-tree" aria-hidden="true">
+        <svg className="tool-svg-tree" viewBox="0 0 200 92" fill="none">
+          <ellipse cx="96" cy="80" rx="50" ry="4.5" fill="#5D7A58" opacity="0.14" />
+          <path d="M22 80 Q96 75 174 80" stroke="#C0C3B4" strokeWidth="1" strokeLinecap="round" />
+          <g className="tree-crown">
+            <path d="M96 79 C95 62 94 49 97 30" stroke="#4A4137" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M95 57 C83 51 74 46 66 37" stroke="#4A4137" strokeWidth="1.8" strokeLinecap="round" />
+            <path d="M96 42 C87 35 81 28 78 20" stroke="#4A4137" strokeWidth="1.5" strokeLinecap="round" />
+            <path className="tree-twig" d="M96 49 C108 43 118 39 128 31" stroke="#4A4137" strokeWidth="1.7" strokeLinecap="round" />
+            <path d="M66 37 C54 36 48 28 53 22 C59 19 68 25 66 37 Z" fill="#68885E" />
+            <path d="M65 35 C60 31 56 28 53 24" stroke="#EBF2E4" strokeWidth="0.9" strokeLinecap="round" />
+            <path d="M78 20 C68 14 70 6 79 5 C86 7 86 16 78 20 Z" fill="#4E6F49" />
+            <path d="M97 30 C91 18 97 7 106 11 C112 16 108 27 97 30 Z" fill="#76976A" />
+            <path d="M98 28 C100 22 103 17 105 13" stroke="#EBF2E4" strokeWidth="0.9" strokeLinecap="round" />
+            <path d="M113 41 C116 51 126 53 130 46 C129 39 120 37 113 41 Z" fill="#5B7C53" />
+            <circle className="tree-bud" cx="128" cy="31" r="2.4" fill="#C2410C" opacity="0.7" />
+            <g className="tree-new-leaf">
+              <path d="M128 31 C132 15 149 9 160 17 C155 30 141 36 128 31 Z" fill="#74B050" stroke="#3D682F" strokeWidth="1.2" strokeLinejoin="round" />
+              <path d="M129 30 C138 25 147 21 156 18" stroke="#F1F8EB" strokeWidth="1.1" strokeLinecap="round" />
+              <circle cx="164" cy="11" r="2.3" fill="#C2410C" opacity="0.88" />
+            </g>
+          </g>
+        </svg>
+      </div>
+    )
+  }
+
+  if (kind === 'stars') {
+    return (
+      <div className="tool-stage tool-stage-stars" aria-hidden="true">
+        <svg className="tool-svg-stars" viewBox="0 0 220 92" fill="none">
+          <ellipse cx="110" cy="46" rx="86" ry="34" fill="#2E3F5E" opacity="0.075" />
+          <circle className="star-orbit" cx="110" cy="46" r="28" stroke="#2E3F5E" strokeOpacity="0.2" strokeWidth="1" strokeDasharray="2 4" />
+          <circle cx="110" cy="46" r="42" stroke="#2E3F5E" strokeOpacity="0.09" strokeWidth="1" />
+          <g className="star-links" stroke="#2E3F5E" strokeWidth="1.1" strokeLinecap="round">
+            <line x1="110" y1="46" x2="72" y2="33" />
+            <line x1="110" y1="46" x2="148" y2="32" />
+            <line x1="110" y1="46" x2="78" y2="60" />
+            <line x1="110" y1="46" x2="142" y2="59" />
+            <line x1="110" y1="46" x2="111" y2="26" />
+          </g>
+          <g className="star-core" transform="translate(110 46)">
+            <path d="M0 -11 L2.8 -2.8 L11 0 L2.8 2.8 L0 11 L-2.8 2.8 L-11 0 L-2.8 -2.8 Z" fill="#C2410C" />
+          </g>
+          <g className="star-orbiter star-1">
+            <g transform="translate(36 21)">
+              <path d="M0 -7.5 L2 -2 L7.5 0 L2 2 L0 7.5 L-2 2 L-7.5 0 L-2 -2 Z" fill="#273854" />
+            </g>
+          </g>
+          <g className="star-orbiter star-2">
+            <g transform="translate(184 19)">
+              <path d="M0 -7 L1.9 -1.9 L7 0 L1.9 1.9 L0 7 L-1.9 1.9 L-7 0 L-1.9 -1.9 Z" fill="#B86B35" />
+            </g>
+          </g>
+          <g className="star-orbiter star-3">
+            <g transform="translate(46 73)">
+              <path d="M0 -6.5 L1.7 -1.7 L6.5 0 L1.7 1.7 L0 6.5 L-1.7 1.7 L-6.5 0 L-1.7 -1.7 Z" fill="#3B4E70" />
+            </g>
+          </g>
+          <g className="star-orbiter star-4">
+            <g transform="translate(174 71)">
+              <circle cx="0" cy="0" r="4" fill="#2A3C5B" />
+              <circle cx="0" cy="0" r="6.8" stroke="#2A3C5B" strokeOpacity="0.26" strokeWidth="1" />
+            </g>
+          </g>
+          <g className="star-orbiter star-5">
+            <g transform="translate(111 11)">
+              <path d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z" fill="#C27A3B" />
+            </g>
+          </g>
+          <circle cx="22" cy="52" r="1.5" fill="#465978" opacity="0.5" />
+          <circle cx="198" cy="48" r="1.5" fill="#465978" opacity="0.5" />
+          <circle cx="70" cy="14" r="1.2" fill="#B86B35" opacity="0.45" />
+          <circle cx="152" cy="79" r="1.2" fill="#465978" opacity="0.45" />
+        </svg>
+      </div>
+    )
+  }
+
+  if (kind === 'plaque') {
+    return (
+      <div className="tool-stage tool-stage-plaque" aria-hidden="true">
+        <div className="plaque-badge">
+          <span className="plaque-pin" />
+          <span className="plaque-grooves">
+            <span />
+            <span />
+          </span>
+          <span className="plaque-pin" />
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="tool-stage tool-stage-page" aria-hidden="true">
+      <div className="page-header-mark">
+        <span className="page-header-dot" />
+        <span className="page-rule-lines" />
+      </div>
+    </div>
+  )
+}
 
 /* ---------- 页面 ---------- */
 
@@ -235,7 +346,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════ 02 工具箱：细线吊着的纸片 ══════════ */}
+      {/* ══════════ 02 工具箱：小树、星星、铭牌与折页 ══════════ */}
       <section id="experiments" className="section section-alt">
         <div className="container">
           <div className="section-head rv">
@@ -246,16 +357,30 @@ export default function Home() {
 
           <div className="exp-grid">
             {experiments.map((e, i) => (
-              <article key={e.title} className="exp-card rv">
-                <div className="slip">
-                  <span className="slip-thread" aria-hidden="true" />
-                  <div className="slip-sheet">
+              <article key={e.title} className={`exp-card tool-card tool-card-${e.kind} rv`}>
+                <div className="tool-frame">
+                  {e.kind === 'plaque' && (
+                    <>
+                      <span className="plaque-sheen" aria-hidden="true" />
+                      <span className="plaque-rivet plaque-rivet-tl" aria-hidden="true" />
+                      <span className="plaque-rivet plaque-rivet-tr" aria-hidden="true" />
+                      <span className="plaque-rivet plaque-rivet-bl" aria-hidden="true" />
+                      <span className="plaque-rivet plaque-rivet-br" aria-hidden="true" />
+                    </>
+                  )}
+                  {e.kind === 'page' && <span className="page-under" aria-hidden="true" />}
+                  <div className="tool-surface">
+                    <ToolStage kind={e.kind} />
                     <p className="exp-tag"><span className="exp-no">No.{String(i + 1).padStart(2, '0')}</span>{e.tag}</p>
                     <h3>{e.title}</h3>
                     <p className="exp-desc">{e.desc}</p>
                     {e.note && <p className="exp-note">{e.note}</p>}
-                    <div className="project-actions"><a className="exp-cta" href={e.link} target="_blank" rel="noopener noreferrer">{e.cta} ↗</a><a className="case-repo" href={e.repo} target="_blank" rel="noopener noreferrer">查看源码 ↗</a></div>
+                    <div className="project-actions">
+                      <a className="exp-cta" href={e.link} target="_blank" rel="noopener noreferrer">{e.cta} ↗</a>
+                      <a className="case-repo" href={e.repo} target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
+                    </div>
                   </div>
+                  {e.kind === 'page' && <span className="page-corner" aria-hidden="true" />}
                 </div>
               </article>
             ))}

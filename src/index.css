@@ -1210,11 +1210,15 @@ body::after {
   font-weight: 700;
 }
 
-/* 工具箱：每张纸片用一根淡线吊着，中间高、两边轻轻垂下。没有衣杆，也没有衣架。 */
+/* 工具箱：四件各自活一下——小树、星星、铭牌与掀角一页纸。 */
+#experiments { padding: 88px 0 96px; }
+#experiments .section-head { margin-bottom: 40px; }
 #experiments .exp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch;
-  gap: 48px 36px;
-  padding-top: 4px;
+  gap: 24px 28px;
+  padding-top: 2px;
 }
 #experiments .exp-card {
   display: flex;
@@ -1224,6 +1228,7 @@ body::after {
   padding: 0;
   overflow: visible;
   transform: none;
+  transition: none;
 }
 #experiments .exp-card::before { content: none; }
 #experiments .exp-card:hover {
@@ -1231,92 +1236,438 @@ body::after {
   box-shadow: none;
   transform: none;
 }
-#experiments .slip {
-  --rest: -0.45deg;
+#experiments .tool-frame {
+  position: relative;
   display: flex;
   flex: 1;
   flex-direction: column;
   min-height: 0;
-  transform-origin: 50% 0;
-  animation: slip-sway 8.4s ease-in-out infinite;
 }
-#experiments .exp-card:nth-child(2) .slip { --rest: 0.35deg; animation-duration: 9.2s; animation-delay: -2.4s; }
-#experiments .exp-card:nth-child(3) .slip { --rest: -0.2deg; animation-duration: 7.6s; animation-delay: -4.1s; }
-#experiments .exp-card:nth-child(4) .slip { --rest: 0.4deg; animation-duration: 8.8s; animation-delay: -1.2s; }
-#experiments .exp-card:hover .slip,
-#experiments .exp-card:focus-within .slip {
-  animation: none;
-  transform: rotate(0deg) translateY(3px);
-}
-#experiments .slip-thread {
-  position: relative;
-  z-index: 2;
-  display: block;
-  flex: none;
-  width: 1px;
-  height: 42px;
-  margin: 0 auto;
-  background: linear-gradient(180deg, transparent, rgba(87, 83, 78, 0.15) 28%, rgba(87, 83, 78, 0.55));
-  pointer-events: none;
-}
-#experiments .slip-thread::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -3px;
-  width: 5px;
-  height: 5px;
-  margin-left: -2.5px;
-  border-radius: 50%;
-  background: #fffdf9;
-  box-shadow: 0 0 0 1px rgba(168, 162, 158, 0.85);
-}
-#experiments .slip-sheet {
+#experiments .tool-surface {
   position: relative;
   z-index: 1;
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin-top: -1px;
-  padding: 32px 24px 22px;
+  padding: 20px 26px 18px;
   background: #fffdf9;
-  clip-path: polygon(
-    0 18px,
-    14% 7px,
-    32% 2px,
-    50% 0,
-    68% 2px,
-    86% 7px,
-    100% 18px,
-    100% calc(100% - 4px),
-    calc(100% - 4px) 100%,
-    4px 100%,
-    0 calc(100% - 4px)
-  );
-  filter: drop-shadow(0 16px 12px rgba(28, 25, 23, 0.07));
+  transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease);
 }
+#experiments .tool-stage {
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  pointer-events: none;
+}
+#experiments .exp-tag {
+  padding-bottom: 9px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(194, 65, 12, 0.24);
+}
+#experiments .exp-card h3 { margin-bottom: 8px; }
 #experiments .exp-desc { flex: 1; }
-#experiments .project-actions { margin-top: 12px; }
+#experiments .project-actions {
+  margin-top: 12px;
+  position: relative;
+  z-index: 2;
+}
+#experiments .exp-card:hover .exp-cta { letter-spacing: 0; }
 
-@keyframes slip-sway {
-  0%, 100% { transform: rotate(calc(var(--rest) - 0.55deg)); }
-  50% { transform: rotate(calc(var(--rest) + 0.55deg)); }
+/* 1 · 记忆森林：一棵小树，放上鼠标多长出一片叶子 */
+#experiments .tool-card-tree .tool-surface {
+  background:
+    radial-gradient(ellipse 80% 108px at 50% 42px, rgba(110, 146, 98, 0.1), transparent 72%),
+    linear-gradient(178deg, #fcfdf7 0%, #f4f6eb 100%);
+  border: 1px solid #d5dcc9;
+  border-radius: 18px 18px 12px 12px;
+  box-shadow: 0 12px 28px -22px rgba(45, 62, 42, 0.3);
+}
+#experiments .tool-card-tree:hover .tool-surface,
+#experiments .tool-card-tree:focus-within .tool-surface {
+  border-color: #a3ba98;
+  box-shadow: 0 16px 32px -22px rgba(45, 62, 42, 0.36);
+}
+#experiments .tool-svg-tree {
+  width: 200px;
+  height: 86px;
+  overflow: visible;
+}
+#experiments .tree-crown {
+  transform-origin: 96px 79px;
+  animation: tree-breeze 7.2s ease-in-out infinite;
+}
+#experiments .tool-card-tree:hover .tree-crown,
+#experiments .tool-card-tree:focus-within .tree-crown {
+  animation-play-state: paused;
+}
+#experiments .tree-bud {
+  transition: opacity 0.28s var(--ease), transform 0.28s var(--ease);
+  transform-origin: 128px 31px;
+}
+#experiments .tree-new-leaf {
+  opacity: 0;
+  transform-origin: 128px 31px;
+  transform: scale(0.08) rotate(-32deg);
+  transition: opacity 0.34s var(--ease), transform 0.56s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#experiments .tool-card-tree:hover .tree-new-leaf,
+#experiments .tool-card-tree:focus-within .tree-new-leaf {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+#experiments .tool-card-tree:hover .tree-bud,
+#experiments .tool-card-tree:focus-within .tree-bud {
+  opacity: 0.2;
+  transform: scale(0.7);
+}
+@keyframes tree-breeze {
+  0%, 100% { transform: rotate(-1.1deg); }
+  50% { transform: rotate(1.1deg); }
 }
 
-@media (min-width: 901px) {
-  #experiments .exp-card:last-child:nth-child(3n+1) { grid-column: 2; }
+/* 2 · 词义星系：几颗星星，放上鼠标星星靠过来 */
+#experiments .tool-card-stars .tool-surface {
+  background:
+    radial-gradient(ellipse 84% 118px at 50% 48px, rgba(46, 63, 94, 0.11), transparent 72%),
+    linear-gradient(180deg, #f6f6fa 0%, #faf8f4 100%);
+  border: 1px solid #d1d5df;
+  border-radius: 18px 18px 12px 12px;
+  box-shadow: 0 12px 28px -22px rgba(34, 46, 68, 0.3);
+}
+#experiments .tool-card-stars:hover .tool-surface,
+#experiments .tool-card-stars:focus-within .tool-surface {
+  border-color: #a6b2c7;
+  box-shadow: 0 16px 32px -22px rgba(34, 46, 68, 0.36);
+}
+#experiments .tool-svg-stars {
+  width: 220px;
+  height: 86px;
+  overflow: visible;
+}
+#experiments .star-orbit {
+  transform-origin: 110px 46px;
+  transition: transform 0.55s var(--ease), stroke-opacity 0.45s var(--ease);
+}
+#experiments .star-links {
+  opacity: 0.1;
+  transition: opacity 0.45s var(--ease);
+}
+#experiments .star-core {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.45s var(--ease), filter 0.45s var(--ease);
+}
+#experiments .star-orbiter {
+  transform: translate(0, 0);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+#experiments .star-1 { --pull-x: 36px; --pull-y: 12px; animation: star-twinkle 4.8s ease-in-out infinite; }
+#experiments .star-2 { --pull-x: -36px; --pull-y: 13px; animation: star-twinkle 5.6s ease-in-out -1.4s infinite; }
+#experiments .star-3 { --pull-x: 32px; --pull-y: -13px; animation: star-twinkle 6.2s ease-in-out -2.8s infinite; }
+#experiments .star-4 { --pull-x: -32px; --pull-y: -12px; animation: star-twinkle 5.2s ease-in-out -0.9s infinite; }
+#experiments .star-5 { --pull-x: 0px; --pull-y: 15px; animation: star-twinkle 4.4s ease-in-out -2.1s infinite; }
+#experiments .tool-card-stars:hover .star-orbiter,
+#experiments .tool-card-stars:focus-within .star-orbiter {
+  transform: translate(var(--pull-x), var(--pull-y));
+  animation-play-state: paused;
+  opacity: 1;
+}
+#experiments .tool-card-stars:hover .star-links,
+#experiments .tool-card-stars:focus-within .star-links {
+  opacity: 0.62;
+}
+#experiments .tool-card-stars:hover .star-orbit,
+#experiments .tool-card-stars:focus-within .star-orbit {
+  transform: scale(0.84);
+  stroke-opacity: 0.38;
+}
+#experiments .tool-card-stars:hover .star-core,
+#experiments .tool-card-stars:focus-within .star-core {
+  transform: translate(110px, 46px) scale(1.2);
+  filter: drop-shadow(0 0 7px rgba(194, 65, 12, 0.42));
+}
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 1; }
+}
+
+/* 3 · 铁证 IRONPROOF：一块小铭牌，放上鼠标铭牌亮一下 */
+#experiments .tool-card-plaque .tool-frame {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 12px 26px -20px rgba(28, 25, 23, 0.32);
+  transition: box-shadow 0.35s var(--ease);
+}
+#experiments .tool-card-plaque .tool-surface {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 4px),
+    linear-gradient(135deg, #f6f3ed 0%, #e7e0d4 52%, #f4efe6 100%);
+  border: 1px solid #c7bdb0;
+  border-radius: 10px;
+  box-shadow:
+    inset 0 0 0 5px rgba(255, 253, 249, 0.52),
+    inset 0 0 0 6px rgba(132, 121, 108, 0.28);
+  padding: 22px 28px 20px;
+}
+#experiments .tool-card-plaque:hover .tool-frame,
+#experiments .tool-card-plaque:focus-within .tool-frame {
+  box-shadow:
+    0 0 0 2px rgba(255, 249, 238, 0.92),
+    0 14px 34px -12px rgba(194, 65, 12, 0.32),
+    0 0 28px -4px rgba(236, 174, 115, 0.62);
+}
+#experiments .tool-card-plaque:hover .tool-surface,
+#experiments .tool-card-plaque:focus-within .tool-surface {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0 1px, transparent 1px 4px),
+    linear-gradient(135deg, #ffffff 0%, #f8f1e4 46%, #fffef9 100%);
+  border-color: #c98651;
+  box-shadow:
+    inset 0 0 0 5px rgba(255, 255, 255, 0.92),
+    inset 0 0 0 6px rgba(194, 65, 12, 0.44);
+}
+#experiments .plaque-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    112deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.92) 48%,
+    rgba(255, 240, 212, 0.68) 55%,
+    transparent 76%
+  );
+  transform: translateX(-135%);
+  opacity: 0;
+}
+#experiments .tool-card-plaque:hover .plaque-sheen,
+#experiments .tool-card-plaque:focus-within .plaque-sheen {
+  animation: plaque-flash 0.85s var(--ease) forwards;
+}
+@keyframes plaque-flash {
+  0% { transform: translateX(-135%); opacity: 0.98; }
+  100% { transform: translateX(135%); opacity: 0.98; }
+}
+#experiments .plaque-rivet {
+  position: absolute;
+  z-index: 4;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 32%, #ffffff 0%, #c8bfb2 58%, #9b9184 100%);
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  pointer-events: none;
+  transition: filter 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+#experiments .plaque-rivet-tl { top: 11px; left: 11px; }
+#experiments .plaque-rivet-tr { top: 11px; right: 11px; }
+#experiments .plaque-rivet-bl { bottom: 11px; left: 11px; }
+#experiments .plaque-rivet-br { bottom: 11px; right: 11px; }
+#experiments .tool-card-plaque:hover .plaque-rivet,
+#experiments .tool-card-plaque:focus-within .plaque-rivet {
+  filter: brightness(1.24);
+  box-shadow: 0 0 6px rgba(255, 232, 198, 0.9);
+}
+#experiments .plaque-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 22px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #faf7f2 0%, #e4dbcd 100%);
+  border: 1px solid #bfb3a2;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 4px 10px -8px rgba(28, 25, 23, 0.45);
+  transition: background 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+#experiments .tool-card-plaque:hover .plaque-badge,
+#experiments .tool-card-plaque:focus-within .plaque-badge {
+  background: linear-gradient(180deg, #ffffff 0%, #f8ebd7 100%);
+  border-color: #c2410c;
+  box-shadow: inset 0 1px 0 #ffffff, 0 0 18px 0 rgba(235, 168, 108, 0.75);
+}
+#experiments .plaque-pin {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #9e9487);
+}
+#experiments .plaque-grooves {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 88px;
+}
+#experiments .plaque-grooves span {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(92, 83, 73, 0.18), rgba(92, 83, 73, 0.48), rgba(92, 83, 73, 0.18));
+  transition: background 0.35s var(--ease);
+}
+#experiments .plaque-grooves span:last-child {
+  width: 64%;
+  margin: 0 auto;
+}
+#experiments .tool-card-plaque:hover .plaque-grooves span,
+#experiments .tool-card-plaque:focus-within .plaque-grooves span {
+  background: linear-gradient(90deg, rgba(194, 65, 12, 0.25), rgba(194, 65, 12, 0.82), rgba(194, 65, 12, 0.25));
+}
+
+/* 4 · 哦莫日常：一页纸，放上鼠标页角掀起来 */
+#experiments .tool-card-page .tool-frame {
+  filter: drop-shadow(0 12px 22px rgba(28, 25, 23, 0.08));
+  transition: filter 0.38s var(--ease);
+}
+#experiments .tool-card-page:hover .tool-frame,
+#experiments .tool-card-page:focus-within .tool-frame {
+  filter: drop-shadow(0 16px 26px rgba(28, 25, 23, 0.13));
+}
+#experiments .tool-card-page .tool-surface {
+  background:
+    repeating-linear-gradient(180deg, transparent 0 29px, rgba(168, 162, 158, 0.14) 29px 30px),
+    #fffdf8;
+  box-shadow: inset 0 0 0 1px rgba(206, 196, 182, 0.85);
+  padding: 20px 26px 18px 34px;
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%);
+  transition: clip-path 0.42s var(--ease);
+}
+#experiments .tool-card-page .tool-surface::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 18px;
+  width: 1px;
+  background: rgba(194, 65, 12, 0.2);
+  pointer-events: none;
+}
+#experiments .tool-card-page:hover .tool-surface,
+#experiments .tool-card-page:focus-within .tool-surface {
+  clip-path: polygon(0 0, calc(100% - 64px) 0, 100% 64px, 100% 100%, 0 100%);
+}
+#experiments .page-under {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 60px;
+  height: 60px;
+  z-index: 0;
+  pointer-events: none;
+  border-top: 1px dashed rgba(194, 65, 12, 0.28);
+  border-right: 1px dashed rgba(194, 65, 12, 0.28);
+  background: radial-gradient(circle at 72% 28%, rgba(194, 65, 12, 0.22) 0 4.5px, transparent 5.5px);
+  opacity: 0;
+  transition: opacity 0.36s var(--ease);
+}
+#experiments .tool-card-page:hover .page-under,
+#experiments .tool-card-page:focus-within .page-under {
+  opacity: 1;
+}
+#experiments .page-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  filter: drop-shadow(-3px 5px 5px rgba(28, 25, 23, 0.16));
+  transition: width 0.42s var(--ease), height 0.42s var(--ease), filter 0.42s var(--ease);
+}
+#experiments .page-corner::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(225deg, #ebe3d6 0%, #fffdf9 48%, #d9cfc0 100%);
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+  box-shadow: inset 1px -1px 0 rgba(186, 174, 158, 0.65);
+}
+#experiments .tool-card-page:hover .page-corner,
+#experiments .tool-card-page:focus-within .page-corner {
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(-6px 9px 10px rgba(28, 25, 23, 0.22));
+}
+#experiments .tool-stage-page {
+  justify-content: flex-start;
+  padding-right: 60px;
+}
+#experiments .page-header-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+#experiments .page-header-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(194, 65, 12, 0.45);
+  flex: none;
+}
+#experiments .page-rule-lines {
+  display: block;
+  flex: 1;
+  max-width: 180px;
+  height: 12px;
+  border-top: 1px solid rgba(168, 162, 158, 0.4);
+  border-bottom: 1px dashed rgba(168, 162, 158, 0.35);
+}
+#experiments .tool-card-page .exp-tag {
+  padding-right: 54px;
+}
+
+@media (max-width: 760px) {
+  #experiments .exp-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
 }
 @media (max-width: 640px) {
-  #experiments .exp-grid { gap: 36px 0; }
-  #experiments .exp-card { transform: none; }
-  #experiments .slip-thread { height: 28px; }
-  #experiments .slip-sheet { padding: 28px 20px 20px; }
+  #experiments { padding: 56px 0; }
+  #experiments .section-head { margin-bottom: 28px; }
+  #experiments .tool-surface {
+    padding: 20px 20px 18px;
+  }
+  #experiments .tool-card-plaque .tool-surface {
+    padding: 22px 22px 20px;
+  }
+  #experiments .tool-card-page .tool-surface {
+    padding: 20px 20px 18px 28px;
+  }
+  #experiments .tool-card-page .tool-surface::before {
+    left: 14px;
+  }
+  #experiments .tool-stage {
+    height: 74px;
+    margin-bottom: 10px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  #experiments .slip,
-  #experiments .exp-card:hover .slip,
-  #experiments .exp-card:focus-within .slip {
+  #experiments .tree-crown,
+  #experiments .star-orbiter,
+  #experiments .tool-card-plaque:hover .plaque-sheen,
+  #experiments .tool-card-plaque:focus-within .plaque-sheen {
     animation: none;
-    transform: none;
+  }
+  #experiments .tool-surface,
+  #experiments .tree-new-leaf,
+  #experiments .tree-bud,
+  #experiments .star-orbiter,
+  #experiments .star-links,
+  #experiments .star-orbit,
+  #experiments .star-core,
+  #experiments .tool-card-plaque .tool-frame,
+  #experiments .plaque-badge,
+  #experiments .plaque-rivet,
+  #experiments .plaque-grooves span,
+  #experiments .tool-card-page .tool-frame,
+  #experiments .page-corner,
+  #experiments .page-under {
+    transition-duration: 0.01ms;
   }
 }
