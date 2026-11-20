@@ -4,6 +4,7 @@ import CopyEmail from '../components/CopyEmail'
 import ContactIcon from '../components/ContactIcon'
 import HuntlineProgress from '../components/HuntlineProgress'
 import StoneCorner from '../components/StoneCorner'
+import HeroPhotoStack from '../components/HeroPhotoStack'
 import LoadingScene from '../components/LoadingScene'
 import { blogUrl, ghUrl } from '../config'
 
@@ -213,12 +214,7 @@ export default function Home() {
               </div>
             </div>
 
-            <figure className="hero-shot in-3">
-              <a href="https://youdang.heystone.site/" target="_blank" rel="noopener noreferrer" aria-label="打开游荡集，阅读播客精读">
-                <img src={`${import.meta.env.BASE_URL}shots/youdang.png`} alt="游荡集网站预览" width="1280" height="720" style={{height:'auto'}} />
-                <figcaption>游荡集 · 把播客读成一本书 ↗</figcaption>
-              </a>
-            </figure>
+            <HeroPhotoStack />
           </div>
         </div>
       </header>
