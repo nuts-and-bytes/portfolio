@@ -1210,13 +1210,11 @@ body::after {
   font-weight: 700;
 }
 
-/* 工具箱：四件衣服挂在同一根衣杆上，下摆对齐，风一吹才轻轻晃。 */
-#experiments .closet { position: relative; }
-#experiments .closet-rail { display: none; }
+/* 工具箱：每张纸片用一根淡线吊着，中间高、两边轻轻垂下。没有衣杆，也没有衣架。 */
 #experiments .exp-grid {
   align-items: stretch;
-  gap: 76px 28px;
-  padding-top: 8px;
+  gap: 48px 36px;
+  padding-top: 4px;
 }
 #experiments .exp-card {
   display: flex;
@@ -1233,209 +1231,91 @@ body::after {
   box-shadow: none;
   transform: none;
 }
-#experiments .closet-peg {
-  position: relative;
-  z-index: 4;
-  flex: none;
-  height: 22px;
-  margin: 0 -16px;
-  pointer-events: none;
-}
-#experiments .closet-peg::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 5px;
-  height: 9px;
-  border-radius: 0;
-  background: linear-gradient(180deg, #f6e7d2 0%, #d7b48a 24%, #a67c52 62%, #6b4c32 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 248, 236, 0.85),
-    0 3px 0 #4a3424,
-    0 7px 10px -6px rgba(50, 32, 18, 0.45);
-}
-#experiments .closet-peg span {
-  display: none;
-  position: absolute;
-  top: 2px;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #f8ecda, #c49564 40%, #5c412c 78%);
-  box-shadow: 0 2px 0 #3c2a1c, inset 0 1px 0 rgba(255, 248, 236, 0.7);
-}
-#experiments .closet-peg span:first-child { left: -4px; }
-#experiments .closet-peg span:last-child { right: -4px; }
-#experiments .garment {
+#experiments .slip {
+  --rest: -0.45deg;
   display: flex;
   flex: 1;
   flex-direction: column;
   min-height: 0;
-  transform-origin: 50% -18px;
-  animation: garment-sway 6.6s ease-in-out infinite;
+  transform-origin: 50% 0;
+  animation: slip-sway 8.4s ease-in-out infinite;
 }
-#experiments .exp-card:nth-child(2) .garment { animation-duration: 7.4s; animation-delay: -1.7s; }
-#experiments .exp-card:nth-child(3) .garment { animation-duration: 6.1s; animation-delay: -3.2s; }
-#experiments .exp-card:nth-child(4) .garment { animation-duration: 7s; animation-delay: -0.9s; }
-#experiments .exp-card:hover .garment,
-#experiments .exp-card:focus-within .garment {
+#experiments .exp-card:nth-child(2) .slip { --rest: 0.35deg; animation-duration: 9.2s; animation-delay: -2.4s; }
+#experiments .exp-card:nth-child(3) .slip { --rest: -0.2deg; animation-duration: 7.6s; animation-delay: -4.1s; }
+#experiments .exp-card:nth-child(4) .slip { --rest: 0.4deg; animation-duration: 8.8s; animation-delay: -1.2s; }
+#experiments .exp-card:hover .slip,
+#experiments .exp-card:focus-within .slip {
   animation: none;
-  transform: translateY(4px);
+  transform: rotate(0deg) translateY(3px);
 }
-#experiments .hanger {
+#experiments .slip-thread {
   position: relative;
-  z-index: 5;
+  z-index: 2;
+  display: block;
   flex: none;
-  height: 40px;
+  width: 1px;
+  height: 42px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, transparent, rgba(87, 83, 78, 0.15) 28%, rgba(87, 83, 78, 0.55));
   pointer-events: none;
 }
-#experiments .hanger-hook {
-  position: absolute;
-  left: 50%;
-  top: -18px;
-  width: 22px;
-  height: 24px;
-  margin-left: -2px;
-  box-sizing: border-box;
-  border: 3px solid #3f2e22;
-  border-bottom: 0;
-  border-radius: 16px 16px 0 0;
-}
-#experiments .hanger-hook::after {
+#experiments .slip-thread::after {
   content: '';
   position: absolute;
-  left: 2px;
-  top: 18px;
-  width: 3px;
-  height: 14px;
-  border-radius: 2px;
-  background: #3f2e22;
-}
-#experiments .hanger-wood {
-  position: absolute;
   left: 50%;
-  bottom: 0;
-  width: 156px;
-  height: 20px;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, #f6e4c8 0%, #c99562 46%, #7d5836 100%);
-  clip-path: polygon(50% 0, 97% 72%, 97% 100%, 3% 100%, 3% 72%);
-  filter: drop-shadow(0 2px 1px rgba(60, 40, 20, 0.28));
+  bottom: -3px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: #fffdf9;
+  box-shadow: 0 0 0 1px rgba(168, 162, 158, 0.85);
 }
-#experiments .garment-body {
+#experiments .slip-sheet {
   position: relative;
   z-index: 1;
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin-top: -7px;
-  padding: 34px 24px 22px;
-  background-color: #fffdf9;
-  background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0) 58px),
-    repeating-linear-gradient(90deg, rgba(140, 96, 60, 0.028) 0 1px, transparent 1px 9px);
-  border-radius: 48% 48% 12px 12px / 28px 28px 12px 12px;
-  box-shadow:
-    inset 0 0 0 1px rgba(228, 220, 208, 0.95),
-    0 22px 34px -24px rgba(28, 25, 23, 0.62);
-}
-#experiments .garment-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 44px;
-  height: 16px;
-  transform: translateX(-50%);
-  background: var(--paper-deep);
-  clip-path: polygon(10% 0, 90% 0, 70% 100%, 30% 100%);
-}
-#experiments .garment-body::after {
-  content: '';
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 10px;
-  height: 0;
-  border-bottom: 1px dashed rgba(194, 65, 12, 0.28);
-  pointer-events: none;
+  margin-top: -1px;
+  padding: 32px 24px 22px;
+  background: #fffdf9;
+  clip-path: polygon(
+    0 18px,
+    14% 7px,
+    32% 2px,
+    50% 0,
+    68% 2px,
+    86% 7px,
+    100% 18px,
+    100% calc(100% - 4px),
+    calc(100% - 4px) 100%,
+    4px 100%,
+    0 calc(100% - 4px)
+  );
+  filter: drop-shadow(0 16px 12px rgba(28, 25, 23, 0.07));
 }
 #experiments .exp-desc { flex: 1; }
 #experiments .project-actions { margin-top: 12px; }
 
-@keyframes garment-sway {
-  0%, 100% { transform: rotate(-1.05deg); }
-  50% { transform: rotate(1.05deg); }
+@keyframes slip-sway {
+  0%, 100% { transform: rotate(calc(var(--rest) - 0.55deg)); }
+  50% { transform: rotate(calc(var(--rest) + 0.55deg)); }
 }
 
 @media (min-width: 901px) {
-  #experiments .closet-rail {
-    display: block;
-    position: absolute;
-    z-index: 3;
-    top: 13px;
-    left: 0;
-    right: 0;
-    height: 9px;
-    border-radius: 999px;
-    pointer-events: none;
-    background: linear-gradient(180deg, #f6e7d2 0%, #d7b48a 24%, #a67c52 62%, #6b4c32 100%);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 248, 236, 0.85),
-      0 3px 0 #4a3424,
-      0 7px 10px -6px rgba(50, 32, 18, 0.45);
-  }
-  #experiments .closet-rail::before,
-  #experiments .closet-rail::after {
-    content: '';
-    position: absolute;
-    top: -3px;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #f8ecda, #c49564 40%, #5c412c 78%);
-    box-shadow: 0 2px 0 #3c2a1c, inset 0 1px 0 rgba(255, 248, 236, 0.7);
-  }
-  #experiments .closet-rail::before { left: -2px; }
-  #experiments .closet-rail::after { right: -2px; }
-  #experiments .exp-card:nth-child(-n+3) .closet-peg::before,
-  #experiments .exp-card:nth-child(-n+3) .closet-peg span { visibility: hidden; }
-  #experiments .exp-card:nth-child(3n+1) .closet-peg::before { border-radius: 999px 0 0 999px; }
-  #experiments .exp-card:nth-child(3n) .closet-peg::before { border-radius: 0 999px 999px 0; }
-  #experiments .exp-card:nth-child(3n+1) .closet-peg span:first-child,
-  #experiments .exp-card:nth-child(3n) .closet-peg span:last-child { display: block; }
-  #experiments .exp-card:last-child:nth-child(3n+1) {
-    grid-column: 2;
-  }
-  #experiments .exp-card:last-child:nth-child(3n+1) .closet-peg { margin-left: 8px; margin-right: 8px; }
-  #experiments .exp-card:last-child:nth-child(3n+1) .closet-peg::before { border-radius: 999px; }
-  #experiments .exp-card:last-child:nth-child(3n+1) .closet-peg span { display: block; }
-}
-@media (max-width: 900px) and (min-width: 641px) {
-  #experiments .exp-card:nth-child(odd) .closet-peg::before { border-radius: 999px 0 0 999px; }
-  #experiments .exp-card:nth-child(even) .closet-peg::before { border-radius: 0 999px 999px 0; }
-  #experiments .exp-card:nth-child(odd) .closet-peg span:first-child,
-  #experiments .exp-card:nth-child(even) .closet-peg span:last-child { display: block; }
+  #experiments .exp-card:last-child:nth-child(3n+1) { grid-column: 2; }
 }
 @media (max-width: 640px) {
-  #experiments .exp-grid { gap: 52px 0; }
+  #experiments .exp-grid { gap: 36px 0; }
   #experiments .exp-card { transform: none; }
-  #experiments .closet-peg { margin: 0 14%; }
-  #experiments .closet-peg::before,
-  #experiments .exp-card:nth-child(odd) .closet-peg::before,
-  #experiments .exp-card:nth-child(even) .closet-peg::before,
-  #experiments .exp-card:nth-child(3n+1) .closet-peg::before,
-  #experiments .exp-card:nth-child(3n) .closet-peg::before {
-    border-radius: 999px;
-  }
-  #experiments .closet-peg span { display: block; }
-  #experiments .garment-body { padding: 30px 20px 20px; }
+  #experiments .slip-thread { height: 28px; }
+  #experiments .slip-sheet { padding: 28px 20px 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  #experiments .garment,
-  #experiments .exp-card:hover .garment,
-  #experiments .exp-card:focus-within .garment {
+  #experiments .slip,
+  #experiments .exp-card:hover .slip,
+  #experiments .exp-card:focus-within .slip {
     animation: none;
     transform: none;
   }
