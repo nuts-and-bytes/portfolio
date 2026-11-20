@@ -235,7 +235,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════ 02 实验架 ══════════ */}
+      {/* ══════════ 02 工具箱衣架 ══════════ */}
       <section id="experiments" className="section section-alt">
         <div className="container">
           <div className="section-head rv">
@@ -244,16 +244,28 @@ export default function Home() {
             <p className="sec-lede">遇到生活里的小痒处，顺手给自己打的小工具和练手玩具。不用注册，点开就能试。</p>
           </div>
 
-          <div className="exp-grid">
+          <div className="closet">
+            <div className="closet-rail" aria-hidden="true" />
+            <div className="exp-grid">
             {experiments.map((e, i) => (
               <article key={e.title} className="exp-card rv">
-                <p className="exp-tag"><span className="exp-no">No.{String(i + 1).padStart(2, '0')}</span>{e.tag}</p>
-                <h3>{e.title}</h3>
-                <p className="exp-desc">{e.desc}</p>
-                {e.note && <p className="exp-note">{e.note}</p>}
-                <div className="project-actions"><a className="exp-cta" href={e.link} target="_blank" rel="noopener noreferrer">{e.cta} ↗</a><a className="case-repo" href={e.repo} target="_blank" rel="noopener noreferrer">查看源码 ↗</a></div>
+                <div className="closet-peg" aria-hidden="true"><span /><span /></div>
+                <div className="garment">
+                  <div className="hanger" aria-hidden="true">
+                    <span className="hanger-hook" />
+                    <span className="hanger-wood" />
+                  </div>
+                  <div className="garment-body">
+                    <p className="exp-tag"><span className="exp-no">No.{String(i + 1).padStart(2, '0')}</span>{e.tag}</p>
+                    <h3>{e.title}</h3>
+                    <p className="exp-desc">{e.desc}</p>
+                    {e.note && <p className="exp-note">{e.note}</p>}
+                    <div className="project-actions"><a className="exp-cta" href={e.link} target="_blank" rel="noopener noreferrer">{e.cta} ↗</a><a className="case-repo" href={e.repo} target="_blank" rel="noopener noreferrer">查看源码 ↗</a></div>
+                  </div>
+                </div>
               </article>
             ))}
+            </div>
           </div>
         </div>
       </section>
