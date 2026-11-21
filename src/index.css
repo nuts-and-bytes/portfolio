@@ -2023,3 +2023,233 @@ body::after {
     transition: none;
   }
 }
+
+/* 猎光互动体验卡：虚构简历原句高亮 + 右侧摘要联动 */
+.hunt-demo {
+  margin: 0 0 24px;
+  padding: 24px 28px 26px;
+  scroll-margin-top: 96px;
+  background: #fffdf9;
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px -24px rgba(28, 25, 23, 0.25);
+}
+.hunt-demo-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--hairline);
+}
+.hunt-demo-title-wrap {
+  min-width: 0;
+}
+.hunt-demo h4 {
+  font: 600 clamp(1.0625rem, 1.8vw, 1.2rem) / 1.55 var(--serif);
+  color: var(--ink);
+}
+.hunt-demo-sub {
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+.hunt-demo-badge {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: rgba(194, 65, 12, 0.09);
+  border: 1px solid rgba(194, 65, 12, 0.22);
+  white-space: nowrap;
+}
+.hunt-demo-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.hunt-demo-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 7px 15px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  background: var(--paper);
+  color: var(--ink-2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.14s var(--ease), border-color 0.14s var(--ease), color 0.14s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.hunt-demo-tab:hover {
+  border-color: rgba(194, 65, 12, 0.45);
+  color: var(--ink);
+}
+.hunt-demo-tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.hunt-demo-tab.is-active,
+.hunt-demo-tab.is-active:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.hunt-demo-step {
+  font-size: 0.8125rem;
+  opacity: 0.9;
+}
+.hunt-demo-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 18px;
+  align-items: stretch;
+}
+.hunt-demo-pane {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--hairline);
+  background: var(--paper);
+}
+.hunt-demo-output {
+  background: #fffbf6;
+  border-color: rgba(194, 65, 12, 0.28);
+}
+.hunt-demo-pane-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 0.75rem;
+  color: var(--ink-3);
+}
+.hunt-demo-output .hunt-demo-pane-label {
+  color: var(--accent);
+  font-weight: 600;
+}
+.hunt-demo-resume {
+  font-size: 0.9375rem;
+  line-height: 1.95;
+  color: var(--ink-2);
+}
+.hunt-demo-hl {
+  background: rgba(194, 65, 12, 0.16);
+  color: var(--ink);
+  padding: 2px 3px;
+  border-radius: 3px;
+  box-shadow: inset 0 -2px 0 rgba(194, 65, 12, 0.75);
+  font-weight: 500;
+  transition: background-color 0.24s var(--ease), color 0.24s var(--ease);
+}
+.hunt-demo-summary {
+  font: 500 1rem / 1.75 var(--serif);
+  color: var(--ink);
+  margin-bottom: 14px;
+  animation: hunt-demo-fade 0.26s var(--ease);
+}
+.hunt-demo-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.hunt-demo-chips li {
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--paper-deep);
+  color: var(--ink-2);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.hunt-demo-foot {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed var(--hairline);
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  line-height: 1.65;
+}
+@keyframes hunt-demo-fade {
+  from { opacity: 0.35; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 768px) {
+  .hunt-demo {
+    padding: 16px 14px 18px;
+    scroll-margin-top: 120px;
+  }
+  .hunt-demo-head {
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+  .hunt-demo-sub {
+    font-size: 0.8125rem;
+  }
+  .hunt-demo-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .hunt-demo-tab {
+    justify-content: center;
+    min-height: 40px;
+    padding: 6px 6px;
+    font-size: 0.75rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .hunt-demo-step {
+    display: none;
+  }
+  .hunt-demo-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .hunt-demo-pane {
+    padding: 12px 13px;
+  }
+  .hunt-demo-pane-label {
+    margin-bottom: 6px;
+  }
+  .hunt-demo-resume {
+    font-size: 0.84rem;
+    line-height: 1.78;
+  }
+  .hunt-demo-summary {
+    font-size: 0.9rem;
+    line-height: 1.68;
+    margin-bottom: 10px;
+  }
+  .hunt-demo-chips {
+    margin-bottom: 10px;
+  }
+  .hunt-demo-foot {
+    padding-top: 10px;
+    font-size: 0.78rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hunt-demo-tab,
+  .hunt-demo-hl {
+    transition: none;
+  }
+  .hunt-demo-summary {
+    animation: none;
+  }
+}

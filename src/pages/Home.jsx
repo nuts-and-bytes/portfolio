@@ -3,6 +3,7 @@ import Footer from '../components/Footer'
 import CopyEmail from '../components/CopyEmail'
 import ContactIcon from '../components/ContactIcon'
 import HuntlineProgress from '../components/HuntlineProgress'
+import HuntlineResumeDemo from '../components/HuntlineResumeDemo'
 import StoneCorner from '../components/StoneCorner'
 import HeroPhotoStack from '../components/HeroPhotoStack'
 import LoadingScene from '../components/LoadingScene'
@@ -233,6 +234,7 @@ export default function Home() {
             <p className="case-kicker">Case 01 · 为猎头顾问搭的日常工作台</p>
             <h3 className="case-title">猎光 · 智能招聘系统</h3>
             <p className="case-purpose">猎头顾问的日常，很容易被淹没在散落的简历文档、沟通记录和推荐报告里。我帮他们把这些琐碎动作收进了同一张顺手的工作台——从录入简历、检索人选，到生成报告、跟进客户，不用再在十几个窗口间来回腾挪，把心力留给真正需要判断的「看人」与沟通。</p>
+            <HuntlineResumeDemo />
             <HuntlineProgress />
             <div className="case-entry">
               <a className="link-strong" href="/#about">对业务工具落地感兴趣？来聊聊 ↓</a>
