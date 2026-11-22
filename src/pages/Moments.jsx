@@ -1,7 +1,8 @@
-import {useEffect,useRef,useState} from 'react'
+import {useEffect,useLayoutEffect,useRef,useState} from 'react'
 import {upload} from '@vercel/blob/client'
 import Footer from '../components/Footer'
 import LoadingScene from '../components/LoadingScene'
+import MomentConfirmation from '../components/MomentConfirmation'
 import {api,checkFiles,draft,postId,postUrl,TYPES} from '../lib/moments'
 import '../moments.css'
 import {loadFeed,clearFeedCache} from '../lib/moments-feed'
@@ -34,7 +35,7 @@ function EditPost({post,onSave,onCancel}){
   <h3>编辑动态</h3><textarea autoFocus aria-label="修改动态正文" value={text} maxLength={10000} disabled={busy} onChange={e=>setText(e.target.value)}/>
   <div className="moment-previews">{kept.map(i=><figure key={i}>{post.media[i].type.startsWith('video/')?<video src={post.media[i].url} controls playsInline preload="metadata"/>:<img src={post.media[i].url} alt={`原附件 ${i+1}`}/>}<button type="button" disabled={busy} onClick={()=>setKept(a=>a.filter(n=>n!==i))}>移除附件 {i+1}</button></figure>)}{files.map((file,i)=><figure key={i}><Attachment file={file}/><button type="button" disabled={busy} onClick={()=>setFiles(a=>a.filter((_,n)=>n!==i))}>移除新附件 {i+1}</button></figure>)}</div>
   <input type="file" ref={input} hidden multiple accept={TYPES.join(',')} onChange={e=>{add(e.target.files);e.target.value=''}}/>
-  <div className="moment-actions"><button type="button" disabled={busy} onClick={()=>input.current.click()}>添加图片 / 视频</button><button className="moment-primary" disabled={busy||!dirty||(!text.trim()&&!kept.length&&!files.length)}>{busy?'保存中…':'保存修改'}</button><button type="button" disabled={busy} onClick={()=>{if(!dirty||window.confirm('放弃这次未保存的修改？'))onCancel()}}>取消</button></div>
+  <div className="moment-actions"><button type="button" disabled={busy} onClick={()=>input.current.click()}>添加图片 / 视频</button><button className="moment-primary" disabled={busy||!dirty||(!text.trim()&&!kept.length&&!files.length)}>{busy?'保存中…':'保存修改'}</button><button type="button" disabled={busy} onClick={event=>onCancel(event.currentTarget,dirty)}>取消</button></div>
   <small>支持粘贴图片、视频。保存后更新网站内容，已分享到其他平台的内容需自行修改。</small>
   {progress&&<p role="status">{progress}</p>}{error&&<p className="moment-error" role="alert">{error}，修改仍保留在这里。</p>}
  </form>
@@ -57,7 +58,22 @@ function Share({post,onClose}){
 export default function Moments({route,active=true}){
  const [session,setSession]=useState(null),[login,setLogin]=useState(false),[key,setKey]=useState(''),[remember,setRemember]=useState(true),[posts,setPosts]=useState([]),[cursor,setCursor]=useState(null),[loading,setLoading]=useState(true),[error,setError]=useState(''),[notice,setNotice]=useState(''),[text,setText]=useState(''),[files,setFiles]=useState([]),[id,setId]=useState(postId),[busy,setBusy]=useState(false),[progress,setProgress]=useState(''),[restored,setRestored]=useState(false),[sharing,setSharing]=useState(null),[editing,setEditing]=useState(null),[deleting,setDeleting]=useState(null)
  const input=useRef();const uploaded=useRef(new Map());const lock=useRef(false)
+ const [confirmation,setConfirmation]=useState(null)
+ const [deleteError,setDeleteError]=useState(null)
+ const heading=useRef(null), focusAfterChange=useRef(null), deleteLock=useRef(false)
+ const currentConfirmation=session?.owner&&active&&confirmation?.route===route?confirmation:null
+ const deleteErrorInDialog=deleteError&&deleteError.confirmation===currentConfirmation
  const selected=new URLSearchParams(location.search).get('post')
+ useEffect(()=>{setConfirmation(null)},[active,route])
+ useLayoutEffect(()=>{
+  const getTarget=focusAfterChange.current
+  focusAfterChange.current=null
+  if(active&&getTarget){
+   const target=getTarget()
+   if(target?.isConnected)target.focus()
+   else heading.current?.focus()
+  }
+ },[active,confirmation,editing,deleting])
  async function load(next,force=false){setLoading(true);try{const path=`moments${selected?`?id=${encodeURIComponent(selected)}`:next?`?cursor=${encodeURIComponent(next)}`:''}`;const data=await (selected||next?api(path):loadFeed(()=>api(path),{force}));setPosts(p=>next?[...p,...data.posts]:data.post?[data.post]:data.posts);setCursor(data.cursor||null);setError('')}catch(e){setError(e.message)}finally{setLoading(false)}}
  useEffect(()=>{if(!active)return;api('moments-session').then(setSession).catch(()=>setSession({owner:false,configured:false,configurationIssue:'无法连接登录服务，请刷新页面重试。'}));load()},[active,route])
  useEffect(()=>{if(!session?.owner)return;let active=true;draft('get').then(value=>{if(!active)return;if(value){setText(value.text||'');setFiles(value.files||[]);setId(value.id||postId());setNotice('已恢复此设备的草稿')}setRestored(true)}).catch(()=>{setRestored(true);setNotice('此浏览器无法保存本地草稿，请勿在发布前关闭页面')});return()=>{active=false}},[session?.owner])
@@ -65,10 +81,47 @@ export default function Moments({route,active=true}){
  useEffect(()=>{const warn=e=>{if(text.trim()||files.length){e.preventDefault();e.returnValue=''}};window.addEventListener('beforeunload',warn);return()=>window.removeEventListener('beforeunload',warn)},[text,files])
  async function signIn(e){e.preventDefault();setBusy(true);setError('');try{await api('moments-session',{method:'POST',body:JSON.stringify({key,remember})});setKey('');setSession({owner:true,configured:true});setLogin(false)}catch(e){setError(e.message)}finally{setBusy(false)}}
  async function logout(){try{await api('moments-session',{method:'DELETE'});setSession(s=>({...s,owner:false}));setText('');setFiles([]);setRestored(false);setEditing(null);setSharing(null);setNotice('已退出，草稿保留在此设备')}catch(e){setError(e.message)}}
- async function removePost(post){
-  if(!window.confirm('确定删除这条动态？删除后网站上将不再展示，无法撤销。'))return
-  setDeleting(post.id);setError('')
-  try{await api('moments',{method:'DELETE',body:JSON.stringify({id:post.id})});clearFeedCache();setPosts(items=>items.filter(p=>p.id!==post.id));setSharing(null);setNotice('动态已删除。其他平台已发布的内容不会自动删除。')}catch(e){setError(e.message)}finally{setDeleting(null)}
+ function closeConfirmation(){
+  focusAfterChange.current=()=>currentConfirmation.trigger
+  if(deleteErrorInDialog)setDeleteError(null)
+  setConfirmation(null)
+ }
+ function finishEditing(trigger){
+  const article=trigger.closest('article')
+  focusAfterChange.current=()=>article?.querySelector('[data-moment-edit]')
+  setEditing(null)
+ }
+ function requestDiscard(trigger,dirty){
+  if(dirty)setConfirmation({kind:'discard',trigger,route})
+  else finishEditing(trigger)
+ }
+ function requestDelete(post,trigger){
+  setDeleteError(null)
+  setConfirmation({kind:'delete',post,trigger,route})
+ }
+ async function removePost(request){
+  if(deleteLock.current)return
+  const {post,trigger,route:requestRoute}=request
+  deleteLock.current=true
+  setDeleting(post.id);setDeleteError(null);setError('')
+  try{
+   await api('moments',{method:'DELETE',body:JSON.stringify({id:post.id})})
+   const article=trigger.closest('article')
+   const neighbor=article?.nextElementSibling||article?.previousElementSibling
+   if(requestRoute===location.pathname+location.search+location.hash){
+    focusAfterChange.current=()=>neighbor?.querySelector('[data-moment-edit]')
+   }
+   clearFeedCache()
+   setPosts(items=>items.filter(p=>p.id!==post.id))
+   setSharing(null)
+   setNotice('动态已删除。其他平台已发布的内容不会自动删除。')
+   setConfirmation(null)
+  }catch(e){
+   setDeleteError({confirmation:request,message:e.message})
+  }finally{
+   deleteLock.current=false
+   setDeleting(null)
+  }
  }
  function savedPost(post){clearFeedCache();setPosts(items=>items.map(p=>p.id===post.id?post:p));setEditing(null);setSharing(null);setNotice('修改已保存')}
  function add(items){if(busy)return;try{const all=[...files,...Array.from(items)];checkFiles(all);setFiles(all);setError('')}catch(e){setError(e.message)}}
@@ -78,7 +131,7 @@ export default function Moments({route,active=true}){
   const media=await uploadMedia(files,uploaded.current,setProgress)
   setProgress('正在发布…');const {post}=await api('moments',{method:'POST',body:JSON.stringify({id,text,media})});clearFeedCache();setPosts(p=>[post,...p.filter(x=>x.id!==post.id)]);setSharing(post.id);setText('');setFiles([]);setId(postId());uploaded.current.clear();await draft('clear').catch(()=>{});setNotice('已发布到个人网站。分享到平台时，仍需你确认发布。')
  }catch(e){setError(e.message);setNotice('未发布成功，内容和附件仍保留，可重试')}finally{lock.current=false;setBusy(false);setProgress('')}}
- return <><main className="moments-page"><header className="moments-heading"><h1 tabIndex={-1}>动态</h1><p>还没长成文章的零碎念头、日常切片，和正在折腾的小事。</p></header>
+ return <><main className="moments-page"><header className="moments-heading"><h1 ref={heading} tabIndex={-1}>动态</h1><p>还没长成文章的零碎念头、日常切片，和正在折腾的小事。</p></header>
  {session?.owner&&<section className="moment-composer" aria-label="发布动态" onPaste={paste} onDragOver={e=>e.preventDefault()} onDrop={e=>{e.preventDefault();add(e.dataTransfer.files)}}>
   <div className="moment-row"><h2>记一条日常</h2><button onClick={logout} disabled={busy||!!editing||!!deleting}>退出登录</button></div>
   <textarea value={text} onChange={e=>setText(e.target.value)} maxLength={10000} placeholder="记下此刻闪过的念头、读到的一句话，也可以直接粘贴刚拍的图片或视频…" aria-label="动态正文" disabled={busy}/>
@@ -89,11 +142,20 @@ export default function Moments({route,active=true}){
   {busy&&<p role="status">{progress}</p>}
  </section>}
  {notice&&<p className="moment-notice" role="status">{notice}</p>}{error&&<p className="moment-error" role="alert">{error} <button onClick={()=>load(undefined,true)}>再试一次</button></p>}
+ {deleteError&&!deleteErrorInDialog&&<p className="moment-error" role="alert">未能删除动态。{deleteError.message}</p>}
  {loading&&!posts.length&&<LoadingScene title="小石头正在翻找最近的故事…" detail="稍等片刻，马上铺开" />}
  {!loading&&!error&&!posts.length&&<div className="moments-empty"><h2>抽屉里暂时还空着</h2><p>等攒下了新的日常切片与小念头，会留在这一页。</p></div>}
- <div className="moments-feed">{posts.map(p=><article className="moment-post" key={p.id}><header className="moment-row"><div className="moment-author"><img src={`${import.meta.env.BASE_URL}brand/stone-mark.svg`} width="44" height="44" alt=""/><div><strong>朱鑫垚 <span>stone</span></strong><a href={`/moments?post=${p.id}`}><time dateTime={p.createdAt}>{new Date(p.createdAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',dateStyle:'medium',timeStyle:'short'})}</time></a></div></div><span className="moment-visibility">{p.updatedAt?'已编辑 · 公开':'公开'}</span></header><p className="moment-text">{p.text}</p><div className={`moment-media ${p.media.length===1?'single':''}`}>{p.media.map(m=>m.type.startsWith('video/')?<video key={m.url} src={m.url} controls playsInline preload="metadata"/>:<a key={m.url} href={m.url} target="_blank" rel="noopener noreferrer"><img src={m.url} loading="lazy" alt="动态配图"/></a>)}</div>{session?.owner&&<>{editing===p.id?<EditPost key={p.id} post={p} onSave={savedPost} onCancel={()=>setEditing(null)}/>:<div className="moment-actions"><button disabled={!!editing||!!deleting} onClick={()=>{setEditing(p.id);setSharing(null)}}>编辑</button><button className="moment-danger" disabled={!!editing||!!deleting} onClick={()=>removePost(p)}>{deleting===p.id?'删除中…':'删除'}</button><button onClick={()=>setSharing(sharing===p.id?null:p.id)}>分享这条动态</button></div>}</>}{sharing===p.id&&<Share post={p} onClose={()=>setSharing(null)}/>}</article>)}</div>
+ <div className="moments-feed">{posts.map(p=><article className="moment-post" key={p.id}><header className="moment-row"><div className="moment-author"><img src={`${import.meta.env.BASE_URL}brand/stone-mark.svg`} width="44" height="44" alt=""/><div><strong>朱鑫垚 <span>stone</span></strong><a href={`/moments?post=${p.id}`}><time dateTime={p.createdAt}>{new Date(p.createdAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',dateStyle:'medium',timeStyle:'short'})}</time></a></div></div><span className="moment-visibility">{p.updatedAt?'已编辑 · 公开':'公开'}</span></header><p className="moment-text">{p.text}</p><div className={`moment-media ${p.media.length===1?'single':''}`}>{p.media.map(m=>m.type.startsWith('video/')?<video key={m.url} src={m.url} controls playsInline preload="metadata"/>:<a key={m.url} href={m.url} target="_blank" rel="noopener noreferrer"><img src={m.url} loading="lazy" alt="动态配图"/></a>)}</div>{session?.owner&&<>{editing===p.id?<EditPost key={p.id} post={p} onSave={savedPost} onCancel={requestDiscard}/>:<div className="moment-actions"><button data-moment-edit disabled={!!editing||!!deleting} onClick={()=>{setEditing(p.id);setSharing(null)}}>编辑</button><button className="moment-danger" disabled={!!editing||!!deleting} onClick={event=>requestDelete(p,event.currentTarget)}>{deleting===p.id?'删除中…':'删除'}</button><button onClick={()=>setSharing(sharing===p.id?null:p.id)}>分享这条动态</button></div>}</>}{sharing===p.id&&<Share post={p} onClose={()=>setSharing(null)}/>}</article>)}</div>
  {cursor&&!selected&&<button disabled={loading} onClick={()=>load(cursor)}>查看更多动态</button>}
  {selected&&<a href="/moments" className="moment-back">查看全部动态 →</a>}
  {!session?.owner&&<div className="moment-owner"><button onClick={()=>setLogin(v=>!v)}>站主登录</button>{login&&<form onSubmit={signIn}><label>管理员口令<input type="password" autoComplete="current-password" value={key} onChange={e=>setKey(e.target.value)} required/></label><label className="moment-remember"><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)}/>记住这台设备，保持登录 180 天</label><p className="moment-login-hint">仅在自己的电脑或手机上勾选。退出登录后需重新输入口令。</p><button className="moment-primary" disabled={busy||!session?.configured}>{busy?'登录中…':'登录'}</button>{!session?.configured&&<p>{session?.configurationIssue||'正在检查登录服务…'}</p>}</form>}</div>}
+ {currentConfirmation?.kind==='delete'&&<MomentConfirmation
+  title="删除这条动态？" description="删除后，这条动态将从网站上移除，且无法恢复。"
+  cancelLabel="取消" confirmLabel="删除动态" onCancel={closeConfirmation}
+  onConfirm={()=>removePost(currentConfirmation)} pending={!!deleting} error={deleteErrorInDialog?deleteError.message:null}/>}
+ {currentConfirmation?.kind==='discard'&&<MomentConfirmation
+  title="放弃这次修改？" description="未保存的文字和附件改动会丢失。"
+  cancelLabel="继续编辑" confirmLabel="放弃修改" onCancel={closeConfirmation}
+  onConfirm={()=>{finishEditing(currentConfirmation.trigger);setConfirmation(null)}}/>}
  </main><Footer/></>
 }
