@@ -59,9 +59,10 @@ export default function Moments({route,active=true}){
  const [session,setSession]=useState(null),[login,setLogin]=useState(false),[key,setKey]=useState(''),[remember,setRemember]=useState(true),[posts,setPosts]=useState([]),[cursor,setCursor]=useState(null),[loading,setLoading]=useState(true),[error,setError]=useState(''),[notice,setNotice]=useState(''),[text,setText]=useState(''),[files,setFiles]=useState([]),[id,setId]=useState(postId),[busy,setBusy]=useState(false),[progress,setProgress]=useState(''),[restored,setRestored]=useState(false),[sharing,setSharing]=useState(null),[editing,setEditing]=useState(null),[deleting,setDeleting]=useState(null)
  const input=useRef();const uploaded=useRef(new Map());const lock=useRef(false)
  const [confirmation,setConfirmation]=useState(null)
- const [deleteError,setDeleteError]=useState('')
+ const [deleteError,setDeleteError]=useState(null)
  const heading=useRef(null), focusAfterChange=useRef(null), deleteLock=useRef(false)
- const currentConfirmation=active&&confirmation?.route===route?confirmation:null
+ const currentConfirmation=session?.owner&&active&&confirmation?.route===route?confirmation:null
+ const deleteErrorInDialog=deleteError&&deleteError.confirmation===currentConfirmation
  const selected=new URLSearchParams(location.search).get('post')
  useEffect(()=>{setConfirmation(null)},[active,route])
  useLayoutEffect(()=>{
@@ -82,6 +83,7 @@ export default function Moments({route,active=true}){
  async function logout(){try{await api('moments-session',{method:'DELETE'});setSession(s=>({...s,owner:false}));setText('');setFiles([]);setRestored(false);setEditing(null);setSharing(null);setNotice('已退出，草稿保留在此设备')}catch(e){setError(e.message)}}
  function closeConfirmation(){
   focusAfterChange.current=()=>currentConfirmation.trigger
+  if(deleteErrorInDialog)setDeleteError(null)
   setConfirmation(null)
  }
  function finishEditing(trigger){
@@ -94,13 +96,14 @@ export default function Moments({route,active=true}){
   else finishEditing(trigger)
  }
  function requestDelete(post,trigger){
-  setDeleteError('')
+  setDeleteError(null)
   setConfirmation({kind:'delete',post,trigger,route})
  }
- async function removePost({post,trigger,route:requestRoute}){
+ async function removePost(request){
   if(deleteLock.current)return
+  const {post,trigger,route:requestRoute}=request
   deleteLock.current=true
-  setDeleting(post.id);setDeleteError('');setError('')
+  setDeleting(post.id);setDeleteError(null);setError('')
   try{
    await api('moments',{method:'DELETE',body:JSON.stringify({id:post.id})})
    const article=trigger.closest('article')
@@ -114,8 +117,7 @@ export default function Moments({route,active=true}){
    setNotice('动态已删除。其他平台已发布的内容不会自动删除。')
    setConfirmation(null)
   }catch(e){
-   if(requestRoute===location.pathname+location.search+location.hash)setDeleteError(e.message)
-   else setError(e.message)
+   setDeleteError({confirmation:request,message:e.message})
   }finally{
    deleteLock.current=false
    setDeleting(null)
@@ -140,17 +142,18 @@ export default function Moments({route,active=true}){
   {busy&&<p role="status">{progress}</p>}
  </section>}
  {notice&&<p className="moment-notice" role="status">{notice}</p>}{error&&<p className="moment-error" role="alert">{error} <button onClick={()=>load(undefined,true)}>再试一次</button></p>}
+ {deleteError&&!deleteErrorInDialog&&<p className="moment-error" role="alert">未能删除动态。{deleteError.message}</p>}
  {loading&&!posts.length&&<LoadingScene title="小石头正在翻找最近的故事…" detail="稍等片刻，马上铺开" />}
  {!loading&&!error&&!posts.length&&<div className="moments-empty"><h2>抽屉里暂时还空着</h2><p>等攒下了新的日常切片与小念头，会留在这一页。</p></div>}
  <div className="moments-feed">{posts.map(p=><article className="moment-post" key={p.id}><header className="moment-row"><div className="moment-author"><img src={`${import.meta.env.BASE_URL}brand/stone-mark.svg`} width="44" height="44" alt=""/><div><strong>朱鑫垚 <span>stone</span></strong><a href={`/moments?post=${p.id}`}><time dateTime={p.createdAt}>{new Date(p.createdAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',dateStyle:'medium',timeStyle:'short'})}</time></a></div></div><span className="moment-visibility">{p.updatedAt?'已编辑 · 公开':'公开'}</span></header><p className="moment-text">{p.text}</p><div className={`moment-media ${p.media.length===1?'single':''}`}>{p.media.map(m=>m.type.startsWith('video/')?<video key={m.url} src={m.url} controls playsInline preload="metadata"/>:<a key={m.url} href={m.url} target="_blank" rel="noopener noreferrer"><img src={m.url} loading="lazy" alt="动态配图"/></a>)}</div>{session?.owner&&<>{editing===p.id?<EditPost key={p.id} post={p} onSave={savedPost} onCancel={requestDiscard}/>:<div className="moment-actions"><button data-moment-edit disabled={!!editing||!!deleting} onClick={()=>{setEditing(p.id);setSharing(null)}}>编辑</button><button className="moment-danger" disabled={!!editing||!!deleting} onClick={event=>requestDelete(p,event.currentTarget)}>{deleting===p.id?'删除中…':'删除'}</button><button onClick={()=>setSharing(sharing===p.id?null:p.id)}>分享这条动态</button></div>}</>}{sharing===p.id&&<Share post={p} onClose={()=>setSharing(null)}/>}</article>)}</div>
  {cursor&&!selected&&<button disabled={loading} onClick={()=>load(cursor)}>查看更多动态</button>}
  {selected&&<a href="/moments" className="moment-back">查看全部动态 →</a>}
  {!session?.owner&&<div className="moment-owner"><button onClick={()=>setLogin(v=>!v)}>站主登录</button>{login&&<form onSubmit={signIn}><label>管理员口令<input type="password" autoComplete="current-password" value={key} onChange={e=>setKey(e.target.value)} required/></label><label className="moment-remember"><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)}/>记住这台设备，保持登录 180 天</label><p className="moment-login-hint">仅在自己的电脑或手机上勾选。退出登录后需重新输入口令。</p><button className="moment-primary" disabled={busy||!session?.configured}>{busy?'登录中…':'登录'}</button>{!session?.configured&&<p>{session?.configurationIssue||'正在检查登录服务…'}</p>}</form>}</div>}
- {session?.owner&&currentConfirmation?.kind==='delete'&&<MomentConfirmation
+ {currentConfirmation?.kind==='delete'&&<MomentConfirmation
   title="删除这条动态？" description="删除后，这条动态将从网站上移除，且无法恢复。"
   cancelLabel="取消" confirmLabel="删除动态" onCancel={closeConfirmation}
-  onConfirm={()=>removePost(currentConfirmation)} pending={!!deleting} error={deleteError}/>}
- {session?.owner&&currentConfirmation?.kind==='discard'&&<MomentConfirmation
+  onConfirm={()=>removePost(currentConfirmation)} pending={!!deleting} error={deleteErrorInDialog?deleteError.message:null}/>}
+ {currentConfirmation?.kind==='discard'&&<MomentConfirmation
   title="放弃这次修改？" description="未保存的文字和附件改动会丢失。"
   cancelLabel="继续编辑" confirmLabel="放弃修改" onCancel={closeConfirmation}
   onConfirm={()=>{finishEditing(currentConfirmation.trigger);setConfirmation(null)}}/>}
