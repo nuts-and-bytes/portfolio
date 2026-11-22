@@ -83,3 +83,24 @@
 .moment-editor { margin: 24px 0 0 56px; padding: 20px; background: var(--paper-deep); border: 1px solid var(--hairline); border-radius: 12px; }
 .moments-page .moment-danger { color: #9a3412; }
 @media(max-width:640px){ .moment-editor { margin-left: 0; padding: 16px; } }
+
+.moment-confirmation {
+  width: min(420px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  margin: auto;
+  padding: clamp(20px, 5vw, 28px);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: 0 18px 58px rgba(28, 25, 23, .22);
+  overflow: auto;
+}
+.moment-confirmation::backdrop { background: rgba(28, 25, 23, .42); }
+.moment-confirmation > p { margin-top: 8px; color: var(--ink-2); font-size: .9375rem; }
+.moment-confirmation > .moment-error { color: #9a3412; padding: 0; }
+.moment-confirmation .moment-actions { justify-content: flex-end; margin-top: 22px; }
+.moment-confirmation .moment-confirm-action { color: var(--paper); background: #9a3412; border-color: #9a3412; }
+.moment-confirmation .moment-confirm-action:hover { background: #7c2d12; border-color: #7c2d12; }
+.moment-confirmation button[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+.moment-confirmation > .moment-confirm-progress { text-align: right; font-size: .8125rem; }
