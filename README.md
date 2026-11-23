@@ -40,8 +40,8 @@
 需要 Node.js（CI 使用 Node.js 24）与 npm：
 
 ```bash
-git clone https://github.com/nuts-and-bytes/portfolio.git
-cd portfolio
+git clone https://github.com/nuts-and-bytes/stone-site.git
+cd stone-site
 npm ci
 npm run dev
 ```
