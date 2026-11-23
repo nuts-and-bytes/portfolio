@@ -195,7 +195,7 @@ export default function Home() {
               <h1 className="hero-title in-2">
                 为 AI 世界，<br />留一点<span className="nowrap">人味<span className="accent-dot">。</span></span>
               </h1>
-              <p className="hero-epi in-2">Machines write the code. Someone still has to care why.</p>
+              <p className="hero-epi in-2">Humans thrive when we do the creative work that we love, and that only we can do.</p>
               <p className="hero-lede in-3">
                 Hi，我是石头。闲下来喜欢看书、听播客，遇到生活或工作里的小麻烦，也爱拉着 AI 敲敲打打做成能用的东西。这里像我敞着门的书桌，随便翻翻，有共鸣处随时来聊聊。
               </p>
