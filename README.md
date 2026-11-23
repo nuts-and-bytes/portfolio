@@ -63,7 +63,7 @@ npm run preview
 - `src/config.js`：博客与 GitHub Pages 子项目统一地址配置
 - `public/brand/`：可编辑矢量源与品牌资产（规范见 [BRAND.md](BRAND.md)）
 - `api/`、`server/`、`tests/`：Moments 读写鉴权、存储逻辑与 Node.js 测试
-- **部署与边界**：推送 `main` 会通过 [.github/workflows/deploy.yml](.github/workflows/deploy.yml) 自动构建发布；Moments 写入能力依赖独立部署的服务端认证与存储配置，纯静态托管仅提供只读展示。本仓库为个人站点源码，当前未设独立 `LICENSE` 文件，个人品牌素材与内容请勿直接复用。
+- **部署与边界**：推送 `main` 会通过 [.github/workflows/deploy.yml](.github/workflows/deploy.yml) 自动构建发布；Moments 写入能力依赖独立部署的服务端认证与存储配置，纯静态托管仅提供只读展示。代码采用 MIT License，个人文字、照片与 `stone` 品牌素材保留全部权利，详见 [LICENSE](LICENSE)。
 
 </details>
 
