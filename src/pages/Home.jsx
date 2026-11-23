@@ -298,9 +298,39 @@ export default function Home() {
             </div>
           </article>
 
-          {/* —— CASE 03：游荡集 —— */}
+          {/* —— CASE 03：懂点健康 —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 03 · 播客精读专题站</p>
+            <p className="case-kicker">Case 03 · 交互式健康科普与播客精读站</p>
+            <h3 className="case-title">
+              <a className="case-title-link" href="https://health.heystone.site/" target="_blank" rel="noopener noreferrer">懂点健康 · 用图解、动画和证据懂点健康<span className="title-arrow">↗</span></a>
+            </h3>
+            <p className="case-purpose">
+              朋友圈里总有「跑步伤膝盖」「每天必须走一万步」这类半真半假的说法，查论文门槛高，刷短视频又越看越焦虑。于是做了一个先凭直觉站队、再翻开原理动画与原始证据的小站——除了 40 份谣言判决书和 12 块解剖肌群小人动画，还顺手搭了三栏播客精读工作台，能同步读逐字稿、生成「一图读懂」海报，或者直接让 AI 基于整期内容答疑。
+            </p>
+
+            <figure className="plate site-preview">
+              <div>
+                <img className="shot-16x9" src={`${import.meta.env.BASE_URL}shots/health-heystone.webp`} width="1280" height="720" alt="懂点健康网站首页：谣言法庭、身体图解与播客精读" loading="lazy" />
+              </div>
+              <figcaption>先猜真假，再看原理动画与 WHO、荟萃分析等原始证据。</figcaption>
+            </figure>
+            <div className="case-entry">
+              <a className="link-strong" href="https://health.heystone.site/" target="_blank" rel="noopener noreferrer">走进「懂点健康」先判一案 ↗</a>
+              <a className="case-repo" href="https://github.com/nuts-and-bytes/health-heystone" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
+            </div>
+            <div className="case-details">
+              <h4 className="case-h">站里的几个顺手入口</h4>
+              <div className="case-nums">
+                <div><strong>40 份判决书</strong><span>谣言法庭先站队再看证据</span></div>
+                <div><strong>12 块肌群图谱</strong><span>真实解剖图配橙线小人动画</span></div>
+                <div><strong>三栏播客精读</strong><span>逐字稿、一图读懂与流式 AI 问答</span></div>
+              </div>
+            </div>
+          </article>
+
+          {/* —— CASE 04：游荡集 —— */}
+          <article className="case rv">
+            <p className="case-kicker">Case 04 · 播客精读专题站</p>
             <h3 className="case-title">
               游荡集 · 把播客读成一本书
             </h3>
@@ -323,9 +353,9 @@ export default function Home() {
             </div>
           </article>
 
-          {/* —— CASE 04：Research Edition —— */}
+          {/* —— CASE 05：Research Edition —— */}
           <article className="case rv">
-            <p className="case-kicker">Case 04 · 沉浸式 AI 深度阅读室</p>
+            <p className="case-kicker">Case 05 · 沉浸式 AI 深度阅读室</p>
             <h3 className="case-title">
               Research Edition · AI 产业长文与报告
             </h3>

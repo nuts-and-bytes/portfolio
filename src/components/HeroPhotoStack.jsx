@@ -5,6 +5,14 @@ const BASE = import.meta.env.BASE_URL
 
 const photos = [
   {
+    id: 'health',
+    src: `${BASE}shots/health-heystone.webp`,
+    alt: '懂点健康网站首页：用图解、动画和证据真正懂点健康',
+    caption: '懂点健康 · 用图解与证据懂点健康',
+    href: 'https://health.heystone.site/',
+    linkLabel: '打开懂点健康，体验谣言法庭与身体百科',
+  },
+  {
     id: 'youdang',
     src: `${BASE}shots/youdang.png`,
     alt: '游荡集网站预览：海浪背景与播客精读主题',
